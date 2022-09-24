@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentMainScreen">
+    <fragment
+        android:id="@+id/fragmentMainScreen"
+        android:name="com.example.packtaxi.FragmentMainScreen"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_fragmentMainScreen_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
+        <action
+            android:id="@+id/action_fragmentMainScreen_to_fragmentSignUp"
+            app:destination="@id/fragmentSignUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.example.packtaxi.fragmentLogin"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/fragmentSignUp"
+        android:name="com.example.packtaxi.fragmentSignUp"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
+</navigation>
