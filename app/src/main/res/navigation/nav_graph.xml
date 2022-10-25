@@ -22,8 +22,24 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
+        android:id="@+id/fragmentSignUpAsDriver"
+        android:name="com.example.packtaxi.fragmentSignUpAsDriver"
+        android:label="fragment_sign_up_as_driver"
+        tools:layout="@layout/fragment_sign_up_as_driver" />
+    <fragment
+        android:id="@+id/fragmentSignUpAsSender"
+        android:name="com.example.packtaxi.fragmentSignUpAsSender"
+        android:label="fragment_sign_up_as_sender"
+        tools:layout="@layout/fragment_sign_up_as_sender" />
+    <fragment
         android:id="@+id/fragmentSignUp"
         android:name="com.example.packtaxi.fragmentSignUp"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        android:label="fragmentSignUp" >
+        <action
+            android:id="@+id/action_fragmentSignUp_to_fragmentSignUpAsDriver"
+            app:destination="@id/fragmentSignUpAsDriver" />
+        <action
+            android:id="@+id/action_fragmentSignUp_to_fragmentSignUpAsSender"
+            app:destination="@id/fragmentSignUpAsSender" />
+    </fragment>
 </navigation>

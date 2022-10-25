@@ -5,9 +5,18 @@
       <map>
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_main_screen.xml" value="0.19583333333333333" />
-        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_sign_up.xml" value="0.1734375" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_login.xml" value="0.1947463768115942" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_main_screen.xml" value="0.18" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_sign_up.xml" value="0.18" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_sign_up2.xml" value="0.19021739130434784" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_sign_up_as_driver.xml" value="0.22" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_sign_up_as_driverr.xml" value="0.25" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_sign_up_as_sender.xml" value="0.22" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_sign_upp.xml" value="0.16" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_tes.xml" value="0.19021739130434784" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_test.xml" value="0.19021739130434784" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/login.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/base_activity_menu.xml" value="0.134375" />
       </map>
     </option>
   </component>
