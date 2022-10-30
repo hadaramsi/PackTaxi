@@ -20,7 +20,11 @@
         android:id="@+id/fragmentLogin"
         android:name="com.example.packtaxi.fragmentLogin"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_fragmentLogin_to_managerMainScreenFragment"
+            app:destination="@id/managerMainScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentSignUpAsDriver"
         android:name="com.example.packtaxi.fragmentSignUpAsDriver"
@@ -42,4 +46,9 @@
             android:id="@+id/action_fragmentSignUp_to_fragmentSignUpAsSender"
             app:destination="@id/fragmentSignUpAsSender" />
     </fragment>
+    <fragment
+        android:id="@+id/managerMainScreenFragment"
+        android:name="com.example.packtaxi.managerMainScreenFragment"
+        android:label="fragment_manager_main_screen"
+        tools:layout="@layout/fragment_manager_main_screen" />
 </navigation>

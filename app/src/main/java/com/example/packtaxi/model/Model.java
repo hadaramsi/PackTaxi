@@ -1,16 +1,47 @@
 package com.example.packtaxi.model;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.packtaxi.MyApplication;
+
 import java.util.List;
 
 public class Model {
     static final private Model instance = new Model();
     private ModelFirebase modelFirebase = new ModelFirebase();
+    private MutableLiveData<List<DeliveryPoint>> deliveryPointsList = new MutableLiveData<List<DeliveryPoint>>();
 
     private Model(){
 
     }
+    public interface loginUserListener{
+        void onComplete(boolean success);
+    }
+    public void loginUser(String userName, String password, loginUserListener listener) {
+        modelFirebase.loginUser(userName, password, listener);
+    }
     public static Model getInstance(){
         return instance;
+    }
+
+    public LiveData<List<DeliveryPoint>> getAllDeliveryPoints(){
+        return deliveryPointsList;
+    }
+
+    public interface getDeliveryPointByIDListener{
+        void onComplete(DeliveryPoint dp);
+    }
+
+    public void getDeliveryPointByID(String deliveryPointID, getDeliveryPointByIDListener listener)
+    {
+        MyApplication.executorService.execute(()-> {
+//            DeliveryPoint dp = AppLocalDB.db.reportDao().getReportByID(deliveryPointID);
+            MyApplication.mainHandler.post(()->{
+//                listener.onComplete(dp);
+            });
+        });
+
     }
     public interface GetAllDriversListener{
         void onComplete(List<Driver> driversData);
