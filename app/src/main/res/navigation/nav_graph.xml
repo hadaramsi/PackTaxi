@@ -6,39 +6,42 @@
     app:startDestination="@id/fragmentMainScreen">
     <fragment
         android:id="@+id/fragmentMainScreen"
-        android:name="com.example.packtaxi.FragmentMainScreen"
-        android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" >
+        android:name="com.example.packtaxi.mainScreenFragment"
+        android:label="Main screen"
+        tools:layout="@layout/fragment_main_screen">
         <action
             android:id="@+id/action_fragmentMainScreen_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
         <action
             android:id="@+id/action_fragmentMainScreen_to_fragmentSignUp"
             app:destination="@id/fragmentSignUp" />
+        <action
+            android:id="@+id/action_fragmentMainScreen_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="com.example.packtaxi.fragmentLogin"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:name="com.example.packtaxi.loginFragment"
+        android:label="Log-in"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_fragmentLogin_to_managerMainScreenFragment"
             app:destination="@id/managerMainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSignUpAsDriver"
-        android:name="com.example.packtaxi.fragmentSignUpAsDriver"
-        android:label="fragment_sign_up_as_driver"
+        android:name="com.example.packtaxi.signUpAsDriverFragment"
+        android:label="Sign up as driver"
         tools:layout="@layout/fragment_sign_up_as_driver" />
     <fragment
         android:id="@+id/fragmentSignUpAsSender"
-        android:name="com.example.packtaxi.fragmentSignUpAsSender"
-        android:label="fragment_sign_up_as_sender"
+        android:name="com.example.packtaxi.signUpAsSenderFragment"
+        android:label="Sign up as sender"
         tools:layout="@layout/fragment_sign_up_as_sender" />
     <fragment
         android:id="@+id/fragmentSignUp"
-        android:name="com.example.packtaxi.fragmentSignUp"
-        android:label="fragmentSignUp" >
+        android:name="com.example.packtaxi.signUpFragment"
+        android:label="Sign up">
         <action
             android:id="@+id/action_fragmentSignUp_to_fragmentSignUpAsDriver"
             app:destination="@id/fragmentSignUpAsDriver" />
@@ -49,6 +52,10 @@
     <fragment
         android:id="@+id/managerMainScreenFragment"
         android:name="com.example.packtaxi.managerMainScreenFragment"
-        android:label="fragment_manager_main_screen"
+        android:label="Manager main screen"
         tools:layout="@layout/fragment_manager_main_screen" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.packtaxi.aboutUsFragment"
+        android:label="About us" />
 </navigation>

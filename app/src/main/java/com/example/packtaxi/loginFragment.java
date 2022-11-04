@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.packtaxi.model.Model;
 
 
-public class fragmentLogin extends Fragment {
+public class loginFragment extends Fragment {
     EditText username;
     EditText password;
     final static int PASSWORDMINDIGIT = 6;

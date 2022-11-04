@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_background"
-    tools:context=".fragmentSignUpAsSender">
+    tools:context=".signUpAsSenderFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_height="65dp"
             android:layout_marginTop="150dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="#7955B8"
+            android:backgroundTint="#E8CCA2"
             android:text="Sign In"
             android:textSize="20sp"
             android:textStyle="bold"
