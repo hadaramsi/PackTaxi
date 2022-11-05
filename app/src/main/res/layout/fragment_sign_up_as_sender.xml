@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/signUpSender_btn"
             android:layout_width="190dp"
             android:layout_height="65dp"
             android:layout_marginTop="150dp"
@@ -24,10 +24,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+            app:layout_constraintTop_toBottomOf="@+id/signUpSender_password_et" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/signUpSender_fullName_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -39,19 +39,19 @@
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/signUpSender_email_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="30dp"
-            android:text="ID number:"
+            android:text="Email:"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintTop_toBottomOf="@+id/signUpSender_fullName_tv" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/signUpSender_fullName_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -59,7 +59,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintStart_toEndOf="@+id/signUpSender_fullName_tv"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <TextView
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/signUpSender_email_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -84,11 +84,11 @@
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+            app:layout_constraintStart_toEndOf="@+id/signUpSender_email_tv"
+            app:layout_constraintTop_toBottomOf="@+id/signUpSender_fullName_et" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/signUpSender_password_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -97,10 +97,10 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/signUpSender_email_tv" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/signUpSender_password_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -109,7 +109,18 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+            app:layout_constraintStart_toEndOf="@+id/signUpSender_password_tv"
+            app:layout_constraintTop_toBottomOf="@+id/signUpSender_email_et" />
+
+        <ProgressBar
+            android:id="@+id/signUpSender_pb"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="84dp"
+            android:layout_height="80dp"
+            android:progressBackgroundTint="#D3A191"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

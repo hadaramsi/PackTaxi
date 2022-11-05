@@ -27,17 +27,31 @@
         <action
             android:id="@+id/action_fragmentLogin_to_managerMainScreenFragment"
             app:destination="@id/managerMainScreenFragment" />
+        <action
+            android:id="@+id/action_fragmentLogin_to_mainScreenSenderFragment"
+            app:destination="@id/mainScreenSenderFragment" />
+        <action
+            android:id="@+id/action_fragmentLogin_to_mainScreenDriverFragment"
+            app:destination="@id/mainScreenDriverFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSignUpAsDriver"
         android:name="com.example.packtaxi.signUpAsDriverFragment"
         android:label="Sign up as driver"
-        tools:layout="@layout/fragment_sign_up_as_driver" />
+        tools:layout="@layout/fragment_sign_up_as_driver" >
+        <action
+            android:id="@+id/action_fragmentSignUpAsDriver_to_mainScreenDriverFragment"
+            app:destination="@id/mainScreenDriverFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentSignUpAsSender"
         android:name="com.example.packtaxi.signUpAsSenderFragment"
         android:label="Sign up as sender"
-        tools:layout="@layout/fragment_sign_up_as_sender" />
+        tools:layout="@layout/fragment_sign_up_as_sender" >
+        <action
+            android:id="@+id/action_fragmentSignUpAsSender_to_mainScreenSenderFragment"
+            app:destination="@id/mainScreenSenderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentSignUp"
         android:name="com.example.packtaxi.signUpFragment"
@@ -82,4 +96,14 @@
     <argument android:name="deliveryPointID"
     app:argType="string"/>
     </fragment>
+    <fragment
+        android:id="@+id/mainScreenSenderFragment"
+        android:name="com.example.packtaxi.mainScreenSenderFragment"
+        android:label="fragment_main_screen_sender"
+        tools:layout="@layout/fragment_main_screen_sender" />
+    <fragment
+        android:id="@+id/mainScreenDriverFragment"
+        android:name="com.example.packtaxi.mainScreenDriverFragment"
+        android:label="fragment_main_screen_driver"
+        tools:layout="@layout/fragment_main_screen_driver" />
 </navigation>

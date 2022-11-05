@@ -2,63 +2,143 @@ package com.example.packtaxi;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link signUpAsDriverFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.packtaxi.model.Driver;
+import com.example.packtaxi.model.Model;
+import com.example.packtaxi.model.Sender;
+
 public class signUpAsDriverFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Button signUpBtn;
+    private ProgressBar pb;
+    private EditText emailEt;
+    private EditText passwordEt;
+    private EditText fullNameEt;
+    private EditText carNumberEt;
+    private EditText licenseEt;
+    private EditText maxVolumeEt;
+    private EditText maxWeightEt;
 
     public signUpAsDriverFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragmentSignUpAsDriver.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static signUpAsDriverFragment newInstance(String param1, String param2) {
-        signUpAsDriverFragment fragment = new signUpAsDriverFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up_as_driver, container, false);
+        View view = inflater.inflate(R.layout.fragment_sign_up_as_driver, container, false);
+
+        signUpBtn = view.findViewById(R.id.signUpDriver_btn);
+        emailEt = view.findViewById(R.id.signUpDriver_email_et);
+        passwordEt = view.findViewById(R.id.signUpDriver_password_et);
+        fullNameEt = view.findViewById(R.id.signUpDriver_fullName_et);
+        carNumberEt = view.findViewById(R.id.signUpDriver_carNumber_et);
+        licenseEt = view.findViewById(R.id.signUpDriver_licenseNumber_et);
+        maxVolumeEt = view.findViewById(R.id.signUpDriver_maxVolume_ev);
+        maxWeightEt = view.findViewById(R.id.signUpDriver_maxWeight_et);
+        pb = view.findViewById(R.id.signUpDriver_pb);
+        pb.setVisibility(View.GONE);
+
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pb.setVisibility(View.VISIBLE);
+                signUpBtn.setEnabled(false);
+                if (checkDetails()) {
+                    registerSender(v);
+                }
+                else {
+                    pb.setVisibility(View.GONE);
+                    signUpBtn.setEnabled(true);
+                }
+            }
+        });
+        return view;
+    }
+
+    private void registerSender(View v)
+    {
+        String password = passwordEt.getText().toString().trim();
+        Driver driver = new Driver();
+        driver.setFullName(fullNameEt.getText().toString().trim());
+        driver.setEmail(emailEt.getText().toString().trim());
+        driver.setPassword(passwordEt.getText().toString().trim());
+        driver.setLicenseNumber(licenseEt.getText().toString().trim());
+        driver.setCarNumber(carNumberEt.getText().toString().trim());
+        driver.setMaxVolume(Integer.parseInt(maxVolumeEt.getText().toString().trim()));
+        driver.setMaxWeight(Integer.parseInt(maxWeightEt.getText().toString().trim()));
+        Model.getInstance().addDriver(driver, password, (ifSuccess) -> {
+            if(ifSuccess) {
+                @NonNull NavDirections action = signUpAsDriverFragmentDirections.actionFragmentSignUpAsDriverToMainScreenDriverFragment();
+                Navigation.findNavController(v).navigate(action);
+            }
+            else{
+                Toast.makeText(getActivity(), "failed to register, please change the email", Toast.LENGTH_LONG).show();
+                pb.setVisibility(View.GONE);
+                signUpBtn.setEnabled(true);
+            }
+        });
+    }
+    private boolean checkDetails()
+    {
+        String email = emailEt.getText().toString().trim();
+        String password = passwordEt.getText().toString().trim();
+        String fullName = fullNameEt.getText().toString().trim();
+        String license= licenseEt.getText().toString().trim();
+        String carNumber = carNumberEt.getText().toString().trim();
+        String maxVolume = maxVolumeEt.getText().toString().trim();
+        String maxWeight = maxWeightEt.getText().toString().trim();
+        if(fullName.isEmpty()) {
+            fullNameEt.setError("Full name is required");
+            fullNameEt.requestFocus();
+            return false;
+        }
+        if(email.isEmpty()) {
+            emailEt.setError("Email is required");
+            emailEt.requestFocus();
+            return false;
+        }
+        if(password.isEmpty()) {
+            passwordEt.setError("Password is required");
+            passwordEt.requestFocus();
+            return false;
+        }
+        if(password.length() < 6) {
+            passwordEt.setError("Password should be at least 6 characters");
+            passwordEt.requestFocus();
+            return false;
+        }
+        if(license.isEmpty()) {
+            licenseEt.setError("License number is required");
+            licenseEt.requestFocus();
+            return false;
+        }
+        if(carNumber.isEmpty()) {
+            carNumberEt.setError("Car number is required");
+            carNumberEt.requestFocus();
+        return false;
+    }
+        if(maxVolume.isEmpty()) {
+            maxVolumeEt.setError("Max volume is required");
+            maxVolumeEt.requestFocus();
+        return false;
+    }
+        if(maxWeight.isEmpty()) {
+            maxWeightEt.setError("Max weight is required");
+            maxWeightEt.requestFocus();
+        return false;
+    }
+        return true;
     }
 }

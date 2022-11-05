@@ -16,8 +16,6 @@ import java.util.Map;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-
-
 @Entity
 public class DeliveryPoint {
     final static String DELIVERYPOINTID = "deliveryPointID";

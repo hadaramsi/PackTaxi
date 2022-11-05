@@ -36,12 +36,11 @@ public class Model {
     public void getDeliveryPointByID(String deliveryPointID, getDeliveryPointByIDListener listener)
     {
         MyApplication.executorService.execute(()-> {
-//            DeliveryPoint dp = AppLocalDB.db.DeliveryPointDao().getDeliveryPointByID(deliveryPointID);
+            DeliveryPoint dp = AppLocalDB.db.deliveryPointDao().getDeliveryPointByID(deliveryPointID);
             MyApplication.mainHandler.post(()->{
-//                listener.onComplete(dp);
+                listener.onComplete(dp);
             });
         });
-
     }
     public interface GetAllDriversListener{
         void onComplete(List<Driver> driversData);
@@ -56,15 +55,15 @@ public class Model {
         modelFirebase.getAllSenders(listener);
     }
     public interface AddDriverListener{
-        void onComplete();
+        void onComplete(boolean ifSuccess);
     }
-    public void addDriver(Driver driver, AddDriverListener listener){
-        modelFirebase.addDriver(driver, listener);
+    public void addDriver(Driver driver,String password, AddDriverListener listener){
+        modelFirebase.addDriver(driver, password, listener);
     }
     public interface AddSenderListener{
-        void onComplete();
+        void onComplete(boolean ifSuccess);
     }
-    public void addSender(Sender sender, AddSenderListener listener){
-        modelFirebase.addSender(sender, listener);
+    public void addSender(Sender sender,String password, AddSenderListener listener){
+        modelFirebase.addSender(sender, password, listener);
     }
 }

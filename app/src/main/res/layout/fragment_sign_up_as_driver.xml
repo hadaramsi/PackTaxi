@@ -47,7 +47,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName13"
+                    android:id="@+id/signUpDriver_licenseNumber_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -57,10 +57,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textView35"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName17" />
+                    app:layout_constraintTop_toBottomOf="@+id/signUpDriver_carNumber_et" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName14"
+                    android:id="@+id/signUpDriver_password_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -70,7 +70,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView34"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber6" />
+                    app:layout_constraintTop_toBottomOf="@+id/signUpDriver_maxWeight_et" />
 
                 <TextView
                     android:id="@+id/textView29"
@@ -78,14 +78,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="30dp"
-                    android:text="ID number:"
+                    android:text="Email:"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName15"
+                    android:id="@+id/signUpDriver_email_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -94,10 +94,10 @@
                     android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView29"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName16" />
+                    app:layout_constraintTop_toBottomOf="@+id/signUpDriver_fullName_et" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName16"
+                    android:id="@+id/signUpDriver_fullName_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -129,7 +129,7 @@
                     android:text="CC"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/editTextNumber5"
+                    app:layout_constraintStart_toEndOf="@+id/signUpDriver_maxVolume_ev"
                     app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
                 <TextView
@@ -142,7 +142,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber5" />
+                    app:layout_constraintTop_toBottomOf="@+id/signUpDriver_maxVolume_ev" />
 
                 <TextView
                     android:id="@+id/textView33"
@@ -153,11 +153,11 @@
                     android:text="KG"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/editTextNumber6"
+                    app:layout_constraintStart_toEndOf="@+id/signUpDriver_maxWeight_et"
                     app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName17"
+                    android:id="@+id/signUpDriver_carNumber_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -167,10 +167,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView36"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName15" />
+                    app:layout_constraintTop_toBottomOf="@+id/signUpDriver_email_et" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/signUpDriver_btn"
                     android:layout_width="190dp"
                     android:layout_height="65dp"
                     android:layout_marginTop="5dp"
@@ -182,7 +182,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.484"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName14"
+                    app:layout_constraintTop_toBottomOf="@+id/signUpDriver_password_et"
                     app:layout_constraintVertical_bias="0.134" />
 
                 <TextView
@@ -195,10 +195,10 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber6" />
+                    app:layout_constraintTop_toBottomOf="@+id/signUpDriver_maxWeight_et" />
 
                 <EditText
-                    android:id="@+id/editTextNumber5"
+                    android:id="@+id/signUpDriver_maxVolume_ev"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -209,7 +209,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
                 <EditText
-                    android:id="@+id/editTextNumber6"
+                    android:id="@+id/signUpDriver_maxWeight_et"
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -244,6 +244,16 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+                <ProgressBar
+                    android:id="@+id/signUpDriver_pb"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="93dp"
+                    android:layout_height="90dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

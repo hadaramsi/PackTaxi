@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 public class Driver {
-    final static String FULL_NAME = "fullName";
-    final static String ID = "id";
+    final static String EMAIL = "email";
+    final static String FULLNAME = "fullName";
     final static String PASSWORD = "password";
     final static String CAR_NUMBER = "carNumber";
     final static String LICENSE_NUMBER = "licenseNumber";
@@ -16,7 +19,7 @@ public class Driver {
 
     @PrimaryKey
     @NonNull
-    private String id;
+    private String email;
     private String password;
     private String fullName;
     private String licenseNumber;
@@ -26,8 +29,8 @@ public class Driver {
 
     public Driver(){}
 
-    public Driver(String id, String password, String fullName, String licenseNumber,String carNumber, int maxVolume, int maxWeight){
-        this.id= id;
+    public Driver(String email, String password, String fullName, String licenseNumber,String carNumber, int maxVolume, int maxWeight){
+        this.email= email;
         this.password= password;
         this.fullName= fullName;
         this.licenseNumber= licenseNumber;
@@ -35,8 +38,11 @@ public class Driver {
         this.maxVolume=maxVolume;
         this.maxWeight=maxWeight;
     }
-    public String getID(){
-        return id;
+    public String getEmail(){
+        return email;
+    }
+    public String getPassword(){
+        return password;
     }
     public String getFullName(){
         return fullName;
@@ -53,6 +59,15 @@ public class Driver {
     public int getMaxWeight(){
         return maxWeight;
     }
+    public void setEmail(String email){
+        this.email = email;
+    }
+    public void setPassword(String password){
+        this.password = password;
+    }
+    public void setLicenseNumber(String licenseNumber){
+        this.licenseNumber = licenseNumber;
+    }
     public void setFullName(String fullName){
         this.fullName = fullName;
     }
@@ -64,5 +79,41 @@ public class Driver {
     }
     public void setMaxWeight(int maxWeight){
         this.maxWeight = maxWeight;
+    }
+    static public Driver fromJson(Map<String, Object> json){
+        String email = (String)json.get(EMAIL);
+        if(email == null)
+            return null;
+        String fullName = (String)json.get(FULLNAME);
+        if(fullName == null)
+            return null;
+        String password = (String)json.get(PASSWORD);
+        if(password == null)
+            return null;
+        String licenseNumber = (String)json.get(LICENSE_NUMBER);
+        if(licenseNumber == null)
+            return null;
+        String carNumber = (String)json.get(CAR_NUMBER);
+        if(carNumber == null)
+            return null;
+        int maxVolume = (int) json.get(MAX_VOLUME);
+        if(maxVolume == 0)
+            return null;
+        int maxWeight = (int)json.get(MAX_WEIGHT);
+        if(maxWeight == 0)
+            return null;
+        Driver driver = new Driver(email, password, fullName, licenseNumber, carNumber, maxVolume, maxWeight);
+        return driver;
+    }
+    public Map<String, Object> toJson(){
+        Map<String, Object> json = new HashMap<>();
+        json.put(EMAIL, email);
+        json.put(FULLNAME, fullName);
+        json.put(PASSWORD, password);
+        json.put(LICENSE_NUMBER, licenseNumber);
+        json.put(CAR_NUMBER, carNumber);
+        json.put(MAX_WEIGHT, maxWeight);
+        json.put(MAX_VOLUME, maxVolume);
+        return json;
     }
 }
