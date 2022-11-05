@@ -53,9 +53,33 @@
         android:id="@+id/managerMainScreenFragment"
         android:name="com.example.packtaxi.managerMainScreenFragment"
         android:label="Manager main screen"
-        tools:layout="@layout/fragment_manager_main_screen" />
+        tools:layout="@layout/fragment_manager_main_screen" >
+        <action
+            android:id="@+id/action_managerMainScreenFragment_to_addingDeliveryPointFragment"
+            app:destination="@id/addingDeliveryPointFragment" />
+        <action
+            android:id="@+id/action_managerMainScreenFragment_to_viewdeliveryPointDetailsFragment"
+            app:destination="@id/viewdeliveryPointDetailsFragment"/>
+        <argument
+            android:name="deliveryPointID"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.example.packtaxi.aboutUsFragment"
         android:label="About us" />
+    <fragment
+        android:id="@+id/addingDeliveryPointFragment"
+        android:name="com.example.packtaxi.AddingDeliveryPointFragment"
+        android:label="fragment_adding_delivery_point"
+        tools:layout="@layout/fragment_adding_delivery_point" />
+    <fragment
+        android:id="@+id/viewdeliveryPointDetailsFragment"
+        android:name="com.example.packtaxi.viewDeliveryPointDetailsFragment"
+        android:label="fragment_viewdelivery_point_details"
+        tools:layout="@layout/fragment_viewdelivery_point_details" >
+    <argument android:name="deliveryPointID"
+    app:argType="string"/>
+    </fragment>
 </navigation>

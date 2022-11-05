@@ -5,6 +5,6 @@ import androidx.lifecycle.ViewModel;
 public class MapViewModel extends ViewModel {
     private String DeliveryPointID;
 
-//    public void setReportID(String r){ reportID = r;}
+    public void setDeliveryPointID(String dp){ DeliveryPointID = dp;}
     public String getDeliveryPointID(){return DeliveryPointID;}
 }

@@ -36,7 +36,7 @@ public class Model {
     public void getDeliveryPointByID(String deliveryPointID, getDeliveryPointByIDListener listener)
     {
         MyApplication.executorService.execute(()-> {
-//            DeliveryPoint dp = AppLocalDB.db.reportDao().getReportByID(deliveryPointID);
+//            DeliveryPoint dp = AppLocalDB.db.DeliveryPointDao().getDeliveryPointByID(deliveryPointID);
             MyApplication.mainHandler.post(()->{
 //                listener.onComplete(dp);
             });

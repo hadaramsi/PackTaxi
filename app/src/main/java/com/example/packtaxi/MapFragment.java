@@ -52,7 +52,7 @@ public class MapFragment extends Fragment{
         view = inflater.inflate(R.layout.fragment_manager_main_screen, container, false);
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-//        viewModel.setDeliveryPointID(MapFragmentArgs.fromBundle(getArguments()).getReportID());
+        viewModel.setDeliveryPointID(managerMainScreenFragmentArgs.fromBundle(getArguments()).getDeliveryPointID());
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -78,7 +78,7 @@ public class MapFragment extends Fragment{
                 gMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(Marker marker) {
-//                        Navigation.findNavController(view).navigate(MapFragmentDirections.actionMapFragmentToViewReportFragment(marker.getTag().toString()));
+                        Navigation.findNavController(view).navigate(managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToViewdeliveryPointDetailsFragment(marker.getTag().toString()));
                     }
                 });
             }
@@ -89,22 +89,27 @@ public class MapFragment extends Fragment{
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.add_menu, menu);
-//        inflater.inflate(R.menu.my_profile_menu, menu);
-//        inflater.inflate(R.menu.my_reports_menu, menu);
-//        inflater.inflate(R.menu.log_out_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.manager_menu, menu);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.addMenu_addDeliveryPoint:
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_delivery_point:
+                @NonNull NavDirections action = managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToAddingDeliveryPointFragment();
+                Navigation.findNavController(view).navigate(action);
+                return true;
+            case R.id.search_delivery_point:
 //                @NonNull NavDirections action = MapFragmentDirections.actionMapFragmentToAddingReportFragment();
 //                Navigation.findNavController(view).navigate(action);
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+                return true;
+            case R.id.logout_menu:
+//                @NonNull NavDirections action = MapFragmentDirections.actionMapFragmentToAddingReportFragment();
+//                Navigation.findNavController(view).navigate(action);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
