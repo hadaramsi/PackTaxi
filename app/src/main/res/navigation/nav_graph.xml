@@ -13,11 +13,11 @@
             android:id="@+id/action_fragmentMainScreen_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
         <action
-            android:id="@+id/action_fragmentMainScreen_to_fragmentSignUp"
-            app:destination="@id/fragmentSignUp" />
+            android:id="@+id/action_fragmentMainScreen_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
         <action
-            android:id="@+id/action_fragmentMainScreen_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
+            android:id="@+id/action_fragmentMainScreen_to_aboutUsFragment2"
+            app:destination="@id/aboutUsFragment2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
@@ -53,17 +53,6 @@
             app:destination="@id/mainScreenSenderFragment" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentSignUp"
-        android:name="com.example.packtaxi.signUpFragment"
-        android:label="Sign up">
-        <action
-            android:id="@+id/action_fragmentSignUp_to_fragmentSignUpAsDriver"
-            app:destination="@id/fragmentSignUpAsDriver" />
-        <action
-            android:id="@+id/action_fragmentSignUp_to_fragmentSignUpAsSender"
-            app:destination="@id/fragmentSignUpAsSender" />
-    </fragment>
-    <fragment
         android:id="@+id/managerMainScreenFragment"
         android:name="com.example.packtaxi.managerMainScreenFragment"
         android:label="Delivery points map"
@@ -79,10 +68,6 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
-    <fragment
-        android:id="@+id/aboutUsFragment"
-        android:name="com.example.packtaxi.aboutUsFragment"
-        android:label="About us" />
     <fragment
         android:id="@+id/addingDeliveryPointFragment"
         android:name="com.example.packtaxi.AddingDeliveryPointFragment"
@@ -165,4 +150,21 @@
         android:name="com.example.packtaxi.driverRatingFragment"
         android:label="Driver rating"
         tools:layout="@layout/fragment_driver_rating" />
+    <fragment
+        android:id="@+id/aboutUsFragment2"
+        android:name="com.example.packtaxi.aboutUsFragment"
+        android:label="About us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.packtaxi.signUpFragment"
+        android:label="Sign up"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_fragmentSignUpAsDriver"
+            app:destination="@id/fragmentSignUpAsDriver" />
+        <action
+            android:id="@+id/action_signUpFragment_to_fragmentSignUpAsSender"
+            app:destination="@id/fragmentSignUpAsSender" />
+    </fragment>
 </navigation>

@@ -11,6 +11,6 @@
         android:id="@+id/add_delivery_point"
         android:title="Add delivery point" />
     <item
-        android:id="@+id/logout_menu"
+        android:id="@+id/logout_manager"
         android:title="Log-out" />
 </menu>

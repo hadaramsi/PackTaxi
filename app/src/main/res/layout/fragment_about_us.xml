@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".aboutUsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/app_background"
-        tools:context=".aboutUsFragment">
+        tools:context=".aboutUs1Fragment">
 
         <TextView
             android:id="@+id/aboutUs_tv_about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_width="397dp"
+            android:layout_height="252dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="5dp"
             android:text="Paxi was invented in order to offer a convenient shipping platform based on crowd shipping, which will make optimal adjustments between the driver's route of transferring the package between the pre-defined shipping stations while taking into account the preferences of the sender and the driver."
             android:textSize="24sp"
             android:textStyle="bold"
@@ -29,7 +31,7 @@
             android:id="@+id/aboutUs_tv_hope"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text=" Hope you will enjoy my app :)"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +43,7 @@
             android:id="@+id/aboutUs_tv_founders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:text="Founder: "
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +55,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Hadar Amsalem"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -66,11 +69,16 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.445"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.333"
             app:srcCompat="@drawable/logo_app" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -104,7 +104,7 @@ public class MapFragment extends Fragment{
 //                @NonNull NavDirections action = MapFragmentDirections.actionMapFragmentToAddingReportFragment();
 //                Navigation.findNavController(view).navigate(action);
                 return true;
-            case R.id.logout_menu:
+            case R.id.logout_manager:
 //                @NonNull NavDirections action = MapFragmentDirections.actionMapFragmentToAddingReportFragment();
 //                Navigation.findNavController(view).navigate(action);
                 return true;

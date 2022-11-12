@@ -6,10 +6,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.packtaxi.model.Model;
 
 public class MainActivity extends AppCompatActivity {
     private NavController navCtrl;
@@ -36,35 +36,67 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case android.R.id.home:
                     NavDestination myFragment = navCtrl.getCurrentDestination();
-//                    if (myFragment.getId() == R.id.reportsListFragment) {
-//                        finish();
-//                        return true;
-//                    }
-//                    if(myFragment.getId() == R.id.mainScreenFragment) {
-//                        finish();
-//                        return true;
-//                    }
+                    if (myFragment.getId() == R.id.managerMainScreenFragment) {
+                        finish();
+                        return true;
+                    }
+                    if(myFragment.getId() == R.id.mainScreenDriverFragment) {
+                        finish();
+                        return true;
+                    }
+                    if(myFragment.getId() == R.id.mainScreenSenderFragment) {
+                        finish();
+                        return true;
+                    }
                     navCtrl.navigateUp();
                     return true;
                 case R.id.aboutAs_menu:
-                    navCtrl.navigate(mainScreenFragmentDirections.actionFragmentMainScreenToAboutUsFragment());
+                    navCtrl.navigate(mainScreenFragmentDirections.actionFragmentMainScreenToAboutUsFragment2());
                     return true;
-//                case R.id.log_out_menu_LogOut:
+                case R.id.logout_driver:
 //                    Model.getInstance().logOutUser(new Model.logOutUserListener() {
 //                        @Override
 //                        public void onComplete() {
 //                            navctrl.navigate(myReportsFragmentDirections.actionGlobalMainScreenFragment());
 //                        }
 //                    });
-//                    return true;
-//                case R.id.myProfileMenu_myProfile:
-//                    navctrl.navigate(MapFragmentDirections.actionGlobalMyProfileFragment());
-//                    return true;
-//                case R.id.myReportsmenu_myReport:
-//                    navctrl.navigate(MapFragmentDirections.actionGlobalMyReportsFragment());
-//                    return true;
+                    return true;
+                case R.id.logout_sender:
+//                    Model.getInstance().logOutUser(new Model.logOutUserListener() {
+//                        @Override
+//                        public void onComplete() {
+//                            navctrl.navigate(myReportsFragmentDirections.actionGlobalMainScreenFragment());
+//                        }
+//                    });
+                    return true;
+                case R.id.logout_manager:
+//                Model.getInstance().logOutUser(new Model.logOutUserListener() {
+//                        @Override
+//                        public void onComplete() {
+//                            navctrl.navigate(myReportsFragmentDirections.actionGlobalMainScreenFragment());
+//                        }
+//                    });
+                    return true;
+                case R.id.my_profile_driver:
+                    navCtrl.navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToDriverProfileFragment());
+                    return true;
+                case R.id.my_profile_sender:
+                    navCtrl.navigate(mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToSenderProfileFragment());
+                    return true;
+                case R.id.add_delivery_point:
+                    navCtrl.navigate(managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToAddingDeliveryPointFragment());
+                    return true;
+                case R.id.add_drive_driver:
+                    navCtrl.navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToAddFutureRoudFragment());
+                    return true;
+                case R.id.search_delivery_point:
+                    // TODO:
+                    return true;
+                case R.id.add_pack_sender:
+                    navCtrl.navigate(mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToAddPackageFragment());
+                    return true;
                 case R.id.back_menu:
-//                    navctrl.navigateUp();
+                    navCtrl.navigateUp();
                     return true;
                 default:
                     return super.onOptionsItemSelected(item);
