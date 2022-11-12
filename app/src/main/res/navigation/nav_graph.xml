@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/fragmentMainScreen"
         android:name="com.example.packtaxi.mainScreenFragment"
-        android:label="Main screen"
+        android:label="Welcome!"
         tools:layout="@layout/fragment_main_screen">
         <action
             android:id="@+id/action_fragmentMainScreen_to_fragmentLogin"
@@ -66,14 +66,14 @@
     <fragment
         android:id="@+id/managerMainScreenFragment"
         android:name="com.example.packtaxi.managerMainScreenFragment"
-        android:label="Manager main screen"
-        tools:layout="@layout/fragment_manager_main_screen" >
+        android:label="Delivery points map"
+        tools:layout="@layout/fragment_manager_main_screen">
         <action
             android:id="@+id/action_managerMainScreenFragment_to_addingDeliveryPointFragment"
             app:destination="@id/addingDeliveryPointFragment" />
         <action
             android:id="@+id/action_managerMainScreenFragment_to_viewdeliveryPointDetailsFragment"
-            app:destination="@id/viewdeliveryPointDetailsFragment"/>
+            app:destination="@id/viewdeliveryPointDetailsFragment" />
         <argument
             android:name="deliveryPointID"
             app:argType="string"
@@ -86,24 +86,83 @@
     <fragment
         android:id="@+id/addingDeliveryPointFragment"
         android:name="com.example.packtaxi.AddingDeliveryPointFragment"
-        android:label="fragment_adding_delivery_point"
+        android:label="Adding delivery point"
         tools:layout="@layout/fragment_adding_delivery_point" />
     <fragment
         android:id="@+id/viewdeliveryPointDetailsFragment"
         android:name="com.example.packtaxi.viewDeliveryPointDetailsFragment"
-        android:label="fragment_viewdelivery_point_details"
-        tools:layout="@layout/fragment_viewdelivery_point_details" >
-    <argument android:name="deliveryPointID"
-    app:argType="string"/>
+        android:label="Delivery point details"
+        tools:layout="@layout/fragment_viewdelivery_point_details">
+        <argument
+            android:name="deliveryPointID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/mainScreenSenderFragment"
         android:name="com.example.packtaxi.mainScreenSenderFragment"
-        android:label="fragment_main_screen_sender"
-        tools:layout="@layout/fragment_main_screen_sender" />
+        android:label="Package I sent"
+        tools:layout="@layout/fragment_main_screen_sender" >
+        <action
+            android:id="@+id/action_mainScreenSenderFragment_to_packageDetailsFragment"
+            app:destination="@id/packageDetailsFragment" />
+        <action
+            android:id="@+id/action_mainScreenSenderFragment_to_addPackageFragment"
+            app:destination="@id/addPackageFragment" />
+        <action
+            android:id="@+id/action_mainScreenSenderFragment_to_senderProfileFragment"
+            app:destination="@id/senderProfileFragment" />
+        <action
+            android:id="@+id/action_mainScreenSenderFragment_to_driverRatingFragment"
+            app:destination="@id/driverRatingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainScreenDriverFragment"
         android:name="com.example.packtaxi.mainScreenDriverFragment"
-        android:label="fragment_main_screen_driver"
-        tools:layout="@layout/fragment_main_screen_driver" />
+        android:label="Future routes"
+        tools:layout="@layout/fragment_main_screen_driver" >
+        <action
+            android:id="@+id/action_mainScreenDriverFragment_to_futuerRoudDetailsFragment"
+            app:destination="@id/futuerRoudDetailsFragment" />
+        <action
+            android:id="@+id/action_mainScreenDriverFragment_to_driverProfileFragment"
+            app:destination="@id/driverProfileFragment" />
+        <action
+            android:id="@+id/action_mainScreenDriverFragment_to_addFutureRoudFragment"
+            app:destination="@id/addFutureRoudFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/futuerRoudDetailsFragment"
+        android:name="com.example.packtaxi.futuerRoudDetailsFragment"
+        android:label="Futuer roud details"
+        tools:layout="@layout/fragment_futuer_roud_details" />
+    <fragment
+        android:id="@+id/driverProfileFragment"
+        android:name="com.example.packtaxi.driverProfileFragment"
+        android:label="Driver profile"
+        tools:layout="@layout/fragment_driver_profile" />
+    <fragment
+        android:id="@+id/addFutureRoudFragment"
+        android:name="com.example.packtaxi.addFutureRoudFragment"
+        android:label="Add future roud"
+        tools:layout="@layout/fragment_add_future_roud" />
+    <fragment
+        android:id="@+id/packageDetailsFragment"
+        android:name="com.example.packtaxi.packageDetailsFragment"
+        android:label="Package details"
+        tools:layout="@layout/fragment_package_details" />
+    <fragment
+        android:id="@+id/addPackageFragment"
+        android:name="com.example.packtaxi.addPackageFragment"
+        android:label="Add package"
+        tools:layout="@layout/fragment_add_package" />
+    <fragment
+        android:id="@+id/senderProfileFragment"
+        android:name="com.example.packtaxi.senderProfileFragment"
+        android:label="Sender profile"
+        tools:layout="@layout/fragment_sender_profile" />
+    <fragment
+        android:id="@+id/driverRatingFragment"
+        android:name="com.example.packtaxi.driverRatingFragment"
+        android:label="Driver rating"
+        tools:layout="@layout/fragment_driver_rating" />
 </navigation>
