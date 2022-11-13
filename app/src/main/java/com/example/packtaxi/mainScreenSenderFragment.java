@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,12 @@ import android.view.ViewGroup;
 public class mainScreenSenderFragment extends Fragment {
     public mainScreenSenderFragment() {
     }
-
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.sender_menu, menu);
+        inflater.inflate(R.menu.base_menu, menu);
+    }
 
 
     @Override

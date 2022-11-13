@@ -115,7 +115,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="5dp"
-            android:text="TextView"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -129,7 +128,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
-            android:text="TextView"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverProfile_maxVolume_tv"
@@ -142,7 +140,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
-            android:text="TextView"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverProfile_maxWeight_tv"
@@ -155,7 +152,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
-            android:text="TextView"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverProfile_licenseNumber_tv"
@@ -168,7 +164,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
-            android:text="TextView"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverProfile_carNumber_tv"
@@ -181,7 +176,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
-            android:text="TextView"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverProfile_email_tv"
@@ -199,5 +193,41 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverProfile_password_tv"
             app:layout_constraintTop_toBottomOf="@+id/driverProfile_mavVolume_info_tv" />
+
+        <TextView
+            android:id="@+id/driverProfile_rating_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:text="Rating:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driverProfile_password_tv" />
+
+        <TextView
+            android:id="@+id/driverProfile_rating_info_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/driverProfile_rating_tv"
+            app:layout_constraintTop_toBottomOf="@+id/driverProfile_password_info_tv" />
+
+        <Button
+            android:id="@+id/driverProfile_save_btn"
+            android:layout_width="190dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#E8CCA2"
+            android:text="Save"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driverProfile_rating_info_tv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

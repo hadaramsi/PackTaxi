@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".paymentFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/app_background">
+
+        <EditText
+            android:id="@+id/payment_3digits"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:hint="3 Digits on the back of a card"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payment_valicity" />
+
+        <EditText
+            android:id="@+id/payment_valicity"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:hint="Card validity"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payment_cardnumber" />
+
+        <EditText
+            android:id="@+id/payment_cardnumber"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="50dp"
+            android:ems="10"
+            android:hint="Card number"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="Payment"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/payment_pay_btn"
+            android:layout_width="190dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="120dp"
+            android:backgroundTint="#E8CCA2"
+            android:text="pay"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payment_3digits" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

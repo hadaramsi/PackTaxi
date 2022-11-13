@@ -36,15 +36,15 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case android.R.id.home:
                     NavDestination myFragment = navCtrl.getCurrentDestination();
-                    if (myFragment.getId() == R.id.managerMainScreenFragment) {
+                    if (myFragment.getId() == R.id.signUpFragment) {
                         finish();
                         return true;
                     }
-                    if(myFragment.getId() == R.id.mainScreenDriverFragment) {
+                    if(myFragment.getId() == R.id.fragmentSignUpAsDriver) {
                         finish();
                         return true;
                     }
-                    if(myFragment.getId() == R.id.mainScreenSenderFragment) {
+                    if(myFragment.getId() == R.id.fragmentSignUpAsSender) {
                         finish();
                         return true;
                     }

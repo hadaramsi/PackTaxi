@@ -12,6 +12,30 @@
         android:background="@drawable/app_background">
 
         <TextView
+            android:id="@+id/packageDetails_rateDriver_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/viewReport_tv_phoneNumber2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/viewReport_tv_phoneNumber2" />
+
+        <TextView
+            android:id="@+id/viewReport_tv_phoneNumber2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:text="Rate driver:"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewReport_tv_phoneNumber" />
+
+        <TextView
             android:id="@+id/viewReport_tv_problem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -156,7 +180,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textSize="24sp"
@@ -217,16 +241,16 @@
             android:text="Match:"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewReport_tv_phoneNumber" />
+            app:layout_constraintTop_toBottomOf="@+id/viewReport_tv_phoneNumber2" />
 
         <CheckBox
             android:id="@+id/packageDetails_match_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="25dp"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/packageDetails_driver_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
