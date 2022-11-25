@@ -54,28 +54,28 @@ public class MainActivity extends AppCompatActivity {
                     navCtrl.navigate(mainScreenFragmentDirections.actionFragmentMainScreenToAboutUsFragment2());
                     return true;
                 case R.id.logout_driver:
-//                    Model.getInstance().logOutUser(new Model.logOutUserListener() {
-//                        @Override
-//                        public void onComplete() {
-//                            navctrl.navigate(myReportsFragmentDirections.actionGlobalMainScreenFragment());
-//                        }
-//                    });
+                    Model.getInstance().logOutUser(new Model.logOutUserListener() {
+                        @Override
+                        public void onComplete() {
+                            navCtrl.navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToFragmentLogin());
+                        }
+                    });
                     return true;
                 case R.id.logout_sender:
-//                    Model.getInstance().logOutUser(new Model.logOutUserListener() {
-//                        @Override
-//                        public void onComplete() {
-//                            navctrl.navigate(myReportsFragmentDirections.actionGlobalMainScreenFragment());
-//                        }
-//                    });
+                    Model.getInstance().logOutUser(new Model.logOutUserListener() {
+                        @Override
+                        public void onComplete() {
+                            navCtrl.navigate(mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToFragmentLogin());
+                        }
+                    });
                     return true;
                 case R.id.logout_manager:
-//                Model.getInstance().logOutUser(new Model.logOutUserListener() {
-//                        @Override
-//                        public void onComplete() {
-//                            navctrl.navigate(myReportsFragmentDirections.actionGlobalMainScreenFragment());
-//                        }
-//                    });
+                Model.getInstance().logOutUser(new Model.logOutUserListener() {
+                        @Override
+                        public void onComplete() {
+                            navCtrl.navigate(managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToFragmentLogin());
+                        }
+                    });
                     return true;
                 case R.id.my_profile_driver:
                     navCtrl.navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToDriverProfileFragment());

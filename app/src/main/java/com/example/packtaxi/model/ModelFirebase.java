@@ -41,6 +41,10 @@ public class ModelFirebase {
                     }
                 });
     }
+    public void logOutUser(Model.logOutUserListener listener) {
+        FirebaseAuth.getInstance().signOut();
+        listener.onComplete();
+    }
     public void checkUserConnected(String email, View v){
         DocumentReference docRef1 = db.collection(MANAGER).document(email);
         DocumentReference docRef2 = db.collection(SENDERS).document(email);

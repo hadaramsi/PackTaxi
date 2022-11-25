@@ -23,7 +23,7 @@ public class mainScreenSenderFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.sender_menu, menu);
-        inflater.inflate(R.menu.base_menu, menu);
+//        inflater.inflate(R.menu.base_menu, menu);
     }
 
 
@@ -37,6 +37,7 @@ public class mainScreenSenderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_main_screen_sender, container, false);
     }
 }

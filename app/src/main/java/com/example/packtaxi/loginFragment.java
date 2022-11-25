@@ -35,7 +35,6 @@ public class loginFragment extends Fragment {
         password = view.findViewById(R.id.password_login);
         Button logInBtn = view.findViewById(R.id.logIn_btn_login);
         ProgressBar pb = view.findViewById(R.id.logIn_progressBar);
-
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

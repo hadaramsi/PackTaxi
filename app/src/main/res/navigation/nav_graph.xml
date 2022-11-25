@@ -67,6 +67,9 @@
             android:name="deliveryPointID"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_managerMainScreenFragment_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
     </fragment>
     <fragment
         android:id="@+id/addingDeliveryPointFragment"
@@ -102,6 +105,9 @@
         <action
             android:id="@+id/action_mainScreenSenderFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_mainScreenSenderFragment_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
     </fragment>
     <fragment
         android:id="@+id/mainScreenDriverFragment"
@@ -120,6 +126,9 @@
         <action
             android:id="@+id/action_mainScreenDriverFragment_to_driverRatingFragment"
             app:destination="@id/driverRatingFragment" />
+        <action
+            android:id="@+id/action_mainScreenDriverFragment_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
     </fragment>
     <fragment
         android:id="@+id/futuerRoudDetailsFragment"

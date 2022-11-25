@@ -17,6 +17,15 @@ public class Model {
     private Model(){
 
     }
+    public interface logOutUserListener{
+        void onComplete();
+    }
+
+    public void logOutUser(logOutUserListener listener)
+    {
+        modelFirebase.logOutUser(listener);
+    }
+
     public interface loginUserListener{
         void onComplete(boolean success);
     }
