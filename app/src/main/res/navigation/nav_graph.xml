@@ -25,14 +25,14 @@
         android:label="Log-in"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_fragmentLogin_to_managerMainScreenFragment"
-            app:destination="@id/managerMainScreenFragment" />
-        <action
             android:id="@+id/action_fragmentLogin_to_mainScreenSenderFragment"
             app:destination="@id/mainScreenSenderFragment" />
         <action
             android:id="@+id/action_fragmentLogin_to_mainScreenDriverFragment"
             app:destination="@id/mainScreenDriverFragment" />
+        <action
+            android:id="@+id/action_fragmentLogin_to_managerMainScreenFragment"
+            app:destination="@id/managerMainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSignUpAsDriver"

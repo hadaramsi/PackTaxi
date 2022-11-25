@@ -23,6 +23,7 @@ public class signUpAsSenderFragment extends Fragment {
     private EditText emailEt;
     private EditText passwordEt;
     private EditText fullNameEt;
+    final static int PASSWORDMINDIGIT = 6;
 
     public signUpAsSenderFragment() {
     }
@@ -85,6 +86,11 @@ public class signUpAsSenderFragment extends Fragment {
             fullNameEt.requestFocus();
             return false;
         }
+//        if (!Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
+//            email.setError("Please provide valid email");
+//            email.requestFocus();
+//            return false;
+//        }
         if(email.isEmpty()) {
             emailEt.setError("email is required");
             emailEt.requestFocus();
@@ -95,7 +101,7 @@ public class signUpAsSenderFragment extends Fragment {
             passwordEt.requestFocus();
             return false;
         }
-        if(password.length() < 6) {
+        if(password.length() < PASSWORDMINDIGIT) {
             passwordEt.setError("password should be at least 6 characters");
             passwordEt.requestFocus();
             return false;

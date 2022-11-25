@@ -20,7 +20,7 @@ import com.example.packtaxi.model.Model;
 
 
 public class loginFragment extends Fragment {
-    EditText username;
+    EditText email;
     EditText password;
     final static int PASSWORDMINDIGIT = 6;
 
@@ -31,7 +31,7 @@ public class loginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        username = view.findViewById(R.id.userName_login);
+        email = view.findViewById(R.id.userName_login);
         password = view.findViewById(R.id.password_login);
         Button logInBtn = view.findViewById(R.id.logIn_btn_login);
         ProgressBar pb = view.findViewById(R.id.logIn_progressBar);
@@ -42,15 +42,12 @@ public class loginFragment extends Fragment {
                 pb.setVisibility(View.VISIBLE);
                 logInBtn.setEnabled(false);
                 if (checkDetails()) {
-                    Model.getInstance().loginUser(username.getText().toString().trim(),
-                            password.getText().toString().trim(), new Model.loginUserListener() {
+                    Model.getInstance().loginUser(email.getText().toString().trim(),
+                            password.getText().toString().trim(),v, new Model.loginUserListener() {
                                 @Override
                                 public void onComplete(boolean success) {
-
                                     if(success) {
 
-                                        //@NonNull NavDirections action = fragmentLoginDirections.action;
-                                        Navigation.findNavController(v).navigate(R.id.action_fragmentLogin_to_managerMainScreenFragment);
                                     }
                                     else {
                                         Toast.makeText(getActivity(), "failed to login, please check your credentials", Toast.LENGTH_LONG).show();
@@ -72,18 +69,18 @@ public class loginFragment extends Fragment {
 
 
     private boolean checkDetails() {
-        String userName = username.getText().toString().trim();
+        String userName = email.getText().toString().trim();
         String pass = password.getText().toString().trim();
         if (userName.isEmpty()) {
-            username.setError("userName is required");
-            username.requestFocus();
+            email.setError("userName is required");
+            email.requestFocus();
             return false;
         }
-//        if (!Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
-//            username.setError("Please provide valid userName");
-//            username.requestFocus();
-//            return false;
-//        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
+            email.setError("Please provide valid email");
+            email.requestFocus();
+            return false;
+        }
 
         if (pass.isEmpty()) {
             password.setError("password is required");

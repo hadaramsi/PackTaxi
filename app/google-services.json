@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "275969209036",
-    "project_id": "paxi-3ccdf",
-    "storage_bucket": "paxi-3ccdf.appspot.com"
+    "project_number": "801888444536",
+    "project_id": "paxi-2926b",
+    "storage_bucket": "paxi-2926b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:275969209036:android:7bdd2a7e9dc7b259990869",
+        "mobilesdk_app_id": "1:801888444536:android:c1c801f35e0e2f28e48d8d",
         "android_client_info": {
           "package_name": "com.example.packtaxi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "275969209036-n0622nral7s8igu1j60ddge2aril6i57.apps.googleusercontent.com",
+          "client_id": "801888444536-bcqfqs035b5iei355t3d6lm5dco0pmh7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAl5yg7YfEyPV1LVJ2I_T_8Foy4jKWB1-I"
+          "current_key": "AIzaSyCClmNprNZ9A_kslUDPggaOAz5A9uAPtMI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "275969209036-n0622nral7s8igu1j60ddge2aril6i57.apps.googleusercontent.com",
+              "client_id": "801888444536-bcqfqs035b5iei355t3d6lm5dco0pmh7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

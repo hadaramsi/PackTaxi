@@ -1,5 +1,7 @@
 package com.example.packtaxi.model;
 
+import android.view.View;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -18,13 +20,20 @@ public class Model {
     public interface loginUserListener{
         void onComplete(boolean success);
     }
-    public void loginUser(String userName, String password, loginUserListener listener) {
-        modelFirebase.loginUser(userName, password, listener);
+    public void loginUser(String email, String password, View v, loginUserListener listener) {
+        modelFirebase.loginUser(email, password,v, listener);
     }
     public static Model getInstance(){
         return instance;
     }
+    public interface getSenderByEmailListener{
+        void onComplete(Sender sender);
+    }
 
+    public void getSenderByEmail(String email, getSenderByEmailListener listener)
+    {
+        modelFirebase.getSenderByEmail(email, listener);
+    }
     public LiveData<List<DeliveryPoint>> getAllDeliveryPoints(){
         return deliveryPointsList;
     }
