@@ -25,10 +25,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 public class managerMainScreenFragment extends Fragment {
     static final double ISRAELLATITUDE = 31.3555;
     static final double ISRAELLONGITUDE = 34.3565;
-    static final float ISRAELZOOMLEVEL = 7.0f;
+    static final float ISRAELZOOMLEVEL = 2.0f;
     static final float DELIVERYPOINTZOOMLEVEL = 11.0f;
 
     private GoogleMap gMap;
@@ -47,31 +48,31 @@ public class managerMainScreenFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_manager_main_screen, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        viewModel.setDeliveryPointID(managerMainScreenFragmentArgs.fromBundle(getArguments()).getDeliveryPointID());
+//        viewModel.setDeliveryPointID(managerMainScreenFragmentArgs.fromBundle(getArguments()).getDeliveryPointID());
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 gMap = googleMap;
-                if(viewModel.getDeliveryPointID() == null) {
+                if(Model.getInstance().getAllDeliveryPoints().getValue()!= null){
                     for(DeliveryPoint dp : Model.getInstance().getAllDeliveryPoints().getValue())
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(dp.getLatitude(), dp.getLongitude())).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointID());
                     LatLng Israel = new LatLng(ISRAELLATITUDE, ISRAELLONGITUDE);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Israel, ISRAELZOOMLEVEL));
                 }
-                else{
-                    Model.getInstance().getDeliveryPointByID(viewModel.getDeliveryPointID(), new Model.getDeliveryPointByIDListener() {
-                        @Override
-                        public void onComplete(DeliveryPoint dp) {
-                            LatLng deliveryPointLocation = new LatLng(dp.getLatitude(), dp.getLongitude());
-                            googleMap.addMarker(new MarkerOptions().position(deliveryPointLocation).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointID());
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(deliveryPointLocation, DELIVERYPOINTZOOMLEVEL));
-                        }
-                    });
-                }
+//                else{
+//                    Model.getInstance().getDeliveryPointByID(viewModel.getDeliveryPointID(), new Model.getDeliveryPointByIDListener() {
+//                        @Override
+//                        public void onComplete(DeliveryPoint dp) {
+//                            LatLng deliveryPointLocation = new LatLng(dp.getLatitude(), dp.getLongitude());
+//                            googleMap.addMarker(new MarkerOptions().position(deliveryPointLocation).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointID());
+//                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(deliveryPointLocation, DELIVERYPOINTZOOMLEVEL));
+//                        }
+//                    });
+//                }
                 gMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(Marker marker) {
-                        Navigation.findNavController(view).navigate(managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToViewdeliveryPointDetailsFragment(marker.getTag().toString()));
+                        Navigation.findNavController(view).navigate(managerMainScreenFragmentDirections.actionMangerMainScreenFragmentToViewdeliveryPointDetailsFragment(marker.getTag().toString()));
                     }
                 });
             }
@@ -90,7 +91,7 @@ public class managerMainScreenFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_delivery_point:
-                @NonNull NavDirections action = managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToAddingDeliveryPointFragment();
+                @NonNull NavDirections action = managerMainScreenFragmentDirections.actionMangerMainScreenFragmentToAddingDeliveryPointFragment();
                 Navigation.findNavController(view).navigate(action);
                 return true;
             case R.id.search_delivery_point:
@@ -98,7 +99,7 @@ public class managerMainScreenFragment extends Fragment {
 //                Navigation.findNavController(view).navigate(action);
                 return true;
             case R.id.logout_manager:
-                @NonNull NavDirections act = managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToFragmentLogin();
+                @NonNull NavDirections act = managerMainScreenFragmentDirections.actionMangerMainScreenFragmentToFragmentLogin();
                 Navigation.findNavController(view).navigate(act);
                 return true;
             default:

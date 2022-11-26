@@ -31,8 +31,8 @@
             android:id="@+id/action_fragmentLogin_to_mainScreenDriverFragment"
             app:destination="@id/mainScreenDriverFragment" />
         <action
-            android:id="@+id/action_fragmentLogin_to_managerMainScreenFragment"
-            app:destination="@id/managerMainScreenFragment" />
+            android:id="@+id/action_fragmentLogin_to_mangerMainScreenFragment"
+            app:destination="@id/mangerMainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSignUpAsDriver"
@@ -51,25 +51,6 @@
         <action
             android:id="@+id/action_fragmentSignUpAsSender_to_mainScreenSenderFragment"
             app:destination="@id/mainScreenSenderFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/managerMainScreenFragment"
-        android:name="com.example.packtaxi.managerMainScreenFragment"
-        android:label="Delivery points map"
-        tools:layout="@layout/fragment_manager_main_screen">
-        <action
-            android:id="@+id/action_managerMainScreenFragment_to_addingDeliveryPointFragment"
-            app:destination="@id/addingDeliveryPointFragment" />
-        <action
-            android:id="@+id/action_managerMainScreenFragment_to_viewdeliveryPointDetailsFragment"
-            app:destination="@id/viewdeliveryPointDetailsFragment" />
-        <argument
-            android:name="deliveryPointID"
-            app:argType="string"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_managerMainScreenFragment_to_fragmentLogin"
-            app:destination="@id/fragmentLogin" />
     </fragment>
     <fragment
         android:id="@+id/addingDeliveryPointFragment"
@@ -187,4 +168,18 @@
         android:name="com.example.packtaxi.paymentFragment"
         android:label="payment"
         tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/mangerMainScreenFragment"
+        android:name="com.example.packtaxi.managerMainScreenFragment"
+        android:label="fragment_manger_main_screen">
+        <action
+            android:id="@+id/action_mangerMainScreenFragment_to_addingDeliveryPointFragment"
+            app:destination="@id/addingDeliveryPointFragment" />
+        <action
+            android:id="@+id/action_mangerMainScreenFragment_to_viewdeliveryPointDetailsFragment"
+            app:destination="@id/viewdeliveryPointDetailsFragment" />
+        <action
+            android:id="@+id/action_mangerMainScreenFragment_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
+    </fragment>
 </navigation>

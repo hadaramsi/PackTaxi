@@ -59,7 +59,7 @@ public class ModelFirebase {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        @NonNull NavDirections action = loginFragmentDirections.actionFragmentLoginToManagerMainScreenFragment("1");
+                        @NonNull NavDirections action = loginFragmentDirections.actionFragmentLoginToMangerMainScreenFragment();
                         Navigation.findNavController(v).navigate(action);
                     }
                 }

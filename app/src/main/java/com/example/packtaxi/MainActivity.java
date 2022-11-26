@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 Model.getInstance().logOutUser(new Model.logOutUserListener() {
                         @Override
                         public void onComplete() {
-                            navCtrl.navigate(managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToFragmentLogin());
+                            navCtrl.navigate(managerMainScreenFragmentDirections.actionMangerMainScreenFragmentToFragmentLogin());
                         }
                     });
                     return true;
@@ -82,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.my_profile_sender:
                     navCtrl.navigate(mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToSenderProfileFragment());
                     return true;
-                case R.id.add_delivery_point:
-                    navCtrl.navigate(managerMainScreenFragmentDirections.actionManagerMainScreenFragmentToAddingDeliveryPointFragment());
-                    return true;
-                case R.id.add_drive_driver:
-                    navCtrl.navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToAddFutureRoudFragment());
-                    return true;
+//                case R.id.add_delivery_point:
+//                    navCtrl.navigate(mainScreenDriverFragmentDirections.actionManagerMainScreenFragmentToAddingDeliveryPointFragment());
+//                    return true;
+//                case R.id.add_drive_driver:
+//                    navCtrl.navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToAddFutureRoudFragment());
+//                    return true;
                 case R.id.search_delivery_point:
                     // TODO:
                     return true;

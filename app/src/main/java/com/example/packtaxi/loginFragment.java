@@ -45,10 +45,7 @@ public class loginFragment extends Fragment {
                             password.getText().toString().trim(),v, new Model.loginUserListener() {
                                 @Override
                                 public void onComplete(boolean success) {
-                                    if(success) {
-
-                                    }
-                                    else {
+                                    if(!success) {
                                         Toast.makeText(getActivity(), "failed to login, please check your credentials", Toast.LENGTH_LONG).show();
                                         pb.setVisibility(View.GONE);
                                         logInBtn.setEnabled(true);
