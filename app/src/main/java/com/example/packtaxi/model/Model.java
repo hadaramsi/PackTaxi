@@ -13,14 +13,58 @@ public class Model {
     static final private Model instance = new Model();
     private ModelFirebase modelFirebase = new ModelFirebase();
     private MutableLiveData<List<DeliveryPoint>> deliveryPointsList = new MutableLiveData<List<DeliveryPoint>>();
+    private MutableLiveData<LoadingState> deliveryPointsListLoadingState = new MutableLiveData<LoadingState>();
 
+    public enum LoadingState{
+        loading,
+        loaded
+    }
     private Model(){
 
     }
     public interface logOutUserListener{
         void onComplete();
     }
+    public interface addNewDeliveryPointListener{
+        void onComplete(boolean ifSuccess);
+    }
 
+    public void addNewDeliveryPoint(DeliveryPoint dp,addNewDeliveryPointListener listener){
+        modelFirebase.addNewDeliveryPoint(dp, (success)->{
+            reloadDeliveryPointsList();
+            listener.onComplete(success);
+        });
+    }
+    public interface GetAllDeliveryPointsListener{
+        void onComplete(List<DeliveryPoint> data);
+    }
+    public void reloadDeliveryPointsList(){
+        deliveryPointsListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
+        //get local last update
+        Long localLastUpdate = DeliveryPoint.getLocalLastUpdated();
+        //get all DeliveryPoints records since local last update from firebase
+        modelFirebase.getDeliveryPointsList(localLastUpdate,(list)->{
+            MyApplication.executorService.execute(()->{
+                //update local last update date
+                //add new record to the local db
+                Long lLastUpdate = new Long(0);
+                for(DeliveryPoint dp : list) {
+                    AppLocalDB.db.deliveryPointDao().insertAll(dp);
+                    if(dp.getIsDeleted())// if the delivery point is deleted in the firebase, delete him from the cache
+                        AppLocalDB.db.deliveryPointDao().delete(dp);
+                    if(dp.getLastUpdated() > lLastUpdate){
+                        lLastUpdate = dp.getLastUpdated();
+                    }
+                }
+                DeliveryPoint.setLocalLastUpdated(lLastUpdate);
+                //return all records to the caller
+                List<DeliveryPoint> dPsList = AppLocalDB.db.deliveryPointDao().getAll();
+                deliveryPointsList.postValue(dPsList);
+                deliveryPointsListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
+            });
+
+        });
+    }
     public void logOutUser(logOutUserListener listener)
     {
         modelFirebase.logOutUser(listener);

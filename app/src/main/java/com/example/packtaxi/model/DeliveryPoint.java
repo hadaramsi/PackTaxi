@@ -22,6 +22,9 @@ public class DeliveryPoint {
     final static String NAME = "deliveryPointName";
     final static String LATITUDE = "latitude";
     final static String LONGITUDE = "longitude";
+    public final static String LAST_UPDATED = "lastUpdated";
+    final static String DELIVERYPOINTS_LAST_UPDATE = "DELIVERYPOINTS_LAST_UPDATE";
+    final static String IS_DELETED = "isDeleted";
 
     @PrimaryKey
     @NonNull
@@ -29,15 +32,20 @@ public class DeliveryPoint {
     private String deliveryPointName;
     private double longitude;
     private double latitude;
+    private boolean isDeleted;
+    private Long lastUpdated = new Long(0);
 
     public DeliveryPoint() {
     }
-    public DeliveryPoint(String id, String name, double longitude, double latitude) {
+    public DeliveryPoint(String id, String name, double longitude, double latitude, Long lastUpdated) {
         this.deliveryPointID = id;
         this.deliveryPointName = name;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.lastUpdated = lastUpdated;
+        this.isDeleted = false;
     }
+
     public String getDeliveryPointID() {
         return DELIVERYPOINTID;
     }
@@ -50,6 +58,10 @@ public class DeliveryPoint {
     public double getLatitude() {
         return latitude;
     }
+    public Long getLastUpdated(){
+        return lastUpdated;
+    }
+    public boolean getIsDeleted(){return isDeleted;}
 
     public DeliveryPoint getDeliveryPointByID(String id) {
         return this;
@@ -67,6 +79,10 @@ public class DeliveryPoint {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
+    public void setLastUpdated(Long lastUpdated){
+        this.lastUpdated = lastUpdated;
+    }
+    public void setIsDeleted(boolean state){this.isDeleted = state;}
 
     public String getLocation() {
         Geocoder geocoder = new Geocoder(MyApplication.getContext(), Locale.getDefault());
@@ -85,6 +101,8 @@ public class DeliveryPoint {
         json.put(NAME,deliveryPointName);
         json.put(LONGITUDE,longitude);
         json.put(LATITUDE,latitude);
+        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
+        json.put(IS_DELETED, isDeleted);
         return json;
     }
 
@@ -95,9 +113,23 @@ public class DeliveryPoint {
             return null;
         double latitude = (double)json.get(LATITUDE);
         double longitude = (double)json.get(LONGITUDE);
-        DeliveryPoint dp = new DeliveryPoint(id, name, longitude, latitude);
+        Timestamp ts = (Timestamp) json.get(LAST_UPDATED);
+        Long lastUpdated = new Long(ts.getSeconds());
+        boolean state = (boolean) json.get(IS_DELETED);
+        DeliveryPoint dp = new DeliveryPoint(id, name, longitude, latitude,lastUpdated);
+        dp.setIsDeleted(state);
         return dp;
     }
+    static Long getLocalLastUpdated(){
+        Long localLastUpdate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getLong(DELIVERYPOINTS_LAST_UPDATE, 0);
+        return localLastUpdate;
+    }
 
+    static void setLocalLastUpdated(Long date){
+        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit();
+        editor.putLong(DELIVERYPOINTS_LAST_UPDATE, date);
+        editor.commit();
+    }
 
 }
