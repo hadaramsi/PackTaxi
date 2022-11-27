@@ -28,8 +28,8 @@ public interface DeliveryPointDao {
 //    @Delete
 //    void delete(DeliveryPoint dp);
 
-    @Query("SELECT * FROM DeliveryPoint WHERE DELIVERYPOINTID=:id")
-    DeliveryPoint getDeliveryPointByID(String id);
+    @Query("SELECT * FROM DeliveryPoint WHERE DELIVERYPOINTNAME=:name")
+    DeliveryPoint getDeliveryPointByName(String name);
 
     @Query("SELECT * FROM DeliveryPoint WHERE deliveryPointName=:u")
     List<DeliveryPoint> getMyDeliveryPoints(String u);

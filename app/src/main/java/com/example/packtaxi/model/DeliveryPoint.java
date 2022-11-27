@@ -18,7 +18,7 @@ import android.content.SharedPreferences;
 
 @Entity
 public class DeliveryPoint {
-    final static String DELIVERYPOINTID = "deliveryPointID";
+//    final static String DELIVERYPOINTID = "deliveryPointID";
     final static String NAME = "deliveryPointName";
     final static String LATITUDE = "latitude";
     final static String LONGITUDE = "longitude";
@@ -28,7 +28,6 @@ public class DeliveryPoint {
 
     @PrimaryKey
     @NonNull
-    private String deliveryPointID;
     private String deliveryPointName;
     private double longitude;
     private double latitude;
@@ -37,8 +36,7 @@ public class DeliveryPoint {
 
     public DeliveryPoint() {
     }
-    public DeliveryPoint(String id, String name, double longitude, double latitude, Long lastUpdated) {
-        this.deliveryPointID = id;
+    public DeliveryPoint(String name, double longitude, double latitude, Long lastUpdated) {
         this.deliveryPointName = name;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -46,9 +44,9 @@ public class DeliveryPoint {
         this.isDeleted = false;
     }
 
-    public String getDeliveryPointID() {
-        return DELIVERYPOINTID;
-    }
+//    public String getDeliveryPointID() {
+//        return DELIVERYPOINTID;
+//    }
     public String getDeliveryPointName() {
         return deliveryPointName;
     }
@@ -63,16 +61,16 @@ public class DeliveryPoint {
     }
     public boolean getIsDeleted(){return isDeleted;}
 
-    public DeliveryPoint getDeliveryPointByID(String id) {
+    public DeliveryPoint getDeliveryPointByName(String name) {
         return this;
     }
 
     public void setDeliveryPointName(String name) {
         this.deliveryPointName = name;
     }
-    public void setDeliveryPointID(String id) {
-        this.deliveryPointID = id;
-    }
+//    public void setDeliveryPointID(String id) {
+//        this.deliveryPointID = id;
+//    }
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
@@ -97,7 +95,7 @@ public class DeliveryPoint {
 
     public Map<String, Object> toJson(){
         Map<String, Object> json = new HashMap<>();
-        json.put(DELIVERYPOINTID,deliveryPointID);
+//        json.put(DELIVERYPOINTID,deliveryPointID);
         json.put(NAME,deliveryPointName);
         json.put(LONGITUDE,longitude);
         json.put(LATITUDE,latitude);
@@ -107,7 +105,7 @@ public class DeliveryPoint {
     }
 
     static public DeliveryPoint fromJson(String deliveryPointID, Map<String, Object> json){
-        String id = DELIVERYPOINTID;
+//        String id = DELIVERYPOINTID;
         String name = (String)json.get(NAME);
         if(name == null)
             return null;
@@ -116,7 +114,7 @@ public class DeliveryPoint {
         Timestamp ts = (Timestamp) json.get(LAST_UPDATED);
         Long lastUpdated = new Long(ts.getSeconds());
         boolean state = (boolean) json.get(IS_DELETED);
-        DeliveryPoint dp = new DeliveryPoint(id, name, longitude, latitude,lastUpdated);
+        DeliveryPoint dp = new DeliveryPoint(name, longitude, latitude,lastUpdated);
         dp.setIsDeleted(state);
         return dp;
     }

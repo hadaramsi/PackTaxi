@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class managerMainScreenFragment extends Fragment {
     static final double ISRAELLATITUDE = 31.3555;
     static final double ISRAELLONGITUDE = 34.3565;
-    static final float ISRAELZOOMLEVEL = 2.0f;
+    static final float ISRAELZOOMLEVEL = 15.0f;
     static final float DELIVERYPOINTZOOMLEVEL = 11.0f;
 
     private GoogleMap gMap;
@@ -55,9 +55,11 @@ public class managerMainScreenFragment extends Fragment {
                 gMap = googleMap;
                 if(Model.getInstance().getAllDeliveryPoints().getValue()!= null){
                     for(DeliveryPoint dp : Model.getInstance().getAllDeliveryPoints().getValue())
-                        googleMap.addMarker(new MarkerOptions().position(new LatLng(dp.getLatitude(), dp.getLongitude())).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointID());
+                        googleMap.addMarker(new MarkerOptions().position(new LatLng(dp.getLatitude(), dp.getLongitude())).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointName());
                     LatLng Israel = new LatLng(ISRAELLATITUDE, ISRAELLONGITUDE);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Israel, ISRAELZOOMLEVEL));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Israel, 15));
+                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+
                 }
 //                else{
 //                    Model.getInstance().getDeliveryPointByID(viewModel.getDeliveryPointID(), new Model.getDeliveryPointByIDListener() {

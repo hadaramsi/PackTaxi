@@ -95,10 +95,10 @@ public class Model {
         void onComplete(DeliveryPoint dp);
     }
 
-    public void getDeliveryPointByID(String deliveryPointID, getDeliveryPointByIDListener listener)
+    public void getDeliveryPointByName(String deliveryPointName, getDeliveryPointByIDListener listener)
     {
         MyApplication.executorService.execute(()-> {
-            DeliveryPoint dp = AppLocalDB.db.deliveryPointDao().getDeliveryPointByID(deliveryPointID);
+            DeliveryPoint dp = AppLocalDB.db.deliveryPointDao().getDeliveryPointByName(deliveryPointName);
             MyApplication.mainHandler.post(()->{
                 listener.onComplete(dp);
             });
