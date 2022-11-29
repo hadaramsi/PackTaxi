@@ -48,7 +48,6 @@ public class managerMainScreenFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_manager_main_screen, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-//        viewModel.setDeliveryPointID(managerMainScreenFragmentArgs.fromBundle(getArguments()).getDeliveryPointID());
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -99,10 +98,6 @@ public class managerMainScreenFragment extends Fragment {
             case R.id.search_delivery_point:
 //                @NonNull NavDirections action = MapFragmentDirections.actionMapFragmentToAddingReportFragment();
 //                Navigation.findNavController(view).navigate(action);
-                return true;
-            case R.id.logout_manager:
-                @NonNull NavDirections act = managerMainScreenFragmentDirections.actionMangerMainScreenFragmentToFragmentLogin();
-                Navigation.findNavController(view).navigate(act);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

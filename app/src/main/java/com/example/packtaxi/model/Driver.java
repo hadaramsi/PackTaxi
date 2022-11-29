@@ -14,8 +14,9 @@ public class Driver {
     final static String PASSWORD = "password";
     final static String CAR_NUMBER = "carNumber";
     final static String LICENSE_NUMBER = "licenseNumber";
+    final static String RATE = "rate";
     final static String MAX_VOLUME = "maxVolume";
-    final static String MAX_WEIGHT = "maxWeight";// maybe int
+    final static String MAX_WEIGHT = "maxWeight";
 
     @PrimaryKey
     @NonNull
@@ -24,6 +25,7 @@ public class Driver {
     private String fullName;
     private String licenseNumber;
     private String carNumber;
+    private double rate;
     private int maxVolume;
     private int maxWeight;
 
@@ -37,7 +39,9 @@ public class Driver {
         this.carNumber=carNumber;
         this.maxVolume=maxVolume;
         this.maxWeight=maxWeight;
+        this.rate=0.0;
     }
+    public double getRate(){return rate;}
     public String getEmail(){
         return email;
     }
@@ -62,6 +66,7 @@ public class Driver {
     public void setEmail(String email){
         this.email = email;
     }
+    public void setRate(double rate){this.rate=rate;}
     public void setPassword(String password){
         this.password = password;
     }
@@ -114,6 +119,7 @@ public class Driver {
         json.put(CAR_NUMBER, carNumber);
         json.put(MAX_WEIGHT, maxWeight);
         json.put(MAX_VOLUME, maxVolume);
+        json.put(RATE, rate);
         return json;
     }
 }

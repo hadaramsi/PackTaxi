@@ -38,12 +38,15 @@
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/fragment_viewdelivery_point_details.xml" value="0.18885869565217392" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/login.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/manager_main_screen.xml" value="0.2" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/reports_list_row.xml" value="0.18115942028985507" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/layout/route_list_row.xml" value="0.18115942028985507" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/about_as_menu.xml" value="0.13229166666666667" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/about_us_menu.xml" value="0.2" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/back_menu.xml" value="0.13229166666666667" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/base_activity_menu.xml" value="0.134375" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/base_menu.xml" value="0.2" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/driver_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/logout_menu.xml" value="0.2" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/manager_menu.xml" value="0.25" />
         <entry key="..\:/Users/Hadar/AndroidStudioProjects/PackTaxi/app/src/main/res/menu/sender_menu.xml" value="0.25" />
       </map>

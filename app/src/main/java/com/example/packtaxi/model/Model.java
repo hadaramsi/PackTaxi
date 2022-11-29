@@ -14,14 +14,19 @@ public class Model {
     private ModelFirebase modelFirebase = new ModelFirebase();
     private MutableLiveData<List<DeliveryPoint>> deliveryPointsList = new MutableLiveData<List<DeliveryPoint>>();
     private MutableLiveData<LoadingState> deliveryPointsListLoadingState = new MutableLiveData<LoadingState>();
+    private MutableLiveData<List<FutureRoute>> routesList = new MutableLiveData<List<FutureRoute>>();
+    private MutableLiveData<LoadingState> routesListLoadingState = new MutableLiveData<LoadingState>();
 
     public enum LoadingState{
         loading,
         loaded
     }
-    private Model(){
-
+    private Model(){ }
+    public LiveData<List<FutureRoute>> getAllFutureRoutes(){
+        return routesList;
     }
+    public LiveData<LoadingState> getRoutesListLoadingState(){ return routesListLoadingState;}
+
     public interface logOutUserListener{
         void onComplete();
     }
@@ -82,9 +87,20 @@ public class Model {
     public interface getSenderByEmailListener{
         void onComplete(Sender sender);
     }
-
-    public void getSenderByEmail(String email, getSenderByEmailListener listener)
-    {
+    public void reloadRoutesList(){
+        routesListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
+        modelFirebase.getRoutesList((list)->{
+            MyApplication.executorService.execute(()->{
+                List<FutureRoute> frsList = AppLocalDB.db.FutureRouteDao().getAll();
+                routesList.postValue(frsList);
+                routesListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
+            });
+        });
+    }
+    public interface GetAllRoutesListener{
+        void onComplete(List<FutureRoute> data);
+    }
+    public void getSenderByEmail(String email, getSenderByEmailListener listener) {
         modelFirebase.getSenderByEmail(email, listener);
     }
     public LiveData<List<DeliveryPoint>> getAllDeliveryPoints(){

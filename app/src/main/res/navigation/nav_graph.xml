@@ -128,7 +128,11 @@
         android:id="@+id/futuerRoudDetailsFragment"
         android:name="com.example.packtaxi.futuerRoudDetailsFragment"
         android:label="Futuer roud details"
-        tools:layout="@layout/fragment_futuer_roud_details" />
+        tools:layout="@layout/fragment_futuer_roud_details" >
+        <argument
+            android:name="routeID"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/driverProfileFragment"
         android:name="com.example.packtaxi.driverProfileFragment"
@@ -194,8 +198,5 @@
         <action
             android:id="@+id/action_mangerMainScreenFragment_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
-        <action
-            android:id="@+id/action_mangerMainScreenFragment_self"
-            app:destination="@id/mangerMainScreenFragment" />
     </fragment>
 </navigation>

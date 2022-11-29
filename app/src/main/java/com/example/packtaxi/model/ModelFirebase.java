@@ -26,6 +26,7 @@ public class ModelFirebase {
     final static String DRIVERS = "drivers";
     final static String MANAGER = "manager";
     final static String DELIVERYPOINTS = "deliveryPoints";
+    final static String ROUTES = "routes";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public void loginUser(String email, String password,View v, Model.loginUserListener listener) {
@@ -45,6 +46,24 @@ public class ModelFirebase {
                     }
                 });
     }
+
+    public void getRoutesList(Model.GetAllRoutesListener listener) {
+        db.collection(ROUTES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                LinkedList<FutureRoute> routesList = new LinkedList<FutureRoute>();
+                if(task.isSuccessful()) {
+                    for(QueryDocumentSnapshot doc:task.getResult()) {
+                        FutureRoute r = FutureRoute.fromJson(doc.getId(), doc.getData());
+                        if(r != null)
+                            routesList.add(r);
+                    }
+                }
+                listener.onComplete(routesList);
+            }
+        });
+    }
+
     public void logOutUser(Model.logOutUserListener listener) {
         FirebaseAuth.getInstance().signOut();
         listener.onComplete();
@@ -155,10 +174,8 @@ public class ModelFirebase {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 LinkedList<DeliveryPoint> deliveryPointsList = new LinkedList<DeliveryPoint>();
-                if(task.isSuccessful())
-                {
-                    for(QueryDocumentSnapshot doc:task.getResult())
-                    {
+                if(task.isSuccessful()) {
+                    for(QueryDocumentSnapshot doc:task.getResult()) {
                         DeliveryPoint dp = DeliveryPoint.fromJson(doc.getId(), doc.getData());
                         if(dp != null)
                             deliveryPointsList.add(dp);

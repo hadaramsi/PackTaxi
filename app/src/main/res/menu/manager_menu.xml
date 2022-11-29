@@ -6,7 +6,8 @@
         android:id="@+id/search_delivery_point"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search delivery point"
-        app:actionViewClass="android.widget.SearchView" />
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
     <item
         android:id="@+id/add_delivery_point"
         android:title="Add delivery point" />
