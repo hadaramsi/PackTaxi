@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -44,6 +45,23 @@ public class mainScreenDriverFragment extends Fragment {
         inflater.inflate(R.menu.driver_menu, menu);
         inflater.inflate(R.menu.base_menu, menu);
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_drive_driver:
+                @NonNull NavDirections action = mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToAddFutureRoudFragment();
+                Navigation.findNavController(view).navigate(action);
+                return true;
+            case R.id.my_profile_driver:
+                Navigation.findNavController(view).navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToDriverProfileFragment());
+                return true;
+            case R.id.aboutAs_menu:
+                Navigation.findNavController(view).navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToAboutUsFragment());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void noRoutesMessage(){
         if(viewModel.getRoutes().getValue()!=null){
             if(viewModel.getRoutes().getValue().size() == 0)
@@ -55,11 +73,6 @@ public class mainScreenDriverFragment extends Fragment {
             noRoutesMessage.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

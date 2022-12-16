@@ -8,11 +8,15 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 public class signUpFragment extends Fragment {
+    private View view;
     public signUpFragment() {
         // Required empty public constructor
     }
@@ -21,7 +25,7 @@ public class signUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
         Button signUpAsSenderBtn = view.findViewById(R.id.signUpAs_Sender_btn);
         Button signUpAsDriverBtn = view.findViewById(R.id.SignUpAs_Drive_btn);
@@ -41,7 +45,22 @@ public class signUpFragment extends Fragment {
                 Navigation.findNavController(v).navigate(action);
             }
         });
+        setHasOptionsMenu(true);
         return view;
     }
-
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.base_menu, menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.aboutAs_menu:
+                Navigation.findNavController(view).navigate(signUpFragmentDirections.actionSignUpFragmentToAboutUsFragment());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

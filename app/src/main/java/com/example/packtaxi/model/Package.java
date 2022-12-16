@@ -3,43 +3,47 @@ package com.example.packtaxi.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.FieldValue;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 @Entity
-public class FutureRoute {
+public class Package {
     final static String SOURCE = "source";
-    final static String FUTUREROUTEID = "futureRouteID";
+    final static String PACKAGEID = "packageID";
     final static String DESTINATION = "destination";
     final static String DATE = "date";
     final static String COST = "cost";
-    final static String DRIVER = "driver";
-
+    final static String VOLUME = "volume";
+    final static String WEIGHT = "weight";
+    final static String NOTE = "note";
     @PrimaryKey
     @NonNull
-    private String futureRouteID;
+    private String packageID;
     private String source;
     private String destination;
     private String date;
     private double cost;
-    private String driver;
+    private double volume;
+    private double weight;
+    private String note;
 
-    public FutureRoute(){}
+    public Package(){}
 
-    public FutureRoute(String futureRouteID, String source, String destination, String date,double cost, String driver){
-        this.futureRouteID= futureRouteID;
+    public Package(String packageID, String source, String destination, String date,double cost,double volume,double weight, String note){
+        this.packageID= packageID;
         this.source= source;
         this.destination= destination;
         this.cost= cost;
-        this.driver=driver;
+        this.note=note;
         this.date=date;
+        this.weight=weight;
+        this.volume=volume;
     }
-    public String getFutureRouteID(){
-        return futureRouteID;
+
+    public String getPackageID(){
+        return packageID;
     }
     public String getSource(){
         return source;
@@ -47,8 +51,8 @@ public class FutureRoute {
     public String getDestination(){
         return destination;
     }
-    public String getDriver(){
-        return driver;
+    public String getNote(){
+        return note;
     }
     public String getDate(){
         return date;
@@ -56,9 +60,15 @@ public class FutureRoute {
     public double getCost(){
         return cost;
     }
+    public double getWeight(){
+        return weight;
+    }
+    public double getVolume(){
+        return volume;
+    }
 
-    public void setFutureRouteID(String futureRouteID){
-        this.futureRouteID = futureRouteID;
+    public void setPackageID(String packageID){
+        this.packageID = packageID;
     }
     public void setSource(String source){
         this.source = source;
@@ -66,8 +76,8 @@ public class FutureRoute {
     public void setDestination(String destination){
         this.destination = destination;
     }
-    public void setDriver(String driver){
-        this.driver = driver;
+    public void setNote(String note){
+        this.note = note;
     }
     public void setDate(String date){
         this.date = date;
@@ -75,10 +85,16 @@ public class FutureRoute {
     public void setCost(double cost){
         this.cost = cost;
     }
+    public void setVolume(double volume){
+        this.volume = volume;
+    }
+    public void setWeight(double weight){
+        this.weight = weight;
+    }
 
-    static public FutureRoute fromJson(String futureRouteId,Map<String, Object> json){
-        String futureRouteID = (String)json.get(FUTUREROUTEID);
-        if( futureRouteID== null)
+    static public Package fromJson(String packageId, Map<String, Object> json){
+        String packageID = (String)json.get(PACKAGEID);
+        if( packageID== null)
             return null;
         String source = (String)json.get(SOURCE);
         if(source == null)
@@ -89,21 +105,29 @@ public class FutureRoute {
         double cost = (double)json.get(COST);
         if(cost == 0.0)
             return null;
-        String date= new SimpleDateFormat("yyyy-MM-dd").format(json.get(DATE));
-        String driver = (String) json.get(DRIVER);
-        if(driver == null)
+        double volume = (double)json.get(VOLUME);
+        if(volume == 0.0)
             return null;
-        FutureRoute futureRoute = new FutureRoute(futureRouteID, source, destination, date, cost, driver);
-        return futureRoute;
+        double weight = (double)json.get(WEIGHT);
+        if(weight == 0.0)
+            return null;
+        String date= new SimpleDateFormat("yyyy-MM-dd").format(json.get(DATE));
+        String note = (String) json.get(NOTE);
+        if(note == null)
+            return null;
+        Package p = new Package(packageID, source, destination, date,cost,volume,weight, note);
+        return p;
     }
     public Map<String, Object> toJson(){
         Map<String, Object> json = new HashMap<>();
-        json.put(FUTUREROUTEID, futureRouteID);
+        json.put(PACKAGEID, packageID);
         json.put(SOURCE, source);
         json.put(DESTINATION, destination);
         json.put(DATE, date);
         json.put(COST, cost);
-        json.put(DRIVER, driver);
+        json.put(NOTE, note);
+        json.put(WEIGHT, weight);
+        json.put(VOLUME, volume);
         return json;
     }
 }

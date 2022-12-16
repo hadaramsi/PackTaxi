@@ -2,63 +2,66 @@ package com.example.packtaxi;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link senderProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.packtaxi.model.Model;
+import com.example.packtaxi.model.Sender;
+
+
 public class senderProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public senderProfileFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment senderProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static senderProfileFragment newInstance(String param1, String param2) {
-        senderProfileFragment fragment = new senderProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    TextView fullNameTv;
+    TextView emailTv ;
+    View view;
+    ProgressBar pb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sender_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_sender_profile, container, false);
+        fullNameTv = view.findViewById(R.id.senderProfile_fullName_info_tv);
+        emailTv = view.findViewById(R.id.senderProfile_email_info_tv);
+        pb = view.findViewById(R.id.sender_profile_progressBar);
+        pb.setVisibility(View.VISIBLE);
+        Model.getInstance().getCurrentSender(new Model.getCurrentSenderListener() {
+            @Override
+            public void onComplete(String senderEmail) {
+                Model.getInstance().getSenderByEmail(senderEmail, new Model.getSenderByEmailListener() {
+                    @Override
+                    public void onComplete(Sender sender) {
+                        setDetails(sender);
+                    }
+                });
+            }
+        });
+        setHasOptionsMenu(true);
+        return view;
+    }
+    public void setDetails(Sender s){
+        fullNameTv.setText(s.getFullName());
+        emailTv.setText(s.getEmail());
+        pb.setVisibility(View.GONE);
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.sender_menu, menu);
+        inflater.inflate(R.menu.base_menu, menu);
     }
 }

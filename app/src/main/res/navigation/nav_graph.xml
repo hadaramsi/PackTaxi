@@ -17,7 +17,7 @@
             app:destination="@id/signUpFragment" />
         <action
             android:id="@+id/action_fragmentMainScreen_to_aboutUsFragment2"
-            app:destination="@id/aboutUsFragment2" />
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_fragmentLogin_to_mangerMainScreenFragment"
             app:destination="@id/mangerMainScreenFragment" />
+        <action
+            android:id="@+id/action_fragmentLogin_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSignUpAsDriver"
@@ -97,8 +100,8 @@
             android:id="@+id/action_mainScreenSenderFragment_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
         <action
-            android:id="@+id/action_mainScreenSenderFragment_to_aboutUsFragment2"
-            app:destination="@id/aboutUsFragment2" />
+            android:id="@+id/action_mainScreenSenderFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainScreenDriverFragment"
@@ -121,8 +124,8 @@
             android:id="@+id/action_mainScreenDriverFragment_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
         <action
-            android:id="@+id/action_mainScreenDriverFragment_to_aboutUsFragment2"
-            app:destination="@id/aboutUsFragment2" />
+            android:id="@+id/action_mainScreenDriverFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/futuerRoudDetailsFragment"
@@ -140,9 +143,13 @@
         tools:layout="@layout/fragment_driver_profile" />
     <fragment
         android:id="@+id/addFutureRoudFragment"
-        android:name="com.example.packtaxi.addFutureRoudFragment"
+        android:name="com.example.packtaxi.addFutureRouteFragment"
         android:label="Add future roud"
-        tools:layout="@layout/fragment_add_future_roud" />
+        tools:layout="@layout/fragment_add_future_route" >
+        <action
+            android:id="@+id/action_addFutureRoudFragment_to_mainScreenDriverFragment"
+            app:destination="@id/mainScreenDriverFragment" />
+    </fragment>
     <fragment
         android:id="@+id/packageDetailsFragment"
         android:name="com.example.packtaxi.packageDetailsFragment"
@@ -164,7 +171,7 @@
         android:label="Driver rating"
         tools:layout="@layout/fragment_driver_rating" />
     <fragment
-        android:id="@+id/aboutUsFragment2"
+        android:id="@+id/aboutUsFragment"
         android:name="com.example.packtaxi.aboutUsFragment"
         android:label="About us"
         tools:layout="@layout/fragment_about_us" />
@@ -179,6 +186,9 @@
         <action
             android:id="@+id/action_signUpFragment_to_fragmentSignUpAsSender"
             app:destination="@id/fragmentSignUpAsSender" />
+        <action
+            android:id="@+id/action_signUpFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"

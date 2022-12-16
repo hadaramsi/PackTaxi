@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -62,6 +63,16 @@ public class ModelFirebase {
                 listener.onComplete(routesList);
             }
         });
+    }
+
+    public void getCurrentSender(Model.getCurrentSenderListener listener)
+    {
+        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currUser == null)
+            listener.onComplete(null);
+        else {
+            listener.onComplete(currUser.getEmail());
+        }
     }
 
     public void logOutUser(Model.logOutUserListener listener) {
@@ -158,6 +169,16 @@ public class ModelFirebase {
     public void getAllSenders(Model.GetAllSendersListener Listener){
 
     }
+    public void addNewRoute(FutureRoute route, Model.addNewRouteListener listener) {
+        Task<DocumentReference> ref = db.collection(ROUTES).add(route.toJson());
+        ref.addOnSuccessListener((successListener)-> {
+            listener.onComplete(true);
+        })
+                .addOnFailureListener((e)-> {
+                    Log.d("TAG", e.getMessage());
+                    listener.onComplete(false);
+                });
+    }
     public void addNewDeliveryPoint(DeliveryPoint dp, Model.addNewDeliveryPointListener listener) {
         Task<DocumentReference> ref = db.collection(DELIVERYPOINTS).add(dp.toJson());
         ref.addOnSuccessListener((successListener)-> {
@@ -167,6 +188,22 @@ public class ModelFirebase {
                     Log.d("TAG", e.getMessage());
                     listener.onComplete(false);
                 });
+    }
+    public void getDPs(Model.GetDPsListener listener) {
+        db.collection(DELIVERYPOINTS)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                LinkedList<String> dPsList = new LinkedList<String>();
+                if(task.isSuccessful()) {
+                    for(QueryDocumentSnapshot doc:task.getResult()) {
+                        DeliveryPoint dp = DeliveryPoint.fromJson(doc.getId(), doc.getData());
+                        dPsList.add(dp.getDeliveryPointName());
+                    }
+                }
+                listener.onComplete(dPsList);
+            }
+        });
     }
     public void getDeliveryPointsList(Long since, Model.GetAllDeliveryPointsListener listener) {
         db.collection(DELIVERYPOINTS).whereGreaterThanOrEqualTo(DeliveryPoint.LAST_UPDATED,new Timestamp(since, 0))

@@ -33,7 +33,15 @@ public class Model {
     public interface addNewDeliveryPointListener{
         void onComplete(boolean ifSuccess);
     }
-
+    public interface addNewRouteListener{
+        void onComplete(boolean ifSuccess);
+    }
+    public void addNewRoute(FutureRoute route,addNewRouteListener listener){
+        modelFirebase.addNewRoute(route, (success)->{
+            reloadRoutesList();
+            listener.onComplete(success);
+        });
+    }
     public void addNewDeliveryPoint(DeliveryPoint dp,addNewDeliveryPointListener listener){
         modelFirebase.addNewDeliveryPoint(dp, (success)->{
             reloadDeliveryPointsList();
@@ -42,6 +50,12 @@ public class Model {
     }
     public interface GetAllDeliveryPointsListener{
         void onComplete(List<DeliveryPoint> data);
+    }
+    public interface GetDPsListener{
+        void onComplete(List<String> data);
+    }
+    public void getDPs(GetDPsListener listener) {
+        modelFirebase.getDPs(listener);
     }
     public void reloadDeliveryPointsList(){
         deliveryPointsListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
@@ -84,9 +98,6 @@ public class Model {
     public static Model getInstance(){
         return instance;
     }
-    public interface getSenderByEmailListener{
-        void onComplete(Sender sender);
-    }
     public void reloadRoutesList(){
         routesListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
         modelFirebase.getRoutesList((list)->{
@@ -102,6 +113,16 @@ public class Model {
     }
     public void getSenderByEmail(String email, getSenderByEmailListener listener) {
         modelFirebase.getSenderByEmail(email, listener);
+    }
+    public interface getSenderByEmailListener{
+        void onComplete(Sender sender);
+    }
+    public interface getCurrentSenderListener{
+        void onComplete(String senderEmail);
+    }
+    public void getCurrentSender(getCurrentSenderListener listener)
+    {
+        modelFirebase.getCurrentSender(listener);
     }
     public LiveData<List<DeliveryPoint>> getAllDeliveryPoints(){
         return deliveryPointsList;

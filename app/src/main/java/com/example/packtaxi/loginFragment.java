@@ -9,6 +9,9 @@ import androidx.navigation.Navigation;
 
 import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,13 +26,14 @@ public class loginFragment extends Fragment {
     EditText email;
     EditText password;
     final static int PASSWORDMINDIGIT = 6;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        view = inflater.inflate(R.layout.fragment_login, container, false);
 
         email = view.findViewById(R.id.userName_login);
         password = view.findViewById(R.id.password_login);
@@ -60,10 +64,24 @@ public class loginFragment extends Fragment {
             }
         });
         pb.setVisibility(View.GONE);
+        setHasOptionsMenu(true);
         return view;
     }
-
-
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.base_menu, menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.aboutAs_menu:
+                Navigation.findNavController(view).navigate(loginFragmentDirections.actionFragmentLoginToAboutUsFragment());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private boolean checkDetails() {
         String userName = email.getText().toString().trim();
         String pass = password.getText().toString().trim();
