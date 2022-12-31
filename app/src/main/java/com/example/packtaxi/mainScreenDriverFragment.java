@@ -147,7 +147,7 @@ public class mainScreenDriverFragment extends Fragment {
         public void bind(FutureRoute fr) {
             source.setText(fr.getSource());
             destination.setText(fr.getDestination());
-            date.setText(fr.getDate().toString());
+            date.setText(String.valueOf(fr.getDate()));
             cost.setText(String.valueOf(fr.getCost()));
         }
     }

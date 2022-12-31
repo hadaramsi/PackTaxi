@@ -2,63 +2,80 @@ package com.example.packtaxi;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link driverProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.packtaxi.model.Driver;
+import com.example.packtaxi.model.Model;
+import com.example.packtaxi.model.Sender;
+
+
 public class driverProfileFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    TextView fullNameTv;
+    TextView emailTv ;
+    View view;
+    ProgressBar pb;
+    TextView carNumber;
+    TextView licenseNumber;
+    TextView maximumWeight;
+    TextView maximumVolume;
+    TextView rating;
 
     public driverProfileFragment() {
-        // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment driverProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static driverProfileFragment newInstance(String param1, String param2) {
-        driverProfileFragment fragment = new driverProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_driver_profile, container, false);
+        view=  inflater.inflate(R.layout.fragment_driver_profile, container, false);
+        fullNameTv = view.findViewById(R.id.driverProfile_fullName_info_tv);
+        emailTv = view.findViewById(R.id.driverProfile_email_info_tv);
+        carNumber = view.findViewById(R.id.driverProfile_carNumber_info_tv);
+        licenseNumber = view.findViewById(R.id.driverProfile_licenseNumber_info_tv);
+        maximumWeight = view.findViewById(R.id.driverProfile_maxWeight_info_tv);
+        maximumVolume = view.findViewById(R.id.driverProfile_mavVolume_info_tv);
+        rating = view.findViewById(R.id.driverProfile_rating_info_tv);
+        pb = view.findViewById(R.id.driverProfile_pb);
+        pb.setVisibility(View.VISIBLE);
+        Model.getInstance().getCurrentDriver(new Model.getCurrentDriverListener() {
+            @Override
+            public void onComplete(String driverEmail) {
+                Model.getInstance().getDriverByEmail(driverEmail, new Model.getDriverByEmailListener() {
+                    @Override
+                    public void onComplete(Driver driver) {
+                        Log.d("TAG","on complete");
+                        setDetails(driver);
+                    }
+                });
+            }
+        });
+        setHasOptionsMenu(true);
+        return view;
+    }
+    public void setDetails(Driver d){
+        Log.d("TAG","on set");
+        fullNameTv.setText(d.getFullName());
+        emailTv.setText(d.getEmail());
+        carNumber.setText(d.getCarNumber());
+        licenseNumber.setText(d.getLicenseNumber());
+        maximumWeight.setText(d.getMaxWeight());
+        maximumVolume.setText(d.getMaxVolume());
+        rating.setText(String.valueOf(d.getRate()));
+        pb.setVisibility(View.GONE);
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.driver_menu, menu);
+        inflater.inflate(R.menu.base_menu, menu);
     }
 }

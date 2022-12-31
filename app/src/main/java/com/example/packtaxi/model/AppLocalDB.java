@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.packtaxi.MyApplication;
 
-@Database(entities = {DeliveryPoint.class, FutureRoute.class}, version = 2)
+@Database(entities = {DeliveryPoint.class, FutureRoute.class}, version = 3)
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract DeliveryPointDao deliveryPointDao();
     public abstract FutureRouteDao FutureRouteDao();

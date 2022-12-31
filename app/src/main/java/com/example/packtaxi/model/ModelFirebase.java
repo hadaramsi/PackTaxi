@@ -36,7 +36,8 @@ public class ModelFirebase {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG","login");
                             checkUserConnected(email,v);
                             listener.onComplete(true);
                         }
@@ -66,6 +67,15 @@ public class ModelFirebase {
     }
 
     public void getCurrentSender(Model.getCurrentSenderListener listener)
+    {
+        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currUser == null)
+            listener.onComplete(null);
+        else {
+            listener.onComplete(currUser.getEmail());
+        }
+    }
+    public void getCurrentDriver(Model.getCurrentDriverListener listener)
     {
         FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currUser == null)
@@ -129,7 +139,7 @@ public class ModelFirebase {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
+                        if(task.isSuccessful()){
                             db.collection(DRIVERS).document(driver.getEmail()).set(driver.toJson())
                                     .addOnSuccessListener((successListener)-> {
                                         listener.onComplete(true);
@@ -156,6 +166,27 @@ public class ModelFirebase {
                         Sender sender = Sender.fromJson(document.getData());
                         if(sender != null)
                             listener.onComplete(sender);
+                    } else {
+                        listener.onComplete(null);
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                    listener.onComplete(null);
+                }
+            }
+        });
+    }
+    public void getDriverByEmail(String email, Model.getDriverByEmailListener listener) {
+        DocumentReference docRef = db.collection(DRIVERS).document(email);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Driver driver = Driver.fromJson(document.getData());
+                        if(driver != null)
+                            listener.onComplete(driver);
                     } else {
                         listener.onComplete(null);
                     }
@@ -229,7 +260,8 @@ public class ModelFirebase {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                        if(!task.isSuccessful()){
+                        if(task.isSuccessful()){
+
                             db.collection(SENDERS).document(sender.getEmail()).set(sender.toJson())
                                     .addOnSuccessListener((successListener)-> {
                                         listener.onComplete(true);

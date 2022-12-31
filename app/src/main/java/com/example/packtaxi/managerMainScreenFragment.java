@@ -53,6 +53,7 @@ public class managerMainScreenFragment extends Fragment {
             public void onMapReady(GoogleMap googleMap) {
                 gMap = googleMap;
                 if(Model.getInstance().getAllDeliveryPoints().getValue()!= null){
+
                     for(DeliveryPoint dp : Model.getInstance().getAllDeliveryPoints().getValue())
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(dp.getLatitude(), dp.getLongitude())).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointName());
                     LatLng Israel = new LatLng(ISRAELLATITUDE, ISRAELLONGITUDE);

@@ -88,7 +88,6 @@ public class Model {
     {
         modelFirebase.logOutUser(listener);
     }
-
     public interface loginUserListener{
         void onComplete(boolean success);
     }
@@ -114,11 +113,24 @@ public class Model {
     public void getSenderByEmail(String email, getSenderByEmailListener listener) {
         modelFirebase.getSenderByEmail(email, listener);
     }
+    public void getDriverByEmail(String email, getDriverByEmailListener listener) {
+        modelFirebase.getDriverByEmail(email, listener);
+    }
+    public interface getDriverByEmailListener{
+        void onComplete(Driver driver);
+    }
     public interface getSenderByEmailListener{
         void onComplete(Sender sender);
     }
     public interface getCurrentSenderListener{
         void onComplete(String senderEmail);
+    }
+    public void getCurrentDriver(getCurrentDriverListener listener)
+    {
+        modelFirebase.getCurrentDriver(listener);
+    }
+    public interface getCurrentDriverListener{
+        void onComplete(String driverEmail);
     }
     public void getCurrentSender(getCurrentSenderListener listener)
     {
