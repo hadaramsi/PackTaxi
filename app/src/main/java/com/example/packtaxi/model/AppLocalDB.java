@@ -3,13 +3,13 @@ package com.example.packtaxi.model;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-
 import com.example.packtaxi.MyApplication;
 
-@Database(entities = {DeliveryPoint.class, FutureRoute.class}, version = 3)
+@Database(entities = {DeliveryPoint.class, Package.class, FutureRoute.class}, version = 3)
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract DeliveryPointDao deliveryPointDao();
     public abstract FutureRouteDao FutureRouteDao();
+    public abstract PackageDao PackageDao();
 //    public abstract Object DeliveryPointDao(); עשה בעיות לא להחזיר
 }
 

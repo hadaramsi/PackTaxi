@@ -80,7 +80,7 @@
         android:id="@+id/mainScreenSenderFragment"
         android:name="com.example.packtaxi.mainScreenSenderFragment"
         android:label="Package I sent"
-        tools:layout="@layout/fragment_main_screen_sender" >
+        tools:layout="@layout/fragment_main_screen_sende" >
         <action
             android:id="@+id/action_mainScreenSenderFragment_to_packageDetailsFragment"
             app:destination="@id/packageDetailsFragment" />
@@ -154,12 +154,20 @@
         android:id="@+id/packageDetailsFragment"
         android:name="com.example.packtaxi.packageDetailsFragment"
         android:label="Package details"
-        tools:layout="@layout/fragment_package_details" />
+        tools:layout="@layout/fragment_package_details" >
+        <argument
+            android:name="packID"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/addPackageFragment"
         android:name="com.example.packtaxi.addPackageFragment"
         android:label="Add package"
-        tools:layout="@layout/fragment_add_package" />
+        tools:layout="@layout/fragment_add_package" >
+        <action
+            android:id="@+id/action_addPackageFragment_to_mainScreenSenderFragment"
+            app:destination="@id/mainScreenSenderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/senderProfileFragment"
         android:name="com.example.packtaxi.senderProfileFragment"

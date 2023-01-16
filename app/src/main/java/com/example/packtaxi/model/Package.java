@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -23,7 +24,7 @@ public class Package {
     private String packageID;
     private String source;
     private String destination;
-    private String date;
+    private long date;
     private double cost;
     private double volume;
     private double weight;
@@ -31,7 +32,7 @@ public class Package {
 
     public Package(){}
 
-    public Package(String packageID, String source, String destination, String date,double cost,double volume,double weight, String note){
+    public Package(String packageID, String source, String destination, long date,double cost,double volume,double weight, String note){
         this.packageID= packageID;
         this.source= source;
         this.destination= destination;
@@ -54,7 +55,7 @@ public class Package {
     public String getNote(){
         return note;
     }
-    public String getDate(){
+    public long getDate(){
         return date;
     }
     public double getCost(){
@@ -79,7 +80,7 @@ public class Package {
     public void setNote(String note){
         this.note = note;
     }
-    public void setDate(String date){
+    public void setDate(long date){
         this.date = date;
     }
     public void setCost(double cost){
@@ -111,7 +112,7 @@ public class Package {
         double weight = (double)json.get(WEIGHT);
         if(weight == 0.0)
             return null;
-        String date= new SimpleDateFormat("yyyy-MM-dd").format(json.get(DATE));
+        long date= (long) json.get(DATE);
         String note = (String) json.get(NOTE);
         if(note == null)
             return null;
@@ -130,4 +131,6 @@ public class Package {
         json.put(VOLUME, volume);
         return json;
     }
+
+
 }

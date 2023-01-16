@@ -5,17 +5,16 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-
 import java.util.List;
 
 @Dao
-public interface packageDao {
+public interface PackageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Package... Package);
 
     @Delete
     void delete(Package p);
 
-    @Query("SELECT * FROM Package")
+    @Query("select * from Package")
     List<Package> getAll();
 }

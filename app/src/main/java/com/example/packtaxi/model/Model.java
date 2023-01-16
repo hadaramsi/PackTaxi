@@ -16,16 +16,23 @@ public class Model {
     private MutableLiveData<LoadingState> deliveryPointsListLoadingState = new MutableLiveData<LoadingState>();
     private MutableLiveData<List<FutureRoute>> routesList = new MutableLiveData<List<FutureRoute>>();
     private MutableLiveData<LoadingState> routesListLoadingState = new MutableLiveData<LoadingState>();
+    private MutableLiveData<List<Package>> packagesList = new MutableLiveData<List<Package>>();
+    private MutableLiveData<LoadingState> packagesListLoadingState = new MutableLiveData<LoadingState>();
 
     public enum LoadingState{
         loading,
         loaded
     }
     private Model(){ }
+
     public LiveData<List<FutureRoute>> getAllFutureRoutes(){
         return routesList;
     }
     public LiveData<LoadingState> getRoutesListLoadingState(){ return routesListLoadingState;}
+    public LiveData<List<Package>> getAllPackages(){
+        return packagesList;
+    }
+    public LiveData<LoadingState> getPackagesListLoadingState(){ return packagesListLoadingState;}
 
     public interface logOutUserListener{
         void onComplete();
@@ -36,9 +43,18 @@ public class Model {
     public interface addNewRouteListener{
         void onComplete(boolean ifSuccess);
     }
+    public interface addNewPackListener{
+        void onComplete(boolean ifSuccess);
+    }
     public void addNewRoute(FutureRoute route,addNewRouteListener listener){
         modelFirebase.addNewRoute(route, (success)->{
             reloadRoutesList();
+            listener.onComplete(success);
+        });
+    }
+    public void addNewPack(Package pack, addNewPackListener listener){
+        modelFirebase.addNewPack(pack, (success)->{
+            reloadPackagesList();
             listener.onComplete(success);
         });
     }
@@ -50,6 +66,13 @@ public class Model {
     }
     public interface GetAllDeliveryPointsListener{
         void onComplete(List<DeliveryPoint> data);
+    }
+    public interface GetAllDPListener{
+        void onComplete(List<String> data);
+    }
+    public void getDPStringList(GetAllDPListener listener)
+    {
+        modelFirebase.getDPStringList(listener);
     }
     public interface GetDPsListener{
         void onComplete(List<String> data);
@@ -107,8 +130,21 @@ public class Model {
             });
         });
     }
+    public void reloadPackagesList(){
+        packagesListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
+        modelFirebase.getPackagesList((list)->{
+            MyApplication.executorService.execute(()->{
+                List<Package> PList = AppLocalDB.db.PackageDao().getAll();
+                packagesList.postValue(PList);
+                packagesListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
+            });
+        });
+    }
     public interface GetAllRoutesListener{
         void onComplete(List<FutureRoute> data);
+    }
+    public interface GetAllPackagesListener{
+        void onComplete(List<Package> data);
     }
     public void getSenderByEmail(String email, getSenderByEmailListener listener) {
         modelFirebase.getSenderByEmail(email, listener);

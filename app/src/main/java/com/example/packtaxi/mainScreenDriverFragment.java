@@ -79,14 +79,14 @@ public class mainScreenDriverFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_screen_driver, container, false);
-        pb = view.findViewById(R.id.routesList_progressBar);
+        pb = view.findViewById(R.id.packagesList_progressBar);
         pb.setVisibility(View.VISIBLE);
         RecyclerView list = view.findViewById(R.id.reportsList_recycler);
         list.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
-        swipeRefresh = view.findViewById(R.id.routesList_swipeRefresh);
-        noRoutesMessage = view.findViewById(R.id.routesList_tv_noRoutesMessage);
+        swipeRefresh = view.findViewById(R.id.packagesList_swipeRefresh);
+        noRoutesMessage = view.findViewById(R.id.packagesList_tv_noPackagesMessage);
         noRoutesMessage.setVisibility(View.GONE);
 
         adapter = new mainScreenDriverFragment.MyAdapter();

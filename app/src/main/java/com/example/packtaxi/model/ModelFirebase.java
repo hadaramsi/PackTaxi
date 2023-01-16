@@ -20,7 +20,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ModelFirebase {
     final static String SENDERS = "senders";
@@ -28,6 +30,7 @@ public class ModelFirebase {
     final static String MANAGER = "manager";
     final static String DELIVERYPOINTS = "deliveryPoints";
     final static String ROUTES = "routes";
+    final static String PACKAGES = "packages";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public void loginUser(String email, String password,View v, Model.loginUserListener listener) {
@@ -62,6 +65,22 @@ public class ModelFirebase {
                     }
                 }
                 listener.onComplete(routesList);
+            }
+        });
+    }
+    public void getPackagesList(Model.GetAllPackagesListener listener) {
+        db.collection(PACKAGES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                LinkedList<Package> packagesList = new LinkedList<Package>();
+                if(task.isSuccessful()) {
+                    for(QueryDocumentSnapshot doc:task.getResult()) {
+                        Package p = Package.fromJson(doc.getId(), doc.getData());
+                        if(p != null)
+                            packagesList.add(p);
+                    }
+                }
+                listener.onComplete(packagesList);
             }
         });
     }
@@ -210,6 +229,16 @@ public class ModelFirebase {
                     listener.onComplete(false);
                 });
     }
+    public void addNewPack(Package p, Model.addNewPackListener listener) {
+        Task<DocumentReference> ref = db.collection(PACKAGES).add(p.toJson());
+        ref.addOnSuccessListener((successListener)-> {
+            listener.onComplete(true);
+        })
+                .addOnFailureListener((e)-> {
+                    Log.d("TAG", e.getMessage());
+                    listener.onComplete(false);
+                });
+    }
     public void addNewDeliveryPoint(DeliveryPoint dp, Model.addNewDeliveryPointListener listener) {
         Task<DocumentReference> ref = db.collection(DELIVERYPOINTS).add(dp.toJson());
         ref.addOnSuccessListener((successListener)-> {
@@ -253,6 +282,23 @@ public class ModelFirebase {
             }
         });
     }
+    public void getDPStringList(Model.GetAllDPListener listener) {
+        db.collection(DELIVERYPOINTS).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<String> dPList = new ArrayList<String>(); //= new List<String>();
+                if(task.isSuccessful()) {
+                    for(QueryDocumentSnapshot doc:task.getResult()) {
+                        DeliveryPoint dp = DeliveryPoint.fromJson(doc.getId(), doc.getData());
+                        if(dp != null)
+                            dPList.add(dp.getDeliveryPointName());
+                    }
+                }
+                listener.onComplete(dPList);
+            }
+        });
+    }
+
     public void addSender(Sender sender,String password, Model.AddSenderListener listener){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(sender.getEmail(), password)

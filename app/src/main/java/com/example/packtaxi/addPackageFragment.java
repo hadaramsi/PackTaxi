@@ -2,63 +2,133 @@ package com.example.packtaxi;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link addPackageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.packtaxi.model.FutureRoute;
+import com.example.packtaxi.model.Model;
+import com.example.packtaxi.model.Package;
+
+import java.util.List;
+
+
 public class addPackageFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Button addBtn;
+    private Spinner source;
+    private Spinner destination;
+    private EditText weight;
+    private EditText volume;
+    private CalendarView date;
+    private EditText cost;
+    private EditText notes;
+    private ProgressBar pb;
 
     public addPackageFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment addPackageFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static addPackageFragment newInstance(String param1, String param2) {
-        addPackageFragment fragment = new addPackageFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_package, container, false);
+        View view= inflater.inflate(R.layout.fragment_add_package, container, false);
+        addBtn = view.findViewById(R.id.addPackage_add_btn);
+        source = view.findViewById(R.id.sour_spinner);
+        destination = view.findViewById(R.id.spinner2);
+        weight = view.findViewById(R.id.addPackage_weight_et);
+        volume = view.findViewById(R.id.addPackage_volume_et);
+        date = view.findViewById(R.id.calendarView2);
+        cost = view.findViewById(R.id.addPackage_cost_et);
+        notes = view.findViewById(R.id.addPackage_notes_et);
+        pb = view.findViewById(R.id.add_pac_progressBar);
+        pb.setVisibility(View.GONE);
+//        setState(true);
+        Model.getInstance().getDPStringList( (list)->{
+            ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(MyApplication.getContext(), android.R.layout.simple_spinner_item, list);
+            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            source.setAdapter(adapter1);
+            ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(MyApplication.getContext(), android.R.layout.simple_spinner_item, list);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            destination.setAdapter(adapter2);
+        });
+
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pb.setVisibility(View.VISIBLE);
+                addBtn.setEnabled(false);
+                if (source.toString().equals("")) {
+                    pb.setVisibility(View.GONE);
+                    addBtn.setEnabled(true);
+                    Toast.makeText(getActivity(), "source is required", Toast.LENGTH_LONG).show();
+                    source.requestFocus();
+                }if (destination.toString().equals("")) {
+                    pb.setVisibility(View.GONE);
+                    addBtn.setEnabled(true);
+                    Toast.makeText(getActivity(), "destination is required", Toast.LENGTH_LONG).show();
+                    destination.requestFocus();
+//                }else if((date.getDate()).equals("")) {
+//                    pb.setVisibility(View.GONE);
+//                    addBtn.setEnabled(true);
+//                    Toast.makeText(getActivity(), "Date is required", Toast.LENGTH_LONG).show();
+//                    date.requestFocus();
+                }else if(weight.getText().toString().equals("")) {
+                    pb.setVisibility(View.GONE);
+                    addBtn.setEnabled(true);
+                    weight.setError("weight is required");
+                    weight.requestFocus();
+            }else if(volume.getText().toString().equals("")) {
+                pb.setVisibility(View.GONE);
+                addBtn.setEnabled(true);
+                volume.setError("volume is required");
+                volume.requestFocus();
+        }else if(cost.getText().toString().equals("")) {
+            pb.setVisibility(View.GONE);
+            addBtn.setEnabled(true);
+            cost.setError("cost is required");
+            cost.requestFocus();
+        }
+                else{
+                    save (view,null,source, destination, date,cost,volume,weight, notes);
+                }
+            }
+        });
+        return  view;
+    }
+    public void save(View v, Package p,Spinner source,Spinner destination, CalendarView date,EditText cost,EditText volume,EditText weight,EditText note){
+        Package pack = new Package();
+        pack.setSource(source.toString());
+        pack.setDestination(destination.toString());
+        pack.setWeight(Double.parseDouble(weight.toString()));
+        pack.setVolume(Double.parseDouble(volume.toString()));
+        pack.setDate(date.getDate());// not work
+        pack.setCost(Double.parseDouble(cost.getText().toString()));
+        pack.setNote(note.toString());
+        Model.getInstance().addNewPack(pack, (ifSuccess) -> {
+            if(ifSuccess) {
+                @NonNull NavDirections action = addPackageFragmentDirections.actionAddPackageFragmentToMainScreenSenderFragment();
+                Navigation.findNavController(v).navigate(action);
+            }
+            else{
+                Toast.makeText(getActivity(), "failed to adding package to database", Toast.LENGTH_LONG).show();
+                pb.setVisibility(View.GONE);
+                addBtn.setEnabled(true);
+            }
+        });
     }
 }
