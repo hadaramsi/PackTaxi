@@ -24,7 +24,9 @@ public class Package {
     private String packageID;
     private String source;
     private String destination;
-    private long date;
+//    private long date;
+    private String date;
+
     private double cost;
     private double volume;
     private double weight;
@@ -32,7 +34,7 @@ public class Package {
 
     public Package(){}
 
-    public Package(String packageID, String source, String destination, long date,double cost,double volume,double weight, String note){
+    public Package(String packageID, String source, String destination, String date,double cost,double volume,double weight, String note){
         this.packageID= packageID;
         this.source= source;
         this.destination= destination;
@@ -55,7 +57,7 @@ public class Package {
     public String getNote(){
         return note;
     }
-    public long getDate(){
+    public String getDate(){
         return date;
     }
     public double getCost(){
@@ -80,7 +82,7 @@ public class Package {
     public void setNote(String note){
         this.note = note;
     }
-    public void setDate(long date){
+    public void setDate(String date){
         this.date = date;
     }
     public void setCost(double cost){
@@ -112,7 +114,7 @@ public class Package {
         double weight = (double)json.get(WEIGHT);
         if(weight == 0.0)
             return null;
-        long date= (long) json.get(DATE);
+        String date= (String) json.get(DATE);
         String note = (String) json.get(NOTE);
         if(note == null)
             return null;

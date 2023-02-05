@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,26 +52,17 @@ public class managerMainScreenFragment extends Fragment {
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                Log.d("TAG", "in onMapReady! ");
                 gMap = googleMap;
-                if(Model.getInstance().getAllDeliveryPoints().getValue()!= null){
-
-                    for(DeliveryPoint dp : Model.getInstance().getAllDeliveryPoints().getValue())
+                Log.d("TAG", "points are :"+Model.getInstance().getAllDeliveryPoints().getValue());
+                if(Model.getInstance().getAllDeliveryPoints().getValue()!= null) {
+                    for (DeliveryPoint dp : Model.getInstance().getAllDeliveryPoints().getValue()){
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(dp.getLatitude(), dp.getLongitude())).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointName());
+                    }
                     LatLng Israel = new LatLng(ISRAELLATITUDE, ISRAELLONGITUDE);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Israel, 15));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Israel, ISRAELZOOMLEVEL));
+//                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(ISRAELZOOMLEVEL));
                 }
-//                else{
-//                    Model.getInstance().getDeliveryPointByID(viewModel.getDeliveryPointID(), new Model.getDeliveryPointByIDListener() {
-//                        @Override
-//                        public void onComplete(DeliveryPoint dp) {
-//                            LatLng deliveryPointLocation = new LatLng(dp.getLatitude(), dp.getLongitude());
-//                            googleMap.addMarker(new MarkerOptions().position(deliveryPointLocation).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointID());
-//                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(deliveryPointLocation, DELIVERYPOINTZOOMLEVEL));
-//                        }
-//                    });
-//                }
                 gMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(Marker marker) {

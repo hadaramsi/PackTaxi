@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 @Entity
 public class DeliveryPoint {
@@ -86,10 +87,19 @@ public class DeliveryPoint {
         Geocoder geocoder = new Geocoder(MyApplication.getContext(), Locale.getDefault());
         List<Address> addresses = null;
         try {
+            Log.d("TAG", "latitude is: "+latitude);
+            Log.d("TAG", "longitude is: "+longitude);
+
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            Log.d("TAG", "addresses is: "+addresses);
+
         } catch (IOException e) {
+            Log.d("TAG", "catch Exception!!!!!!!!!!!!!!!!!!! ");
+
             e.printStackTrace();
         }
+        Log.d("TAG", "addresses is: "+addresses);
+
         return addresses.get(0).getAddressLine(0);
     }
 

@@ -1,5 +1,6 @@
 package com.example.packtaxi.model;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
@@ -12,6 +13,7 @@ import java.util.List;
 public class Model {
     static final private Model instance = new Model();
     private ModelFirebase modelFirebase = new ModelFirebase();
+
     private MutableLiveData<List<DeliveryPoint>> deliveryPointsList = new MutableLiveData<List<DeliveryPoint>>();
     private MutableLiveData<LoadingState> deliveryPointsListLoadingState = new MutableLiveData<LoadingState>();
     private MutableLiveData<List<FutureRoute>> routesList = new MutableLiveData<List<FutureRoute>>();
@@ -23,7 +25,12 @@ public class Model {
         loading,
         loaded
     }
-    private Model(){ }
+    private Model(){
+        deliveryPointsListLoadingState.setValue(LoadingState.loaded);
+        reloadDeliveryPointsList();
+
+    }
+    public LiveData<LoadingState> getDPSListLoadingState(){ return deliveryPointsListLoadingState;}
 
     public LiveData<List<FutureRoute>> getAllFutureRoutes(){
         return routesList;
@@ -33,7 +40,10 @@ public class Model {
         return packagesList;
     }
     public LiveData<LoadingState> getPackagesListLoadingState(){ return packagesListLoadingState;}
-
+    public LiveData<List<DeliveryPoint>> getAllDeliveryPoints(){
+        Log.d("TAG", "deliveryPointsList are: "+deliveryPointsList);
+        return deliveryPointsList;
+    }
     public interface logOutUserListener{
         void onComplete();
     }
@@ -171,9 +181,6 @@ public class Model {
     public void getCurrentSender(getCurrentSenderListener listener)
     {
         modelFirebase.getCurrentSender(listener);
-    }
-    public LiveData<List<DeliveryPoint>> getAllDeliveryPoints(){
-        return deliveryPointsList;
     }
 
     public interface getDeliveryPointByIDListener{

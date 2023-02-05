@@ -23,7 +23,10 @@ import com.example.packtaxi.model.FutureRoute;
 import com.example.packtaxi.model.Model;
 import com.example.packtaxi.model.Package;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class addPackageFragment extends Fragment {
@@ -32,7 +35,9 @@ public class addPackageFragment extends Fragment {
     private Spinner destination;
     private EditText weight;
     private EditText volume;
-    private CalendarView date;
+    private CalendarView CalendarView;
+    private String date;
+
     private EditText cost;
     private EditText notes;
     private ProgressBar pb;
@@ -51,10 +56,11 @@ public class addPackageFragment extends Fragment {
         destination = view.findViewById(R.id.spinner2);
         weight = view.findViewById(R.id.addPackage_weight_et);
         volume = view.findViewById(R.id.addPackage_volume_et);
-        date = view.findViewById(R.id.calendarView2);
+        CalendarView = view.findViewById(R.id.calendarView2);
         cost = view.findViewById(R.id.addPackage_cost_et);
         notes = view.findViewById(R.id.addPackage_notes_et);
         pb = view.findViewById(R.id.add_pac_progressBar);
+
         pb.setVisibility(View.GONE);
 //        setState(true);
         Model.getInstance().getDPStringList( (list)->{
@@ -64,6 +70,12 @@ public class addPackageFragment extends Fragment {
             ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(MyApplication.getContext(), android.R.layout.simple_spinner_item, list);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             destination.setAdapter(adapter2);
+        });
+        CalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                date = dayOfMonth + "/" + month + "/" + year ;
+            }
         });
 
 
@@ -82,11 +94,11 @@ public class addPackageFragment extends Fragment {
                     addBtn.setEnabled(true);
                     Toast.makeText(getActivity(), "destination is required", Toast.LENGTH_LONG).show();
                     destination.requestFocus();
-//                }else if((date.getDate()).equals("")) {
-//                    pb.setVisibility(View.GONE);
-//                    addBtn.setEnabled(true);
-//                    Toast.makeText(getActivity(), "Date is required", Toast.LENGTH_LONG).show();
-//                    date.requestFocus();
+                }else if((date).equals("")) {
+                    pb.setVisibility(View.GONE);
+                    addBtn.setEnabled(true);
+                    Toast.makeText(getActivity(), "Date is required", Toast.LENGTH_LONG).show();
+                    CalendarView.requestFocus();
                 }else if(weight.getText().toString().equals("")) {
                     pb.setVisibility(View.GONE);
                     addBtn.setEnabled(true);
@@ -110,15 +122,21 @@ public class addPackageFragment extends Fragment {
         });
         return  view;
     }
-    public void save(View v, Package p,Spinner source,Spinner destination, CalendarView date,EditText cost,EditText volume,EditText weight,EditText note){
+    public void save(View v, Package p,Spinner source,Spinner destination, String date,EditText cost,EditText volume,EditText weight,EditText note){
         Package pack = new Package();
-        pack.setSource(source.toString());
-        pack.setDestination(destination.toString());
-        pack.setWeight(Double.parseDouble(weight.toString()));
-        pack.setVolume(Double.parseDouble(volume.toString()));
-        pack.setDate(date.getDate());// not work
+        pack.setSource(source.getSelectedItem().toString());
+        pack.setDestination(destination.getSelectedItem().toString());
+        pack.setWeight(Double.parseDouble(weight.getText().toString()));
+        pack.setVolume(Double.parseDouble(volume.getText().toString()));
+        pack.setDate(date);
         pack.setCost(Double.parseDouble(cost.getText().toString()));
-        pack.setNote(note.toString());
+        pack.setNote(note.getText().toString());
+        if(p!= null && p.getPackageID() != null)
+            pack.setPackageID(p.getPackageID());
+        else {
+            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+            pack.setPackageID(currentTime+pack.getSource()+pack.getDestination());
+        }
         Model.getInstance().addNewPack(pack, (ifSuccess) -> {
             if(ifSuccess) {
                 @NonNull NavDirections action = addPackageFragmentDirections.actionAddPackageFragmentToMainScreenSenderFragment();
