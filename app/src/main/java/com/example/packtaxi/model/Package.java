@@ -19,6 +19,8 @@ public class Package {
     final static String VOLUME = "volume";
     final static String WEIGHT = "weight";
     final static String NOTE = "note";
+    final static String SENDER = "sender";
+
     @PrimaryKey
     @NonNull
     private String packageID;
@@ -26,7 +28,7 @@ public class Package {
     private String destination;
 //    private long date;
     private String date;
-
+    private String sender;
     private double cost;
     private double volume;
     private double weight;
@@ -34,7 +36,7 @@ public class Package {
 
     public Package(){}
 
-    public Package(String packageID, String source, String destination, String date,double cost,double volume,double weight, String note){
+    public Package(String packageID, String source, String destination, String date,double cost,double volume,double weight, String note, String sender){
         this.packageID= packageID;
         this.source= source;
         this.destination= destination;
@@ -43,11 +45,16 @@ public class Package {
         this.date=date;
         this.weight=weight;
         this.volume=volume;
+        this.sender=sender;
     }
 
     public String getPackageID(){
         return packageID;
     }
+    public String getSender(){
+        return sender;
+    }
+
     public String getSource(){
         return source;
     }
@@ -68,6 +75,9 @@ public class Package {
     }
     public double getVolume(){
         return volume;
+    }
+    public void setSender(String s){
+        this.sender = s;
     }
 
     public void setPackageID(String packageID){
@@ -115,10 +125,12 @@ public class Package {
         if(weight == 0.0)
             return null;
         String date= (String) json.get(DATE);
+        String sender= (String) json.get(SENDER);
+
         String note = (String) json.get(NOTE);
         if(note == null)
             return null;
-        Package p = new Package(packageID, source, destination, date,cost,volume,weight, note);
+        Package p = new Package(packageID, source, destination, date,cost,volume,weight, note, sender);
         return p;
     }
     public Map<String, Object> toJson(){
@@ -131,6 +143,7 @@ public class Package {
         json.put(NOTE, note);
         json.put(WEIGHT, weight);
         json.put(VOLUME, volume);
+        json.put(SENDER, sender);
         return json;
     }
 

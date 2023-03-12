@@ -89,7 +89,7 @@ public class FutureRoute {
         double cost = (double)json.get(COST);
         if(cost == 0.0)
             return null;
-        long date= (long) json.get(DATE);//new SimpleDateFormat("yyyy-MM-dd").format(json.get(DATE));
+        long date= (long) json.get(DATE);
         String driver = (String) json.get(DRIVER);
         if(driver == null)
             return null;

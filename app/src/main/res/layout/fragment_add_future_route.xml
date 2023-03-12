@@ -20,6 +20,108 @@
                 android:layout_height="730dp"
                 android:background="@drawable/app_background">
 
+                <Spinner
+                    android:id="@+id/spinner4"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+                <Spinner
+                    android:id="@+id/spinner5"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv3"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+
+                <Spinner
+                    android:id="@+id/spinner6"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv4"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner7" />
+
+                <Spinner
+                    android:id="@+id/spinner7"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv5"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner5" />
+
+                <TextView
+                    android:id="@+id/addDrive_source_tv5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Destination:"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addDrive_source_tv4" />
+
+                <TextView
+                    android:id="@+id/addDrive_source_tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Destination:"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addDrive_source_tv3" />
+
+                <TextView
+                    android:id="@+id/addDrive_source_tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Destination:"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addDrive_source_tv2" />
+
+                <TextView
+                    android:id="@+id/addDrive_source_tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Destination:"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addDrive_source_tv" />
+
+                <Spinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv2"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="0dp"
@@ -39,8 +141,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
-                    android:text="points:"
+                    android:layout_marginTop="10dp"
+                    android:text="Source:"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -49,8 +151,8 @@
                     android:id="@+id/addDrive_date_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
                     android:text="Date:"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -60,12 +162,12 @@
                     android:id="@+id/addDrive_cost_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
                     android:text="Cost per km:"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addDrive_source_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/addDrive_source_tv5" />
 
                 <Button
                     android:id="@+id/addDrive_add_btn"
@@ -87,13 +189,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="5dp"
                     android:ems="10"
                     android:inputType="number"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/addDrive_cost_tv"
-                    app:layout_constraintTop_toBottomOf="@+id/selectPoints_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinner6" />
 
                 <ProgressBar
                     android:id="@+id/addDrive_pb"
@@ -110,26 +213,10 @@
                     android:layout_width="294dp"
                     android:layout_height="278dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintStart_toEndOf="@+id/addDrive_date_tv"
                     app:layout_constraintTop_toBottomOf="@+id/addDrive_cost_et" />
 
-                <TextView
-                    android:id="@+id/selectPoints_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="5dp"
-                    android:drawableRight="@android:drawable/arrow_down_float"
-                    android:drawablePadding="16dp"
-                    android:hint="Select Points"
-                    android:padding="12dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

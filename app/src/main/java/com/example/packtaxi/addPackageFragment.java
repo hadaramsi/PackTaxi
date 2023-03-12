@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
 public class addPackageFragment extends Fragment {
     private Button addBtn;
     private Spinner source;
@@ -37,6 +36,7 @@ public class addPackageFragment extends Fragment {
     private EditText volume;
     private CalendarView CalendarView;
     private String date;
+    private String sender;
 
     private EditText cost;
     private EditText notes;
@@ -122,30 +122,37 @@ public class addPackageFragment extends Fragment {
         });
         return  view;
     }
+
     public void save(View v, Package p,Spinner source,Spinner destination, String date,EditText cost,EditText volume,EditText weight,EditText note){
         Package pack = new Package();
-        pack.setSource(source.getSelectedItem().toString());
-        pack.setDestination(destination.getSelectedItem().toString());
-        pack.setWeight(Double.parseDouble(weight.getText().toString()));
-        pack.setVolume(Double.parseDouble(volume.getText().toString()));
-        pack.setDate(date);
-        pack.setCost(Double.parseDouble(cost.getText().toString()));
-        pack.setNote(note.getText().toString());
-        if(p!= null && p.getPackageID() != null)
-            pack.setPackageID(p.getPackageID());
-        else {
-            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-            pack.setPackageID(currentTime+pack.getSource()+pack.getDestination());
-        }
-        Model.getInstance().addNewPack(pack, (ifSuccess) -> {
-            if(ifSuccess) {
-                @NonNull NavDirections action = addPackageFragmentDirections.actionAddPackageFragmentToMainScreenSenderFragment();
-                Navigation.findNavController(v).navigate(action);
-            }
-            else{
-                Toast.makeText(getActivity(), "failed to adding package to database", Toast.LENGTH_LONG).show();
-                pb.setVisibility(View.GONE);
-                addBtn.setEnabled(true);
+        Model.getInstance().getCurrentSender(new Model.getCurrentSenderListener() {
+            @Override
+            public void onComplete(String senderEmail) {
+                pack.setSource(source.getSelectedItem().toString());
+                pack.setDestination(destination.getSelectedItem().toString());
+                pack.setWeight(Double.parseDouble(weight.getText().toString()));
+                pack.setVolume(Double.parseDouble(volume.getText().toString()));
+                pack.setDate(date);
+                pack.setSender(senderEmail);
+                pack.setCost(Double.parseDouble(cost.getText().toString()));
+                pack.setNote(note.getText().toString());
+                if(p!= null && p.getPackageID() != null)
+                    pack.setPackageID(p.getPackageID());
+                else {
+                    String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+                    pack.setPackageID(currentTime+pack.getSource()+pack.getDestination());
+                }
+                Model.getInstance().addNewPack(pack, (ifSuccess) -> {
+                    if(ifSuccess) {
+                        @NonNull NavDirections action = addPackageFragmentDirections.actionAddPackageFragmentToMainScreenSenderFragment();
+                        Navigation.findNavController(v).navigate(action);
+                    }
+                    else{
+                        Toast.makeText(getActivity(), "failed to adding package to database", Toast.LENGTH_LONG).show();
+                        pb.setVisibility(View.GONE);
+                        addBtn.setEnabled(true);
+                    }
+                });
             }
         });
     }

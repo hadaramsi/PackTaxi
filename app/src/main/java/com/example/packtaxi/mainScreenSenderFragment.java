@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,14 +22,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.packtaxi.model.FutureRoute;
 import com.example.packtaxi.model.Model;
 import com.example.packtaxi.model.Package;
 
 public class mainScreenSenderFragment extends Fragment {
     private View view;
     private packageListViewModel viewModel;
-    private mainScreenSenderFragment.MyAdapter adapter;
+    private MyAdapter adapter;
     private SwipeRefreshLayout swipeRefresh;
     private TextView noPackagesMessage;
     private ProgressBar pb;
@@ -38,7 +38,10 @@ public class mainScreenSenderFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        Log.d("TAG","get list");
         viewModel = new ViewModelProvider(this).get(packageListViewModel.class);
+        Log.d("TAG",""+viewModel);
+
     }
 
     @Override
@@ -74,10 +77,10 @@ public class mainScreenSenderFragment extends Fragment {
             noPackagesMessage.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -127,18 +130,16 @@ public class mainScreenSenderFragment extends Fragment {
         return view;
     }
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        private final mainScreenSenderFragment.OnItemClickListener listener;
+        private final OnItemClickListener listener;
         TextView source;
         TextView destination;
         TextView date;
-        TextView cost;
 
-        public MyViewHolder(@NonNull View itemView, mainScreenSenderFragment.OnItemClickListener listener) {
+        public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            source = itemView.findViewById(R.id.pacListRow_sor);
-            destination = itemView.findViewById(R.id.pacListRow_dis);
-//            date = itemView.findViewById(R.id.routeListRow_date);
-//            cost = itemView.findViewById(R.id.reportListRow_iv);
+            source = itemView.findViewById(R.id.pacListRow_so);
+            destination = itemView.findViewById(R.id.pacListRow_de);
+            date = itemView.findViewById(R.id.pacListRow_da);
             this.listener = listener;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -154,7 +155,6 @@ public class mainScreenSenderFragment extends Fragment {
             source.setText(p.getSource());
             destination.setText(p.getDestination());
             date.setText(String.valueOf(p.getDate()));
-            cost.setText(String.valueOf(p.getCost()));
         }
     }
         interface OnItemClickListener {
@@ -162,7 +162,7 @@ public class mainScreenSenderFragment extends Fragment {
         }
 
         class MyAdapter extends RecyclerView.Adapter<mainScreenSenderFragment.MyViewHolder> {
-            private mainScreenSenderFragment.OnItemClickListener listener;
+            private OnItemClickListener listener;
 
             public void setOnItemClickListener(mainScreenSenderFragment.OnItemClickListener listener) {
                 this.listener = listener;
