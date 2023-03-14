@@ -26,12 +26,12 @@ public class Driver {
     private String licenseNumber;
     private String carNumber;
     private double rate;
-    private int maxVolume;
-    private int maxWeight;
+    private long maxVolume;
+    private long maxWeight;
 
     public Driver(){}
 
-    public Driver(String email, String password, String fullName, String licenseNumber,String carNumber, int maxVolume, int maxWeight){
+    public Driver(String email, String password, String fullName, String licenseNumber,String carNumber, long maxVolume, long maxWeight){
         this.email= email;
         this.password= password;
         this.fullName= fullName;
@@ -57,10 +57,10 @@ public class Driver {
     public String getCarNumber(){
         return carNumber;
     }
-    public int getMaxVolume(){
+    public long getMaxVolume(){
         return maxVolume;
     }
-    public int getMaxWeight(){
+    public long getMaxWeight(){
         return maxWeight;
     }
     public void setEmail(String email){
@@ -79,10 +79,10 @@ public class Driver {
     public void setCarNumber(String carNumber){
         this.carNumber = carNumber;
     }
-    public void setMaxVolume(int maxVolume){
+    public void setMaxVolume(long maxVolume){
         this.maxVolume = maxVolume;
     }
-    public void setMaxWeight(int maxWeight){
+    public void setMaxWeight(long maxWeight){
         this.maxWeight = maxWeight;
     }
     static public Driver fromJson(Map<String, Object> json){
@@ -101,10 +101,10 @@ public class Driver {
         String carNumber = (String)json.get(CAR_NUMBER);
         if(carNumber == null)
             return null;
-        int maxVolume = (int) json.get(MAX_VOLUME);
+        long maxVolume = (long) json.get(MAX_VOLUME);
         if(maxVolume == 0)
             return null;
-        int maxWeight = (int)json.get(MAX_WEIGHT);
+        long maxWeight = (long)json.get(MAX_WEIGHT);
         if(maxWeight == 0)
             return null;
         Driver driver = new Driver(email, password, fullName, licenseNumber, carNumber, maxVolume, maxWeight);

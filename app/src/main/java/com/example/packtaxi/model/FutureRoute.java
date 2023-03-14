@@ -24,13 +24,13 @@ public class FutureRoute {
     private String futureRouteID;
     private String source;
     private String destination;
-    private long date;
+    private String date;
     private double cost;
     private String driver;
 
     public FutureRoute(){}
 
-    public FutureRoute(String futureRouteID, String source, String destination, long date,double cost, String driver){
+    public FutureRoute(String futureRouteID, String source, String destination, String date,double cost, String driver){
         this.futureRouteID= futureRouteID;
         this.source= source;
         this.destination= destination;
@@ -50,7 +50,7 @@ public class FutureRoute {
     public String getDriver(){
         return driver;
     }
-    public long getDate(){
+    public String getDate(){
         return date;
     }
     public double getCost(){
@@ -69,7 +69,7 @@ public class FutureRoute {
     public void setDriver(String driver){
         this.driver = driver;
     }
-    public void setDate(long date){
+    public void setDate(String date){
         this.date = date;
     }
     public void setCost(double cost){
@@ -89,7 +89,7 @@ public class FutureRoute {
         double cost = (double)json.get(COST);
         if(cost == 0.0)
             return null;
-        long date= (long) json.get(DATE);
+        String date= (String) json.get(DATE);
         String driver = (String) json.get(DRIVER);
         if(driver == null)
             return null;

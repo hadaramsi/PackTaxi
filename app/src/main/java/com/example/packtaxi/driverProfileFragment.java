@@ -67,8 +67,8 @@ public class driverProfileFragment extends Fragment {
         emailTv.setText(d.getEmail());
         carNumber.setText(d.getCarNumber());
         licenseNumber.setText(d.getLicenseNumber());
-        maximumWeight.setText(d.getMaxWeight());
-        maximumVolume.setText(d.getMaxVolume());
+        maximumWeight.setText(String.valueOf(d.getMaxWeight()));
+        maximumVolume.setText(String.valueOf(d.getMaxVolume()));
         rating.setText(String.valueOf(d.getRate()));
         pb.setVisibility(View.GONE);
     }

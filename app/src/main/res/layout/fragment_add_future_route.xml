@@ -21,7 +21,7 @@
                 android:background="@drawable/app_background">
 
                 <Spinner
-                    android:id="@+id/spinner4"
+                    android:id="@+id/source1"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
@@ -33,7 +33,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
                 <Spinner
-                    android:id="@+id/spinner5"
+                    android:id="@+id/des2"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
@@ -42,10 +42,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv3"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+                    app:layout_constraintTop_toBottomOf="@+id/des1" />
 
                 <Spinner
-                    android:id="@+id/spinner6"
+                    android:id="@+id/des4"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
@@ -54,10 +54,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv4"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner7" />
+                    app:layout_constraintTop_toBottomOf="@+id/des3" />
 
                 <Spinner
-                    android:id="@+id/spinner7"
+                    android:id="@+id/des3"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
@@ -65,7 +65,7 @@
                     android:layout_marginEnd="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv5"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner5" />
+                    app:layout_constraintTop_toBottomOf="@+id/des2" />
 
                 <TextView
                     android:id="@+id/addDrive_source_tv5"
@@ -112,7 +112,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/addDrive_source_tv" />
 
                 <Spinner
-                    android:id="@+id/spinner3"
+                    android:id="@+id/des1"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
@@ -120,7 +120,7 @@
                     android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/addDrive_source_tv2"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+                    app:layout_constraintTop_toBottomOf="@+id/source1" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -173,8 +173,8 @@
                     android:id="@+id/addDrive_add_btn"
                     android:layout_width="190dp"
                     android:layout_height="65dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     android:backgroundTint="#E8CCA2"
                     android:text="Add"
                     android:textSize="24sp"
@@ -196,7 +196,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/addDrive_cost_tv"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner6" />
+                    app:layout_constraintTop_toBottomOf="@+id/des4" />
 
                 <ProgressBar
                     android:id="@+id/addDrive_pb"
@@ -210,8 +210,8 @@
 
                 <CalendarView
                     android:id="@+id/calendarView"
-                    android:layout_width="294dp"
-                    android:layout_height="278dp"
+                    android:layout_width="290dp"
+                    android:layout_height="309dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     app:layout_constraintStart_toEndOf="@+id/addDrive_date_tv"

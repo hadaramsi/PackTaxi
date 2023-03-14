@@ -1,12 +1,10 @@
 package com.example.packtaxi;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +14,11 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.packtaxi.model.FutureRoute;
 import com.example.packtaxi.model.Model;
 import com.example.packtaxi.model.Package;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class addPackageFragment extends Fragment {
