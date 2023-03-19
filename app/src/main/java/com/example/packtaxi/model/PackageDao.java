@@ -17,4 +17,7 @@ public interface PackageDao {
 
     @Query("select * from Package")
     List<Package> getAll();
+
+    @Query("SELECT * FROM Package WHERE sender=:s")
+    List<Package> getMyPackages(String s);
 }

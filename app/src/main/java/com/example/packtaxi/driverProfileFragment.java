@@ -58,7 +58,7 @@ public class driverProfileFragment extends Fragment {
                 });
             }
         });
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         return view;
     }
     public void setDetails(Driver d){
@@ -72,10 +72,10 @@ public class driverProfileFragment extends Fragment {
         rating.setText(String.valueOf(d.getRate()));
         pb.setVisibility(View.GONE);
     }
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.driver_menu, menu);
-        inflater.inflate(R.menu.base_menu, menu);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.driver_menu, menu);
+//        inflater.inflate(R.menu.base_menu, menu);
+//    }
 }

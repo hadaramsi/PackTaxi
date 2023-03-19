@@ -68,21 +68,30 @@ public class ModelFirebase {
             }
         });
     }
-    public void getPackagesList(Model.GetAllPackagesListener listener) {
+    public void getPackagesList(String email, Model.GetAllPackagesListener listener) {
         db.collection(PACKAGES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 LinkedList<Package> packagesList = new LinkedList<Package>();
                 if(task.isSuccessful()) {
+                    Log.d("heyyyy1","");
                     for(QueryDocumentSnapshot doc:task.getResult()) {
                         Package p = Package.fromJson(doc.getId(), doc.getData());
-                        if(p != null)
-                            packagesList.add(p);
+                        if(p != null) {
+                            Log.d("heyyyy2", "");
+                            if (p.getSender().equals(email)) {
+                                Log.d("heyyyy3", "");
+                                packagesList.add(p);
+                            }
+                        }
                     }
                 }
+                Log.d("heyyyy","");
+                Log.d("TAG", packagesList.toString());
                 listener.onComplete(packagesList);
             }
         });
+
     }
 
     public void getCurrentSender(Model.getCurrentSenderListener listener)
@@ -298,6 +307,7 @@ public class ModelFirebase {
             }
         });
     }
+
 
     public void addSender(Sender sender,String password, Model.AddSenderListener listener){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

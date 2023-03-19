@@ -28,15 +28,34 @@ public class Model {
     private Model(){
         deliveryPointsListLoadingState.setValue(LoadingState.loaded);
         reloadDeliveryPointsList();
-
+//        routesListLoadingState.setValue(LoadingState.loaded);
+//        reloadRoutesList();
+        packagesListLoadingState.setValue(LoadingState.loaded);
+        reloadPackagesList();
+//        reloadUserPackagesList();
     }
     public LiveData<LoadingState> getDPSListLoadingState(){ return deliveryPointsListLoadingState;}
+
+//    public LiveData<List<Package>> getAllUserPackage(){
+//        return packageList;
+//    }
+//    public void reloadUserPackagesList() {
+//        modelFirebase.getCurrentSender(new getCurrentSenderListener() {
+//            @Override
+//            public void onComplete(String userEmail) {
+//                MyApplication.executorService.execute(()-> {
+//                    List<Package> userRepList = AppLocalDB.db.PackageDao().getMyPackage(userEmail);
+//                    packageList.postValue(userRepList);
+//                });
+//            }
+//        });
+//    }
 
     public LiveData<List<FutureRoute>> getAllFutureRoutes(){
         return routesList;
     }
     public LiveData<LoadingState> getRoutesListLoadingState(){ return routesListLoadingState;}
-    public LiveData<List<Package>> getAllPackages(){
+    public LiveData<List<Package>> getAllPackagesSender(){
         return packagesList;
     }
     public LiveData<LoadingState> getPackagesListLoadingState(){ return packagesListLoadingState;}
@@ -64,7 +83,7 @@ public class Model {
     }
     public void addNewPack(Package pack, addNewPackListener listener){
         modelFirebase.addNewPack(pack, (success)->{
-            reloadPackagesList();
+//            reloadPackagesList();
             listener.onComplete(success);
         });
     }
@@ -142,12 +161,22 @@ public class Model {
     }
     public void reloadPackagesList(){
         packagesListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
-        modelFirebase.getPackagesList((list)->{
-            MyApplication.executorService.execute(()->{
-                List<Package> PList = AppLocalDB.db.PackageDao().getAll();
-                packagesList.postValue(PList);
-                packagesListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
-            });
+        modelFirebase.getCurrentSender(new getCurrentSenderListener() {
+            @Override
+            public void onComplete(String userEmail) {
+                modelFirebase.getPackagesList(userEmail,(list)->{
+                    MyApplication.executorService.execute(()-> {
+                        for(Package p:list){
+                            AppLocalDB.db.PackageDao().insertAll(p);
+                        }
+                        Log.d("yyy", list.toString());
+                        List<Package> packageL= AppLocalDB.db.PackageDao().getMyPackages(userEmail);
+                        packagesList.postValue(packageL);
+                        packagesListLoadingState.postValue(LoadingState.loaded);
+
+                    });
+                });
+            }
         });
     }
     public interface GetAllRoutesListener{

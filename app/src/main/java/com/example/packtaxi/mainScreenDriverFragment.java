@@ -81,7 +81,7 @@ public class mainScreenDriverFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_main_screen_driver, container, false);
         pb = view.findViewById(R.id.packagesList_progressBar);
         pb.setVisibility(View.VISIBLE);
-        RecyclerView list = view.findViewById(R.id.reportsList_recycler);
+        RecyclerView list = view.findViewById(R.id.packageList_recycler);
         list.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);

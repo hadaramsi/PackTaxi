@@ -19,11 +19,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.packtaxi.model.Model;
 import com.example.packtaxi.model.Package;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class mainScreenSenderFragment extends Fragment {
     private View view;
@@ -38,10 +44,7 @@ public class mainScreenSenderFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        Log.d("TAG","get list");
         viewModel = new ViewModelProvider(this).get(packageListViewModel.class);
-        Log.d("TAG",""+viewModel);
-
     }
 
     @Override
@@ -89,7 +92,7 @@ public class mainScreenSenderFragment extends Fragment {
         view= inflater.inflate(R.layout.fragment_main_screen_sender, container, false);
         pb = view.findViewById(R.id.packagesList_progressBar);
         pb.setVisibility(View.VISIBLE);
-        RecyclerView list = view.findViewById(R.id.reportsList_recycler);
+        RecyclerView list = view.findViewById(R.id.packageList_recycler);
         list.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
@@ -99,11 +102,13 @@ public class mainScreenSenderFragment extends Fragment {
 
         adapter = new mainScreenSenderFragment.MyAdapter();
         list.setAdapter(adapter);
-        adapter.setOnItemClickListener(new mainScreenSenderFragment.OnItemClickListener() {
+        adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
                 Package p = viewModel.getPackage().getValue().get(position);
-                @NonNull NavDirections action = mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToPackageDetailsFragment(p.getPackageID());
+//                @NonNull NavDirections action = mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToPackageDetailsFragment(p.getPackageID());
+//                Navigation.findNavController(v).navigate(action);
+                mainScreenSenderFragmentDirections.ActionMainScreenSenderFragmentToPackageDetailsFragment action = mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToPackageDetailsFragment(p.getPackageID());
                 Navigation.findNavController(v).navigate(action);
             }
         });
@@ -115,10 +120,17 @@ public class mainScreenSenderFragment extends Fragment {
             }
         });
 
+
         viewModel.getPackage().observe(getViewLifecycleOwner(), (packagesList)-> {
+            Log.d("HHH", packagesList.toString());
             adapter.notifyDataSetChanged();
             noPackagesMessage();
         });
+
+//        viewModel.getPackage().observe(getViewLifecycleOwner(), (packagesList)-> {
+//            adapter.notifyDataSetChanged();
+//            noPackagesMessage();
+//        });
 
         swipeRefresh.setRefreshing(Model.getInstance().getPackagesListLoadingState().getValue() == Model.LoadingState.loading);
         Model.getInstance().getPackagesListLoadingState().observe(getViewLifecycleOwner(), loadingState -> {
@@ -161,24 +173,24 @@ public class mainScreenSenderFragment extends Fragment {
             void onItemClick(int position, View v);
         }
 
-        class MyAdapter extends RecyclerView.Adapter<mainScreenSenderFragment.MyViewHolder> {
+        class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             private OnItemClickListener listener;
 
-            public void setOnItemClickListener(mainScreenSenderFragment.OnItemClickListener listener) {
+            public void setOnItemClickListener(OnItemClickListener listener) {
                 this.listener = listener;
             }
 
             @NonNull
             @Override
-            public mainScreenSenderFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 LayoutInflater inflater = getLayoutInflater();
                 View rowView = inflater.inflate(R.layout.package_list_row, parent, false);
-                mainScreenSenderFragment.MyViewHolder viewHolder = new mainScreenSenderFragment.MyViewHolder(rowView, listener);
+                MyViewHolder viewHolder = new MyViewHolder(rowView, listener);
                 return viewHolder;
             }
 
             @Override
-            public void onBindViewHolder(@NonNull mainScreenSenderFragment.MyViewHolder holder, int position) {
+            public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
                 Package P = viewModel.getPackage().getValue().get(position);
                 holder.bind(P);
             }
