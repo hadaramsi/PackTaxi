@@ -15,7 +15,7 @@
         android:background="@drawable/row_color">
 
         <TextView
-            android:id="@+id/routeListRow_destination"
+            android:id="@+id/routeListRow_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -43,7 +43,7 @@
             app:srcCompat="@drawable/driver2" />
 
         <TextView
-            android:id="@+id/routeListRow_date"
+            android:id="@+id/routeListRow_sorToDes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -58,7 +58,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/routeListRow_source"
+            android:id="@+id/routeListRow_cost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -67,11 +67,11 @@
             android:text="TextView"
             android:textColor="#050505"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/routeListRow_destination"
+            app:layout_constraintBottom_toTopOf="@+id/routeListRow_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/reportListRow_iv"
-            app:layout_constraintTop_toBottomOf="@+id/routeListRow_date" />
+            app:layout_constraintTop_toBottomOf="@+id/routeListRow_sorToDes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

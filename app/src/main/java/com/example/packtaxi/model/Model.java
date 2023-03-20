@@ -13,7 +13,6 @@ import java.util.List;
 public class Model {
     static final private Model instance = new Model();
     private ModelFirebase modelFirebase = new ModelFirebase();
-
     private MutableLiveData<List<DeliveryPoint>> deliveryPointsList = new MutableLiveData<List<DeliveryPoint>>();
     private MutableLiveData<LoadingState> deliveryPointsListLoadingState = new MutableLiveData<LoadingState>();
     private MutableLiveData<List<FutureRoute>> routesList = new MutableLiveData<List<FutureRoute>>();
@@ -21,48 +20,24 @@ public class Model {
     private MutableLiveData<List<Package>> packagesList = new MutableLiveData<List<Package>>();
     private MutableLiveData<LoadingState> packagesListLoadingState = new MutableLiveData<LoadingState>();
 
-    public enum LoadingState{
-        loading,
-        loaded
-    }
+    public enum LoadingState{ loading, loaded}
+
     private Model(){
         deliveryPointsListLoadingState.setValue(LoadingState.loaded);
         reloadDeliveryPointsList();
-//        routesListLoadingState.setValue(LoadingState.loaded);
-//        reloadRoutesList();
+        routesListLoadingState.setValue(LoadingState.loaded);
+        reloadRoutesList();
         packagesListLoadingState.setValue(LoadingState.loaded);
         reloadPackagesList();
-//        reloadUserPackagesList();
     }
     public LiveData<LoadingState> getDPSListLoadingState(){ return deliveryPointsListLoadingState;}
-
-//    public LiveData<List<Package>> getAllUserPackage(){
-//        return packageList;
-//    }
-//    public void reloadUserPackagesList() {
-//        modelFirebase.getCurrentSender(new getCurrentSenderListener() {
-//            @Override
-//            public void onComplete(String userEmail) {
-//                MyApplication.executorService.execute(()-> {
-//                    List<Package> userRepList = AppLocalDB.db.PackageDao().getMyPackage(userEmail);
-//                    packageList.postValue(userRepList);
-//                });
-//            }
-//        });
-//    }
-
     public LiveData<List<FutureRoute>> getAllFutureRoutes(){
         return routesList;
     }
     public LiveData<LoadingState> getRoutesListLoadingState(){ return routesListLoadingState;}
-    public LiveData<List<Package>> getAllPackagesSender(){
-        return packagesList;
-    }
+    public LiveData<List<Package>> getAllPackagesSender(){ return packagesList; }
     public LiveData<LoadingState> getPackagesListLoadingState(){ return packagesListLoadingState;}
-    public LiveData<List<DeliveryPoint>> getAllDeliveryPoints(){
-        Log.d("TAG", "deliveryPointsList are: "+deliveryPointsList);
-        return deliveryPointsList;
-    }
+    public LiveData<List<DeliveryPoint>> getAllDeliveryPoints(){ return deliveryPointsList; }
     public interface logOutUserListener{
         void onComplete();
     }
@@ -83,7 +58,7 @@ public class Model {
     }
     public void addNewPack(Package pack, addNewPackListener listener){
         modelFirebase.addNewPack(pack, (success)->{
-//            reloadPackagesList();
+            reloadPackagesList();
             listener.onComplete(success);
         });
     }
@@ -99,8 +74,7 @@ public class Model {
     public interface GetAllDPListener{
         void onComplete(List<String> data);
     }
-    public void getDPStringList(GetAllDPListener listener)
-    {
+    public void getDPStringList(GetAllDPListener listener) {
         modelFirebase.getDPStringList(listener);
     }
     public interface GetDPsListener{
@@ -151,12 +125,20 @@ public class Model {
     }
     public void reloadRoutesList(){
         routesListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
-        modelFirebase.getRoutesList((list)->{
-            MyApplication.executorService.execute(()->{
-                List<FutureRoute> frsList = AppLocalDB.db.FutureRouteDao().getAll();
-                routesList.postValue(frsList);
-                routesListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
-            });
+        modelFirebase.getCurrentDriver(new getCurrentDriverListener() {
+            @Override
+            public void onComplete(String userEmail) {
+                modelFirebase.getRoutesList(userEmail,(list)->{
+                    MyApplication.executorService.execute(()-> {
+                        for(FutureRoute f:list){
+                            AppLocalDB.db.FutureRouteDao().insertAll(f);
+                        }
+                        List<FutureRoute> routesL= AppLocalDB.db.FutureRouteDao().getMyRoutes(userEmail);
+                        routesList.postValue(routesL);
+                        routesListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
+                    });
+                });
+            }
         });
     }
     public void reloadPackagesList(){

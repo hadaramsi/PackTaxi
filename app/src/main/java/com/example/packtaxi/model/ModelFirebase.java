@@ -52,7 +52,7 @@ public class ModelFirebase {
                 });
     }
 
-    public void getRoutesList(Model.GetAllRoutesListener listener) {
+    public void getRoutesList(String email,Model.GetAllRoutesListener listener) {
         db.collection(ROUTES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -60,8 +60,11 @@ public class ModelFirebase {
                 if(task.isSuccessful()) {
                     for(QueryDocumentSnapshot doc:task.getResult()) {
                         FutureRoute r = FutureRoute.fromJson(doc.getId(), doc.getData());
-                        if(r != null)
-                            routesList.add(r);
+                        if(r != null) {
+                            if (r.getDriver().equals(email)) {
+                                routesList.add(r);
+                            }
+                        }
                     }
                 }
                 listener.onComplete(routesList);
@@ -74,24 +77,18 @@ public class ModelFirebase {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 LinkedList<Package> packagesList = new LinkedList<Package>();
                 if(task.isSuccessful()) {
-                    Log.d("heyyyy1","");
                     for(QueryDocumentSnapshot doc:task.getResult()) {
                         Package p = Package.fromJson(doc.getId(), doc.getData());
                         if(p != null) {
-                            Log.d("heyyyy2", "");
                             if (p.getSender().equals(email)) {
-                                Log.d("heyyyy3", "");
                                 packagesList.add(p);
                             }
                         }
                     }
                 }
-                Log.d("heyyyy","");
-                Log.d("TAG", packagesList.toString());
                 listener.onComplete(packagesList);
             }
         });
-
     }
 
     public void getCurrentSender(Model.getCurrentSenderListener listener)

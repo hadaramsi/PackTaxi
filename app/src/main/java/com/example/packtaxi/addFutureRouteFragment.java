@@ -130,7 +130,6 @@ public class addFutureRouteFragment extends Fragment {
                         save(view,null, destination3, destination4,date,costEt);
                         save(view,null, destination2, destination4,date,costEt);
                     }
-
                 }
             }
         });

@@ -14,5 +14,4 @@ public class packageListViewModel extends ViewModel {
     public LiveData<List<Package>> getPackage(){
         return packages;
     }
-//    public void setMyRoutes(LiveData<List<FutureRoute>>data){myFutureRoutes = data;}
 }

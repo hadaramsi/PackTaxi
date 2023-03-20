@@ -120,17 +120,10 @@ public class mainScreenSenderFragment extends Fragment {
             }
         });
 
-
         viewModel.getPackage().observe(getViewLifecycleOwner(), (packagesList)-> {
-            Log.d("HHH", packagesList.toString());
             adapter.notifyDataSetChanged();
             noPackagesMessage();
         });
-
-//        viewModel.getPackage().observe(getViewLifecycleOwner(), (packagesList)-> {
-//            adapter.notifyDataSetChanged();
-//            noPackagesMessage();
-//        });
 
         swipeRefresh.setRefreshing(Model.getInstance().getPackagesListLoadingState().getValue() == Model.LoadingState.loading);
         Model.getInstance().getPackagesListLoadingState().observe(getViewLifecycleOwner(), loadingState -> {
@@ -143,14 +136,15 @@ public class mainScreenSenderFragment extends Fragment {
     }
     static class MyViewHolder extends RecyclerView.ViewHolder {
         private final OnItemClickListener listener;
-        TextView source;
-        TextView destination;
+        TextView sourceToDestination;
+        TextView cost;
+
         TextView date;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            source = itemView.findViewById(R.id.pacListRow_so);
-            destination = itemView.findViewById(R.id.pacListRow_de);
+            sourceToDestination = itemView.findViewById(R.id.pacListRow_so);
+            cost = itemView.findViewById(R.id.pacListRow_de);
             date = itemView.findViewById(R.id.pacListRow_da);
             this.listener = listener;
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -164,8 +158,8 @@ public class mainScreenSenderFragment extends Fragment {
         }
 
         public void bind(Package p) {
-            source.setText(p.getSource());
-            destination.setText(p.getDestination());
+            sourceToDestination.setText(p.getSource()+" -> "+p.getDestination());
+            cost.setText(p.getCost()+" ₪");
             date.setText(String.valueOf(p.getDate()));
         }
     }

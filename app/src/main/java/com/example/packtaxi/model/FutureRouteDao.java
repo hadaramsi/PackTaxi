@@ -17,4 +17,7 @@ public interface FutureRouteDao {
 
     @Query("SELECT * FROM FutureRoute")
     List<FutureRoute> getAll();
+
+    @Query("SELECT * FROM FutureRoute WHERE driver=:d")
+    List<FutureRoute> getMyRoutes(String d);
 }

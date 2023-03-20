@@ -9,6 +9,5 @@ import java.util.List;
 public class FutureRoutesListViewModel extends ViewModel {
     private LiveData<List<FutureRoute>> futureRoute = Model.getInstance().getAllFutureRoutes();
     public LiveData<List<FutureRoute>> getRoutes(){return futureRoute;}
-//    public void setMyRoutes(LiveData<List<FutureRoute>>data){myFutureRoutes = data;}
 
 }

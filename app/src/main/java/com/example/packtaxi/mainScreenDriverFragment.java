@@ -123,17 +123,15 @@ public class mainScreenDriverFragment extends Fragment {
     }
     static class MyViewHolder extends RecyclerView.ViewHolder {
         private final OnItemClickListener listener;
-        TextView source;
-        TextView destination;
+        TextView sourceToDestination;
         TextView date;
         TextView cost;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            source = itemView.findViewById(R.id.routeListRow_date);
-            destination= itemView.findViewById(R.id.routeListRow_source);
+            sourceToDestination = itemView.findViewById(R.id.routeListRow_sorToDes);
+            cost= itemView.findViewById(R.id.routeListRow_cost);
             date = itemView.findViewById(R.id.routeListRow_date);
-//            cost = itemView.findViewById(R.id.reportListRow_iv);
             this.listener = listener;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -145,10 +143,9 @@ public class mainScreenDriverFragment extends Fragment {
             });
         }
         public void bind(FutureRoute fr) {
-            source.setText(fr.getSource());
-            destination.setText(fr.getDestination());
+            sourceToDestination.setText(fr.getSource()+" -> "+ fr.getDestination());
+            cost.setText(fr.getCost()+ "₪ per km");
             date.setText(String.valueOf(fr.getDate()));
-            cost.setText(String.valueOf(fr.getCost()));
         }
     }
 
