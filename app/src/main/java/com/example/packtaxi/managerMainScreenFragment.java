@@ -56,6 +56,7 @@ public class managerMainScreenFragment extends Fragment {
                 gMap = googleMap;
                 Log.d("TAG", "points are :"+Model.getInstance().getAllDeliveryPoints().getValue());
                 if(Model.getInstance().getAllDeliveryPoints().getValue()!= null) {
+                    Log.d("TAG", "DeliveryPoints are not null");
                     for (DeliveryPoint dp : Model.getInstance().getAllDeliveryPoints().getValue()){
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(dp.getLatitude(), dp.getLongitude())).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointName());
                     }

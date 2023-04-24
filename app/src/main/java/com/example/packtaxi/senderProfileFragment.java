@@ -48,7 +48,6 @@ public class senderProfileFragment extends Fragment {
                 });
             }
         });
-        setHasOptionsMenu(true);
         return view;
     }
     public void setDetails(Sender s){
@@ -56,11 +55,5 @@ public class senderProfileFragment extends Fragment {
         fullNameTv.setText(s.getFullName());
         emailTv.setText(s.getEmail());
         pb.setVisibility(View.GONE);
-    }
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.sender_menu, menu);
-        inflater.inflate(R.menu.base_menu, menu);
     }
 }

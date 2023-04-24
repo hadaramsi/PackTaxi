@@ -80,14 +80,9 @@ public class mainScreenSenderFragment extends Fragment {
             noPackagesMessage.setVisibility(View.VISIBLE);
     }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         setHasOptionsMenu(true);
         view= inflater.inflate(R.layout.fragment_main_screen_sender, container, false);
         pb = view.findViewById(R.id.packagesList_progressBar);
@@ -106,8 +101,6 @@ public class mainScreenSenderFragment extends Fragment {
             @Override
             public void onItemClick(int position, View v) {
                 Package p = viewModel.getPackage().getValue().get(position);
-//                @NonNull NavDirections action = mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToPackageDetailsFragment(p.getPackageID());
-//                Navigation.findNavController(v).navigate(action);
                 mainScreenSenderFragmentDirections.ActionMainScreenSenderFragmentToPackageDetailsFragment action = mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToPackageDetailsFragment(p.getPackageID());
                 Navigation.findNavController(v).navigate(action);
             }

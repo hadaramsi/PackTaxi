@@ -20,4 +20,7 @@ public interface PackageDao {
 
     @Query("SELECT * FROM Package WHERE sender=:s")
     List<Package> getMyPackages(String s);
+
+    @Query("SELECT * FROM Package WHERE packageID=:id")
+    Package getPackageByID(String id);
 }

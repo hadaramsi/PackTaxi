@@ -271,9 +271,8 @@ public class ModelFirebase {
             }
         });
     }
-    public void getDeliveryPointsList(Long since, Model.GetAllDeliveryPointsListener listener) {
-        db.collection(DELIVERYPOINTS).whereGreaterThanOrEqualTo(DeliveryPoint.LAST_UPDATED,new Timestamp(since, 0))
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    public void getDeliveryPointsList(Model.GetAllDeliveryPointsListener listener) {
+        db.collection(DELIVERYPOINTS).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 LinkedList<DeliveryPoint> deliveryPointsList = new LinkedList<DeliveryPoint>();

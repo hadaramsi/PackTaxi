@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".futuerRoudDetailsFragment">
+    tools:context=".futureRouteDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -115,13 +115,37 @@
             app:layout_constraintTop_toBottomOf="@+id/driveDetails_source_tv" />
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="147dp"
-            android:layout_height="58dp"
-            android:text="cancel"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/deleteBtn_drive"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="200dp"
+            android:autoText="false"
+            android:background="#E8CCA2"
+            android:elegantTextHeight="false"
+            android:text="Delete"
+            android:textColor="?attr/colorError"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="464dp" />
+            app:layout_constraintTop_toBottomOf="@+id/driveDetails_cost_tv" />
+
+        <Button
+            android:id="@+id/editDriveBtn"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginEnd="20dp"
+            android:background="#E8CCA2"
+            android:text="Edit Drive"
+            android:textColor="?attr/colorError"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toEndOf="@+id/deleteBtn_drive"
+            app:layout_constraintTop_toBottomOf="@+id/driveDetails_cost_tv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

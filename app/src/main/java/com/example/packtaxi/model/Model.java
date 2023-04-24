@@ -85,23 +85,19 @@ public class Model {
     }
     public void reloadDeliveryPointsList(){
         deliveryPointsListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
-        //get local last update
-        Long localLastUpdate = DeliveryPoint.getLocalLastUpdated();
-        //get all DeliveryPoints records since local last update from firebase
-        modelFirebase.getDeliveryPointsList(localLastUpdate,(list)->{
+//        Long localLastUpdate = DeliveryPoint.getLocalLastUpdated();
+        modelFirebase.getDeliveryPointsList((list)->{
             MyApplication.executorService.execute(()->{
-                //update local last update date
-                //add new record to the local db
-                Long lLastUpdate = new Long(0);
+//                Long lLastUpdate = new Long(0);
                 for(DeliveryPoint dp : list) {
                     AppLocalDB.db.deliveryPointDao().insertAll(dp);
                     if(dp.getIsDeleted())// if the delivery point is deleted in the firebase, delete him from the cache
                         AppLocalDB.db.deliveryPointDao().delete(dp);
-                    if(dp.getLastUpdated() > lLastUpdate){
-                        lLastUpdate = dp.getLastUpdated();
-                    }
+//                    if(dp.getLastUpdated() > lLastUpdate){
+//                        lLastUpdate = dp.getLastUpdated();
+//                    }
                 }
-                DeliveryPoint.setLocalLastUpdated(lLastUpdate);
+//                DeliveryPoint.setLocalLastUpdated(lLastUpdate);
                 //return all records to the caller
                 List<DeliveryPoint> dPsList = AppLocalDB.db.deliveryPointDao().getAll();
                 deliveryPointsList.postValue(dPsList);
@@ -117,6 +113,7 @@ public class Model {
     public interface loginUserListener{
         void onComplete(boolean success);
     }
+
     public void loginUser(String email, String password, View v, loginUserListener listener) {
         modelFirebase.loginUser(email, password,v, listener);
     }
@@ -230,5 +227,30 @@ public class Model {
     }
     public void addSender(Sender sender,String password, AddSenderListener listener){
         modelFirebase.addSender(sender, password, listener);
+    }
+    public void getRouteByID(String routeID, getRouteByIDListener listener)
+    {
+        MyApplication.executorService.execute(()-> {
+            FutureRoute f = AppLocalDB.db.FutureRouteDao().getRouteByID(routeID);
+            MyApplication.mainHandler.post(()->{
+                listener.onComplete(f);
+            });
+        });
+
+    }
+    public interface getRouteByIDListener{
+        void onComplete(FutureRoute f);
+    }
+    public void getPackageByID(String packageID, getPackageByIDListener listener) {
+        MyApplication.executorService.execute(()-> {
+            Package p = AppLocalDB.db.PackageDao().getPackageByID(packageID);
+            MyApplication.mainHandler.post(()->{
+                listener.onComplete(p);
+            });
+        });
+
+    }
+    public interface getPackageByIDListener{
+        void onComplete(Package p);
     }
 }

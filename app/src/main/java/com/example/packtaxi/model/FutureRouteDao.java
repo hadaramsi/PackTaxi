@@ -20,4 +20,7 @@ public interface FutureRouteDao {
 
     @Query("SELECT * FROM FutureRoute WHERE driver=:d")
     List<FutureRoute> getMyRoutes(String d);
+
+    @Query("SELECT * FROM FutureRoute WHERE futureRouteID=:id")
+    FutureRoute getRouteByID(String id);
 }

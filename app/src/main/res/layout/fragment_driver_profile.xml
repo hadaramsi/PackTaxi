@@ -225,7 +225,9 @@
             android:layout_marginTop="30dp"
             android:backgroundTint="#E8CCA2"
             android:text="Save"
-            android:textSize="24sp"
+            android:textColor="?attr/colorError"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/driverProfile_rating_info_tv" />

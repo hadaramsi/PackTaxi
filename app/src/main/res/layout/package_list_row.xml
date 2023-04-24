@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
@@ -12,6 +13,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/row_color">
+
+        <Button
+            android:id="@+id/rateBtn2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/rate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/routeListRow_cost"
+            app:layout_constraintTop_toBottomOf="@+id/payBtn2" />
+
+        <Button
+            android:id="@+id/payBtn2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/pay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pacListRow_so"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/reportListRow_iv"
@@ -32,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="50dp"
             android:text="TextView"
             android:textColor="#0C0C0C"
             android:textSize="24sp"
@@ -47,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="50dp"
             android:text="TextView"
             android:textColor="#050505"
             android:textSize="20sp"
@@ -60,13 +85,16 @@
 
         <TextView
             android:id="@+id/pacListRow_da"
-            android:layout_width="244dp"
-            android:layout_height="25dp"
+            android:layout_width="206dp"
+            android:layout_height="24dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="50dp"
             android:text="TextView"
             android:textColor="#050505"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/reportListRow_iv"
             app:layout_constraintTop_toBottomOf="@+id/pacListRow_de" />
 

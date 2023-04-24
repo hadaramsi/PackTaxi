@@ -254,32 +254,36 @@
             app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="146dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="32dp"
+            android:id="@+id/rateBtn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
-            android:text="cancel"
+            android:text="Delete"
+            android:textColor="?attr/colorError"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
             app:layout_constraintVertical_bias="0.176" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:id="@+id/editBtn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="40dp"
             android:layout_marginBottom="10dp"
-            android:text="rate driver"
+            android:text="Edit"
+            android:textColor="?attr/colorError"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/button"
+            app:layout_constraintHorizontal_bias="0.259"
+            app:layout_constraintStart_toEndOf="@+id/rateBtn"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
-            app:layout_constraintVertical_bias="0.071" />
+            app:layout_constraintVertical_bias="0.163" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -33,15 +33,15 @@ public class MainActivity extends AppCompatActivity {
                 case android.R.id.home:
                     NavDestination myFragment = navCtrl.getCurrentDestination();
                     if (myFragment.getId() == R.id.mainScreenSenderFragment) {
-                        finish();
+//                        finish();
                         return true;
                     }
                     if(myFragment.getId() == R.id.mainScreenDriverFragment) {
-                        finish();
+//                        finish();
                         return true;
                     }
                     if(myFragment.getId() == R.id.mangerMainScreenFragment) {
-                        finish();
+//                        finish();
                         return true;
                     }
                     navCtrl.navigateUp();

@@ -20,6 +20,8 @@ public class Package {
     final static String WEIGHT = "weight";
     final static String NOTE = "note";
     final static String SENDER = "sender";
+    final static String DRIVER = "driver";
+    final static String RATE = "rate";
 
     @PrimaryKey
     @NonNull
@@ -33,6 +35,8 @@ public class Package {
     private double volume;
     private double weight;
     private String note;
+    private String driver;
+    private double rate;
 
     public Package(){}
 
@@ -46,6 +50,8 @@ public class Package {
         this.weight=weight;
         this.volume=volume;
         this.sender=sender;
+        this.driver="";
+        this.rate=0;
     }
 
     public String getPackageID(){
@@ -54,7 +60,9 @@ public class Package {
     public String getSender(){
         return sender;
     }
-
+    public String getDriver(){
+        return driver;
+    }
     public String getSource(){
         return source;
     }
@@ -76,10 +84,15 @@ public class Package {
     public double getVolume(){
         return volume;
     }
+    public double getRate(){
+        return rate;
+    }
     public void setSender(String s){
         this.sender = s;
     }
-
+    public void setDriver(String d){
+        this.driver = d;
+    }
     public void setPackageID(String packageID){
         this.packageID = packageID;
     }
@@ -103,6 +116,9 @@ public class Package {
     }
     public void setWeight(double weight){
         this.weight = weight;
+    }
+    public void setRate(double rate){
+        this.rate = rate;
     }
 
     static public Package fromJson(String packageId, Map<String, Object> json){
@@ -144,6 +160,8 @@ public class Package {
         json.put(WEIGHT, weight);
         json.put(VOLUME, volume);
         json.put(SENDER, sender);
+        json.put(DRIVER, driver);
+        json.put(RATE, rate);
         return json;
     }
 

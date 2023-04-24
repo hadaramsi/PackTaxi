@@ -58,7 +58,6 @@ public class driverProfileFragment extends Fragment {
                 });
             }
         });
-//        setHasOptionsMenu(true);
         return view;
     }
     public void setDetails(Driver d){

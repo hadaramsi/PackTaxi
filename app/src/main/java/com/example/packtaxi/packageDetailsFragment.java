@@ -1,64 +1,126 @@
 package com.example.packtaxi;
 
+import android.content.Context;
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link packageDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.packtaxi.model.Model;
+import com.example.packtaxi.model.Package;
+
 public class packageDetailsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private packageDetailsViewModel viewModel;
+    private View view;
+    private TextView sourceTv;
+    private TextView destinationTv;
+    private TextView dateTv;
+    private TextView weightTv;
+    private TextView volumeTv;
+    private TextView noteTv;
+    private TextView driverTv;
+    private TextView rateDriverTv;
+    private CheckBox match;
+    private TextView costTv;
+    private Button deleteBtn;
+    private Button editBtn;
+    ProgressBar pb;
 
     public packageDetailsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment packageDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static packageDetailsFragment newInstance(String param1, String param2) {
-        packageDetailsFragment fragment = new packageDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(packageDetailsViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_package_details, container, false);
+        view = inflater.inflate(R.layout.fragment_package_details, container, false);
+        sourceTv = view.findViewById(R.id.packageDetails_source_tv);
+        destinationTv = view.findViewById(R.id.packageDetails_destination_tv);
+        dateTv = view.findViewById(R.id.packageDetails_date_tv);
+        costTv = view.findViewById(R.id.packageDetails_cost_tv);
+        noteTv = view.findViewById(R.id.packageDetails_notes_tv);
+        weightTv = view.findViewById(R.id.packageDetails_weight_tv);
+        volumeTv = view.findViewById(R.id.packageDetails_volume_tv);
+        rateDriverTv = view.findViewById(R.id.packageDetails_rateDriver_tv);
+        driverTv = view.findViewById(R.id.packageDetails_driver_tv);
+        match = view.findViewById(R.id.packageDetails_match_cb);
+        deleteBtn=view.findViewById(R.id.rateBtn);
+        editBtn=view.findViewById(R.id.editBtn);
+        deleteBtn.setEnabled(false);
+        editBtn.setEnabled(false);
+
+        viewModel.setPackageId(packageDetailsFragmentArgs.fromBundle(getArguments()).getPackID());
+
+        String packageId = packageDetailsFragmentArgs.fromBundle(getArguments()).getPackID();
+        Model.getInstance().getPackageByID(packageId, new Model.getPackageByIDListener() {
+            @Override
+            public void onComplete(Package p) {
+                if(p != null) {
+                    updatePackageDetailsDisplay(p);
+                }
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToMainScreenSenderFragment());
+            }
+        });
+        return view;
+    }
+
+    public void updateDetailsDisplay(Package p) {
+        sourceTv.setText(p.getSource());
+        destinationTv.setText(p.getDestination());
+        costTv.setText(p.getCost()+ "₪");
+        dateTv.setText(p.getDate());
+        noteTv.setText(p.getNote());
+        weightTv.setText(p.getWeight()+"kg");
+        volumeTv.setText(p.getVolume()+ "cc");
+        driverTv.setText(p.getDriver());
+        if(p.getDriver()!= "")
+            match.setChecked(true);
+        else
+            match.setChecked(false);
+        rateDriverTv.setText(p.getRate()+" stars");
+    }
+
+    public void updatePackageDetailsDisplay(Package p) {
+        Model.getInstance().getPackageByID(p.getPackageID(), new Model.getPackageByIDListener() {
+            @Override
+            public void onComplete(Package p) {
+                if (p != null) {
+                    updateDetailsDisplay(p);
+                }
+            }
+        });
+        sourceTv.setText(p.getSource());
+        destinationTv.setText(p.getDestination());
+        costTv.setText(p.getCost()+ "₪");
+        dateTv.setText(p.getDate());
+        noteTv.setText(p.getNote());
+        weightTv.setText(p.getWeight()+"kg");
+        volumeTv.setText(p.getVolume()+ "cc");
+        driverTv.setText(p.getDriver());
+        if(p.getDriver()!= "")
+            match.setChecked(true);
+        else
+            match.setChecked(false);
+        rateDriverTv.setText(p.getRate()+" stars");
     }
 }
