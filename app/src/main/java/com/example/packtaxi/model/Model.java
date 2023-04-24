@@ -83,19 +83,22 @@ public class Model {
     public void getDPs(GetDPsListener listener) {
         modelFirebase.getDPs(listener);
     }
+
     public void reloadDeliveryPointsList(){
         deliveryPointsListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
-//        Long localLastUpdate = DeliveryPoint.getLocalLastUpdated();
+//        Long localLastUpdate = DeliveryPoint.getLocalLastUpdated();\
+
         modelFirebase.getDeliveryPointsList((list)->{
+
             MyApplication.executorService.execute(()->{
-//                Long lLastUpdate = new Long(0);
+                // קוד למחיקת מקומי
+//                for (DeliveryPoint dp: AppLocalDB.db.deliveryPointDao().getAll()){
+//                    AppLocalDB.db.deliveryPointDao().delete(dp);
+//                }
                 for(DeliveryPoint dp : list) {
                     AppLocalDB.db.deliveryPointDao().insertAll(dp);
                     if(dp.getIsDeleted())// if the delivery point is deleted in the firebase, delete him from the cache
                         AppLocalDB.db.deliveryPointDao().delete(dp);
-//                    if(dp.getLastUpdated() > lLastUpdate){
-//                        lLastUpdate = dp.getLastUpdated();
-//                    }
                 }
 //                DeliveryPoint.setLocalLastUpdated(lLastUpdate);
                 //return all records to the caller
@@ -131,6 +134,8 @@ public class Model {
                             AppLocalDB.db.FutureRouteDao().insertAll(f);
                         }
                         List<FutureRoute> routesL= AppLocalDB.db.FutureRouteDao().getMyRoutes(userEmail);
+                        Log.d("TAG", "routes list l 000000 "+ routesL);
+
                         routesList.postValue(routesL);
                         routesListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
                     });
@@ -157,6 +162,21 @@ public class Model {
                 });
             }
         });
+    }
+    public interface deleteDeliveryPointListener{
+        void onComplete();
+    }
+    public void deleteDeliveryPoint(DeliveryPoint dp,deleteDeliveryPointListener listener ) {
+        dp.setIsDeleted(true);
+        modelFirebase.editDeliveryPoint(dp,(success)->{
+            if (success) {
+                reloadDeliveryPointsList();
+                listener.onComplete();
+            }
+        });
+    }
+    public interface editDpListener{
+        void onComplete(boolean ifSuccess);
     }
     public interface GetAllRoutesListener{
         void onComplete(List<FutureRoute> data);

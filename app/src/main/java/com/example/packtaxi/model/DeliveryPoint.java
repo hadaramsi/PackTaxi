@@ -90,11 +90,12 @@ public class DeliveryPoint {
             Log.d("TAG", "latitude is: "+latitude);
             Log.d("TAG", "longitude is: "+longitude);
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            Log.d("TAG", "addresses list is:"+addresses);
         } catch (IOException e) {
-            Log.d("TAG", "exception is onnnnnn");
             e.printStackTrace();
         }
-        Log.d("TAG", "addresses list is: ------------ "+addresses);
+        if(addresses.size()<= 0)
+            return "Unknown position";
         return addresses.get(0).getAddressLine(0);
     }
 

@@ -9,6 +9,8 @@ import androidx.navigation.Navigation;
 import com.example.packtaxi.loginFragmentDirections;
 import com.example.packtaxi.signUpAsSenderFragmentDirections;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
@@ -113,6 +115,23 @@ public class ModelFirebase {
     public void logOutUser(Model.logOutUserListener listener) {
         FirebaseAuth.getInstance().signOut();
         listener.onComplete();
+    }
+
+    public void editDeliveryPoint(DeliveryPoint dp, Model.editDpListener listener) {
+        db.collection(DELIVERYPOINTS).document(dp.getDeliveryPointName()).set(dp.toJson())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        listener.onComplete(true);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG", e.getMessage());
+                        listener.onComplete(false);
+                    }
+                });
     }
     public void checkUserConnected(String email, View v){
         DocumentReference docRef1 = db.collection(MANAGER).document(email);

@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,9 +96,9 @@ public class mainScreenSenderFragment extends Fragment {
         swipeRefresh = view.findViewById(R.id.packagesList_swipeRefresh);
         noPackagesMessage = view.findViewById(R.id.packagesList_tv_noPackagesMessage);
         noPackagesMessage.setVisibility(View.GONE);
-
         adapter = new mainScreenSenderFragment.MyAdapter();
         list.setAdapter(adapter);
+
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
@@ -129,17 +131,41 @@ public class mainScreenSenderFragment extends Fragment {
     }
     static class MyViewHolder extends RecyclerView.ViewHolder {
         private final OnItemClickListener listener;
+        private final OnPayClickListener payListener;
+        private final OnRateClickListener rateListener;
         TextView sourceToDestination;
         TextView cost;
-
+        Button rateBtn;
+        Button payBtn;
         TextView date;
 
-        public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
+        public MyViewHolder(@NonNull View itemView, OnItemClickListener listener, OnPayClickListener payListener, OnRateClickListener rateListener) {
             super(itemView);
             sourceToDestination = itemView.findViewById(R.id.pacListRow_so);
             cost = itemView.findViewById(R.id.pacListRow_de);
             date = itemView.findViewById(R.id.pacListRow_da);
+            rateBtn = itemView.findViewById(R.id.payBtn);
+            payBtn = itemView.findViewById(R.id.rateBtn);
             this.listener = listener;
+            this.payListener = payListener;
+            this.rateListener = rateListener;
+
+            payBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    payListener.OnPayClick(pos);
+                }
+            });
+
+            rateBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    rateListener.OnRateClick(pos);
+                }
+            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -156,23 +182,39 @@ public class mainScreenSenderFragment extends Fragment {
             date.setText(String.valueOf(p.getDate()));
         }
     }
-        interface OnItemClickListener {
-            void onItemClick(int position, View v);
-        }
+    interface OnItemClickListener {
+        void onItemClick(int position, View v);
+    }
+
+    public interface OnRateClickListener{
+        void OnRateClick(int position);
+    }
+
+    public interface OnPayClickListener{
+        void OnPayClick(int position);
+    }
 
         class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             private OnItemClickListener listener;
+            private OnRateClickListener rateListener;
+            private OnPayClickListener payListener;
 
             public void setOnItemClickListener(OnItemClickListener listener) {
                 this.listener = listener;
             }
+            void setOnRateClickListener(OnRateClickListener rateListener){
+                this.rateListener = rateListener;
+            }
 
+            void setOnPayClickListener(OnPayClickListener payListener){
+                this.payListener = payListener;
+            }
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 LayoutInflater inflater = getLayoutInflater();
                 View rowView = inflater.inflate(R.layout.package_list_row, parent, false);
-                MyViewHolder viewHolder = new MyViewHolder(rowView, listener);
+                MyViewHolder viewHolder = new MyViewHolder(rowView, listener,payListener, rateListener);
                 return viewHolder;
             }
 

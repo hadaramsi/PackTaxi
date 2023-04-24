@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -108,6 +109,8 @@ public class mainScreenDriverFragment extends Fragment {
         });
 
         viewModel.getRoutes().observe(getViewLifecycleOwner(), (routesList)-> {
+            Log.d("TAG", "routes list 333333"+ routesList);
+
             adapter.notifyDataSetChanged();
             noRoutesMessage();
         });

@@ -28,9 +28,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class managerMainScreenFragment extends Fragment {
-    static final double ISRAELLATITUDE = 31.3555;
-    static final double ISRAELLONGITUDE = 34.3565;
-    static final float ISRAELZOOMLEVEL = 15.0f;
+    static final double ISRAELLATITUDE = 31.765;
+    static final double ISRAELLONGITUDE = 34.787;
+    static final float ISRAELZOOMLEVEL = 8.0f;
     static final float DELIVERYPOINTZOOMLEVEL = 11.0f;
 
     private GoogleMap gMap;
