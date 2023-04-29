@@ -242,8 +242,7 @@ public class ModelFirebase {
         });
     }
     public void addNewRoute(FutureRoute route, Model.addNewRouteListener listener) {
-        Task<DocumentReference> ref = db.collection(ROUTES).add(route.toJson());
-        ref.addOnSuccessListener((successListener)-> {
+        db.collection(ROUTES).document(route.getFutureRouteID()).set(route.toJson()).addOnSuccessListener((successListener)-> {
             listener.onComplete(true);
         })
                 .addOnFailureListener((e)-> {
@@ -252,8 +251,7 @@ public class ModelFirebase {
                 });
     }
     public void addNewPack(Package p, Model.addNewPackListener listener) {
-        Task<DocumentReference> ref = db.collection(PACKAGES).add(p.toJson());
-        ref.addOnSuccessListener((successListener)-> {
+        db.collection(PACKAGES).document(p.getPackageID()).set(p.toJson()).addOnSuccessListener((successListener)-> {
             listener.onComplete(true);
         })
                 .addOnFailureListener((e)-> {
@@ -262,8 +260,7 @@ public class ModelFirebase {
                 });
     }
     public void addNewDeliveryPoint(DeliveryPoint dp, Model.addNewDeliveryPointListener listener) {
-        Task<DocumentReference> ref = db.collection(DELIVERYPOINTS).add(dp.toJson());
-        ref.addOnSuccessListener((successListener)-> {
+        db.collection(DELIVERYPOINTS).document(dp.getDeliveryPointName()).set(dp.toJson()).addOnSuccessListener((successListener)-> {
             listener.onComplete(true);
         })
                 .addOnFailureListener((e)-> {

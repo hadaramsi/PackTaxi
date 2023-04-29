@@ -19,12 +19,11 @@ import android.util.Log;
 
 @Entity
 public class DeliveryPoint {
-//    final static String DELIVERYPOINTID = "deliveryPointID";
     final static String NAME = "deliveryPointName";
     final static String LATITUDE = "latitude";
     final static String LONGITUDE = "longitude";
-    public final static String LAST_UPDATED = "lastUpdated";
-    final static String DELIVERYPOINTS_LAST_UPDATE = "DELIVERYPOINTS_LAST_UPDATE";
+//    public final static String LAST_UPDATED = "lastUpdated";
+//    final static String DELIVERYPOINTS_LAST_UPDATE = "DELIVERYPOINTS_LAST_UPDATE";
     final static String IS_DELETED = "isDeleted";
 
     @PrimaryKey
@@ -33,15 +32,15 @@ public class DeliveryPoint {
     private double longitude;
     private double latitude;
     private boolean isDeleted;
-    private Long lastUpdated = new Long(0);
+//    private Long lastUpdated = new Long(0);
 
     public DeliveryPoint() {
     }
-    public DeliveryPoint(String name, double longitude, double latitude, Long lastUpdated) {
+    public DeliveryPoint(String name, double longitude, double latitude) {
         this.deliveryPointName = name;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.lastUpdated = lastUpdated;
+//        this.lastUpdated = lastUpdated;
         this.isDeleted = false;
     }
 
@@ -57,9 +56,9 @@ public class DeliveryPoint {
     public double getLatitude() {
         return latitude;
     }
-    public Long getLastUpdated(){
-        return lastUpdated;
-    }
+//    public Long getLastUpdated(){
+//        return lastUpdated;
+//    }
     public boolean getIsDeleted(){return isDeleted;}
 
     public DeliveryPoint getDeliveryPointByName(String name) {
@@ -78,9 +77,9 @@ public class DeliveryPoint {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
-    public void setLastUpdated(Long lastUpdated){
-        this.lastUpdated = lastUpdated;
-    }
+//    public void setLastUpdated(Long lastUpdated){
+//        this.lastUpdated = lastUpdated;
+//    }
     public void setIsDeleted(boolean state){this.isDeleted = state;}
 
     public String getLocation() {
@@ -104,7 +103,7 @@ public class DeliveryPoint {
         json.put(NAME,deliveryPointName);
         json.put(LONGITUDE,longitude);
         json.put(LATITUDE,latitude);
-        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
+//        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
         json.put(IS_DELETED, isDeleted);
         return json;
     }
@@ -116,23 +115,23 @@ public class DeliveryPoint {
             return null;
         double latitude = (double)json.get(LATITUDE);
         double longitude = (double)json.get(LONGITUDE);
-        Timestamp ts = (Timestamp) json.get(LAST_UPDATED);
-        Long lastUpdated = new Long(ts.getSeconds());
+//        Timestamp ts = (Timestamp) json.get(LAST_UPDATED);
+//        Long lastUpdated = new Long(ts.getSeconds());
         boolean state = (boolean) json.get(IS_DELETED);
-        DeliveryPoint dp = new DeliveryPoint(name, longitude, latitude,lastUpdated);
+        DeliveryPoint dp = new DeliveryPoint(name, longitude, latitude);
         dp.setIsDeleted(state);
         return dp;
     }
-    static Long getLocalLastUpdated(){
-        Long localLastUpdate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getLong(DELIVERYPOINTS_LAST_UPDATE, 0);
-        return localLastUpdate;
-    }
+//    static Long getLocalLastUpdated(){
+//        Long localLastUpdate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
+//                .getLong(DELIVERYPOINTS_LAST_UPDATE, 0);
+//        return localLastUpdate;
+//    }
 
-    static void setLocalLastUpdated(Long date){
-        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit();
-        editor.putLong(DELIVERYPOINTS_LAST_UPDATE, date);
-        editor.commit();
-    }
+//    static void setLocalLastUpdated(Long date){
+//        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit();
+//        editor.putLong(DELIVERYPOINTS_LAST_UPDATE, date);
+//        editor.commit();
+//    }
 
 }
