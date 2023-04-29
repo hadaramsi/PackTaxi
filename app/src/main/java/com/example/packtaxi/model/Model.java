@@ -87,14 +87,12 @@ public class Model {
     public void reloadDeliveryPointsList(){
         deliveryPointsListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
 //        Long localLastUpdate = DeliveryPoint.getLocalLastUpdated();\
-
         modelFirebase.getDeliveryPointsList((list)->{
-
             MyApplication.executorService.execute(()->{
                 // קוד למחיקת מקומי
-//                for (DeliveryPoint dp: AppLocalDB.db.deliveryPointDao().getAll()){
-//                    AppLocalDB.db.deliveryPointDao().delete(dp);
-//                }
+                for (DeliveryPoint dp: AppLocalDB.db.deliveryPointDao().getAll()){
+                    AppLocalDB.db.deliveryPointDao().delete(dp);
+                }
                 for(DeliveryPoint dp : list) {
                     AppLocalDB.db.deliveryPointDao().insertAll(dp);
                     if(dp.getIsDeleted())// if the delivery point is deleted in the firebase, delete him from the cache
@@ -130,6 +128,8 @@ public class Model {
             public void onComplete(String userEmail) {
                 modelFirebase.getRoutesList(userEmail,(list)->{
                     MyApplication.executorService.execute(()-> {
+                        for (FutureRoute f: AppLocalDB.db.FutureRouteDao().getAll())
+                            AppLocalDB.db.FutureRouteDao().delete(f);
                         for(FutureRoute f:list){
                             AppLocalDB.db.FutureRouteDao().insertAll(f);
                         }
@@ -150,10 +150,11 @@ public class Model {
             public void onComplete(String userEmail) {
                 modelFirebase.getPackagesList(userEmail,(list)->{
                     MyApplication.executorService.execute(()-> {
+                        for (Package p: AppLocalDB.db.PackageDao().getAll())
+                            AppLocalDB.db.PackageDao().delete(p);
                         for(Package p:list){
                             AppLocalDB.db.PackageDao().insertAll(p);
                         }
-                        Log.d("yyy", list.toString());
                         List<Package> packageL= AppLocalDB.db.PackageDao().getMyPackages(userEmail);
                         packagesList.postValue(packageL);
                         packagesListLoadingState.postValue(LoadingState.loaded);
@@ -233,9 +234,9 @@ public class Model {
     public interface GetAllSendersListener{
         void onComplete(List<Sender> sendersData);
     }
-    public void getAllSenders( GetAllSendersListener listener){
-        modelFirebase.getAllSenders(listener);
-    }
+//    public void getAllSenders( GetAllSendersListener listener){
+//        modelFirebase.getAllSenders(listener);
+//    }
     public interface AddDriverListener{
         void onComplete(boolean ifSuccess);
     }

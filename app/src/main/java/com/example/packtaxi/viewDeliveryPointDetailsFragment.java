@@ -53,7 +53,7 @@ public class viewDeliveryPointDetailsFragment extends Fragment {
         remove = view.findViewById(R.id.deliveryPointDetails_remove_btn);
         pb= view.findViewById(R.id.progressBar);
         viewModel.setDeliveryPointID(viewDeliveryPointDetailsFragmentArgs.fromBundle(getArguments()).getDeliveryPointID());
-
+        pb.setVisibility(View.GONE);
         String dpName = viewDeliveryPointDetailsFragmentArgs.fromBundle(getArguments()).getDeliveryPointID();
         Model.getInstance().getDeliveryPointByName(dpName, new Model.getDeliveryPointByIDListener() {
             @Override

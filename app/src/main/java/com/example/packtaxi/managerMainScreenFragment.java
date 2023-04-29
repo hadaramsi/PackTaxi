@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.packtaxi.model.DeliveryPoint;
 import com.example.packtaxi.model.Model;
@@ -36,6 +37,7 @@ public class managerMainScreenFragment extends Fragment {
     private GoogleMap gMap;
     private MapViewModel viewModel;
     private View view;
+    private Menu mMenu;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -52,22 +54,20 @@ public class managerMainScreenFragment extends Fragment {
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                Log.d("TAG", "in onMapReady! ");
                 gMap = googleMap;
-                Log.d("TAG", "points are :"+Model.getInstance().getAllDeliveryPoints().getValue());
                 if(Model.getInstance().getAllDeliveryPoints().getValue()!= null) {
-                    Log.d("TAG", "DeliveryPoints are not null");
                     for (DeliveryPoint dp : Model.getInstance().getAllDeliveryPoints().getValue()){
-                        googleMap.addMarker(new MarkerOptions().position(new LatLng(dp.getLatitude(), dp.getLongitude())).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointName());
+                        if(dp.getIsDeleted()== false)
+                            googleMap.addMarker(new MarkerOptions().position(new LatLng(dp.getLatitude(), dp.getLongitude())).title("Marker in " + dp.getLocation())).setTag(dp.getDeliveryPointName());
                     }
                     LatLng Israel = new LatLng(ISRAELLATITUDE, ISRAELLONGITUDE);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Israel, ISRAELZOOMLEVEL));
-//                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(ISRAELZOOMLEVEL));
                 }
-                gMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
-                    public void onInfoWindowClick(Marker marker) {
+                    public boolean onMarkerClick(@NonNull Marker marker) {
                         Navigation.findNavController(view).navigate(managerMainScreenFragmentDirections.actionMangerMainScreenFragmentToViewdeliveryPointDetailsFragment(marker.getTag().toString()));
+                        return false;
                     }
                 });
             }
@@ -90,8 +90,17 @@ public class managerMainScreenFragment extends Fragment {
                 Navigation.findNavController(view).navigate(action);
                 return true;
             case R.id.search_delivery_point:
-//                @NonNull NavDirections action = MapFragmentDirections.actionMapFragmentToAddingReportFragment();
-//                Navigation.findNavController(view).navigate(action);
+//                MenuItem searchItem = mMenu.findItem(R.id.search_delivery_point);
+//                String dpName=searchItem.getIntent().getAction();
+//                Model.getInstance().getDeliveryPointByName(dpName, (dp)->{
+//                    if(dp!= null && dp.getIsDeleted()==false) {
+//                        LatLng location = new LatLng(dp.getLatitude(), dp.getLongitude());
+//                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, DELIVERYPOINTZOOMLEVEL));
+//                    }
+//                else{
+//                Toast.makeText(getActivity(), "adding route to database", Toast.LENGTH_LONG).show();
+//            }
+//                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -11,6 +11,45 @@
         android:layout_height="match_parent"
         android:background="@drawable/app_background">
 
+        <EditText
+            android:id="@+id/driverProfile_maxVolume_info_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/driverProfile_maxVolume_tv"
+            app:layout_constraintTop_toBottomOf="@+id/driverProfile_maxWeight_info_tv" />
+
+        <EditText
+            android:id="@+id/driverProfile_maxWeight_info_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/driverProfile_maxWeight_tv"
+            app:layout_constraintTop_toBottomOf="@+id/driverProfile_licenseNumber_info_tv" />
+
+        <EditText
+            android:id="@+id/driverProfile_carNumber_info_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/driverProfile_carNumber_tv"
+            app:layout_constraintTop_toBottomOf="@+id/driverProfile_email_info_tv" />
+
         <TextView
             android:id="@+id/driverProfile_fullName_tv"
             android:layout_width="wrap_content"
@@ -122,52 +161,16 @@
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         <TextView
-            android:id="@+id/driverProfile_mavVolume_info_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/driverProfile_maxVolume_tv"
-            app:layout_constraintTop_toBottomOf="@+id/driverProfile_maxWeight_info_tv" />
-
-        <TextView
-            android:id="@+id/driverProfile_maxWeight_info_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/driverProfile_maxWeight_tv"
-            app:layout_constraintTop_toBottomOf="@+id/driverProfile_licenseNumber_info_tv" />
-
-        <TextView
             android:id="@+id/driverProfile_licenseNumber_info_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverProfile_licenseNumber_tv"
             app:layout_constraintTop_toBottomOf="@+id/driverProfile_carNumber_info_tv" />
-
-        <TextView
-            android:id="@+id/driverProfile_carNumber_info_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/driverProfile_carNumber_tv"
-            app:layout_constraintTop_toBottomOf="@+id/driverProfile_email_info_tv" />
 
         <TextView
             android:id="@+id/driverProfile_email_info_tv"
@@ -186,13 +189,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
             android:text="******"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverProfile_password_tv"
-            app:layout_constraintTop_toBottomOf="@+id/driverProfile_mavVolume_info_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/driverProfile_maxVolume_info_tv" />
 
         <TextView
             android:id="@+id/driverProfile_rating_tv"

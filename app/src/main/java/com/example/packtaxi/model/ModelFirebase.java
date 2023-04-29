@@ -241,9 +241,6 @@ public class ModelFirebase {
             }
         });
     }
-    public void getAllSenders(Model.GetAllSendersListener Listener){
-
-    }
     public void addNewRoute(FutureRoute route, Model.addNewRouteListener listener) {
         Task<DocumentReference> ref = db.collection(ROUTES).add(route.toJson());
         ref.addOnSuccessListener((successListener)-> {
@@ -283,7 +280,8 @@ public class ModelFirebase {
                 if(task.isSuccessful()) {
                     for(QueryDocumentSnapshot doc:task.getResult()) {
                         DeliveryPoint dp = DeliveryPoint.fromJson(doc.getId(), doc.getData());
-                        dPsList.add(dp.getDeliveryPointName());
+                        if(dp != null&& dp.getIsDeleted()==false)
+                            dPsList.add(dp.getDeliveryPointName());
                     }
                 }
                 listener.onComplete(dPsList);
@@ -298,7 +296,7 @@ public class ModelFirebase {
                 if(task.isSuccessful()) {
                     for(QueryDocumentSnapshot doc:task.getResult()) {
                         DeliveryPoint dp = DeliveryPoint.fromJson(doc.getId(), doc.getData());
-                        if(dp != null)
+                        if(dp != null&& dp.getIsDeleted()==false)
                             deliveryPointsList.add(dp);
                     }
                 }
@@ -314,7 +312,7 @@ public class ModelFirebase {
                 if(task.isSuccessful()) {
                     for(QueryDocumentSnapshot doc:task.getResult()) {
                         DeliveryPoint dp = DeliveryPoint.fromJson(doc.getId(), doc.getData());
-                        if(dp != null)
+                        if(dp != null&& dp.getIsDeleted()==false)
                             dPList.add(dp.getDeliveryPointName());
                     }
                 }
@@ -322,7 +320,6 @@ public class ModelFirebase {
             }
         });
     }
-
 
     public void addSender(Sender sender,String password, Model.AddSenderListener listener){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

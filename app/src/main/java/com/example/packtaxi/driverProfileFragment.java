@@ -42,7 +42,7 @@ public class driverProfileFragment extends Fragment {
         carNumber = view.findViewById(R.id.driverProfile_carNumber_info_tv);
         licenseNumber = view.findViewById(R.id.driverProfile_licenseNumber_info_tv);
         maximumWeight = view.findViewById(R.id.driverProfile_maxWeight_info_tv);
-        maximumVolume = view.findViewById(R.id.driverProfile_mavVolume_info_tv);
+        maximumVolume = view.findViewById(R.id.driverProfile_maxVolume_info_tv);
         rating = view.findViewById(R.id.driverProfile_rating_info_tv);
         pb = view.findViewById(R.id.driverProfile_pb);
         pb.setVisibility(View.VISIBLE);

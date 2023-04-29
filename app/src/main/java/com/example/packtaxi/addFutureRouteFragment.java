@@ -88,6 +88,7 @@ public class addFutureRouteFragment extends Fragment {
             }
         });
         addBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 pb.setVisibility(View.VISIBLE);
@@ -130,8 +131,11 @@ public class addFutureRouteFragment extends Fragment {
                         save(view,null, destination3, destination4,date,costEt);
                         save(view,null, destination2, destination4,date,costEt);
                     }
+                    @NonNull NavDirections action = addFutureRouteFragmentDirections.actionAddFutureRoudFragmentToMainScreenDriverFragment();
+                    Navigation.findNavController(v).navigate(action);
                 }
             }
+
         });
         return view;
     }
@@ -153,8 +157,7 @@ public class addFutureRouteFragment extends Fragment {
                 }
                 Model.getInstance().addNewRoute(route, (ifSuccess) -> {
                     if(ifSuccess) {
-                        @NonNull NavDirections action = addFutureRouteFragmentDirections.actionAddFutureRoudFragmentToMainScreenDriverFragment();
-                        Navigation.findNavController(v).navigate(action);
+                        Toast.makeText(getActivity(), "Adding future route", Toast.LENGTH_LONG).show();
                     }
                     else{
                         Toast.makeText(getActivity(), "failed to adding route to database", Toast.LENGTH_LONG).show();
