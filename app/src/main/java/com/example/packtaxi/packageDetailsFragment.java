@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.packtaxi.model.DeliveryPoint;
 import com.example.packtaxi.model.Model;
 import com.example.packtaxi.model.Package;
 
@@ -32,6 +34,7 @@ public class packageDetailsFragment extends Fragment {
     private TextView costTv;
     private Button deleteBtn;
     private Button editBtn;
+    private Package pac;
     ProgressBar pb;
 
     public packageDetailsFragment() {
@@ -60,8 +63,7 @@ public class packageDetailsFragment extends Fragment {
         match = view.findViewById(R.id.packageDetails_match_cb);
         deleteBtn=view.findViewById(R.id.rateBtn);
         editBtn=view.findViewById(R.id.editBtn);
-        deleteBtn.setEnabled(false);
-        editBtn.setEnabled(false);
+
 
         viewModel.setPackageId(packageDetailsFragmentArgs.fromBundle(getArguments()).getPackID());
 
@@ -69,6 +71,7 @@ public class packageDetailsFragment extends Fragment {
         Model.getInstance().getPackageByID(packageId, new Model.getPackageByIDListener() {
             @Override
             public void onComplete(Package p) {
+                pac=p;
                 if(p != null) {
                     updatePackageDetailsDisplay(p);
                 }
@@ -78,6 +81,18 @@ public class packageDetailsFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pb.setVisibility(View.VISIBLE);
+                Model.getInstance().deletePackage(pac, new Model.deletePackageListener() {
+                            @Override
+                            public void onComplete(boolean ifSuccess) {
+                                if(ifSuccess) {
+                                    pb.setVisibility(View.GONE);
+                                    Toast.makeText(getActivity(), "delete package", Toast.LENGTH_LONG).show();
+                                }else{
+                                    Toast.makeText(getActivity(), "fail delete package", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                 Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToMainScreenSenderFragment());
             }
         });
@@ -93,11 +108,15 @@ public class packageDetailsFragment extends Fragment {
         weightTv.setText(p.getWeight()+"kg");
         volumeTv.setText(p.getVolume()+ "cc");
         driverTv.setText(p.getDriver());
-        if(p.getDriver()!= "")
+        if(p.getDriver()!= "") {
             match.setChecked(true);
+            deleteBtn.setEnabled(false);
+            editBtn.setEnabled(false);
+        }
         else
             match.setChecked(false);
         rateDriverTv.setText(p.getRate()+" stars");
+
     }
 
     public void updatePackageDetailsDisplay(Package p) {

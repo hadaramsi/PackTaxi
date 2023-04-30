@@ -133,6 +133,32 @@ public class ModelFirebase {
                     }
                 });
     }
+    public void deletePackage(Package p, Model.deletePackageListener listener) {
+        db.collection(PACKAGES).document(p.getPackageID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                listener.onComplete(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                listener.onComplete(false);
+            }
+        });
+    }
+    public void deleteFutureRoute(FutureRoute f, Model.deleteFutureRouteListener listener) {
+        db.collection(ROUTES).document(f.getFutureRouteID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                listener.onComplete(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                listener.onComplete(false);
+            }
+        });
+    }
     public void checkUserConnected(String email, View v){
         DocumentReference docRef1 = db.collection(MANAGER).document(email);
         DocumentReference docRef2 = db.collection(SENDERS).document(email);
@@ -190,7 +216,6 @@ public class ModelFirebase {
                                     })
                                     .addOnFailureListener((e)-> {
                                         Log.d("TAG", e.getMessage());
-                                        //TODO: delete the user from the authentication
                                     });
                         }
                         else {

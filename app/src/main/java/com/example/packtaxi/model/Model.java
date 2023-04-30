@@ -176,6 +176,28 @@ public class Model {
             }
         });
     }
+    public interface deletePackageListener{
+        void onComplete(boolean ifSuccess);
+    }
+    public void deletePackage(Package p,deletePackageListener listener ) {
+        modelFirebase.deletePackage(p,(success)->{
+            if (success) {
+                reloadPackagesList();
+                listener.onComplete(true);
+            }
+        });
+    }
+    public interface deleteFutureRouteListener{
+        void onComplete(boolean ifSuccess);
+    }
+    public void deleteFutureRoute(FutureRoute f,deleteFutureRouteListener listener ) {
+        modelFirebase.deleteFutureRoute(f,(success)->{
+            if (success) {
+                reloadRoutesList();
+                listener.onComplete(true);
+            }
+        });
+    }
     public interface editDpListener{
         void onComplete(boolean ifSuccess);
     }

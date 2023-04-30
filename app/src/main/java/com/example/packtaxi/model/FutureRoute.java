@@ -7,7 +7,9 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -18,6 +20,8 @@ public class FutureRoute {
     final static String DATE = "date";
     final static String COST = "cost";
     final static String DRIVER = "driver";
+    final static String MATCH = "match";
+    final static String PACKAGESLIST="packagesList";
 
     @PrimaryKey
     @NonNull
@@ -27,6 +31,8 @@ public class FutureRoute {
     private String date;
     private double cost;
     private String driver;
+    private boolean match;
+    private List<Integer> packagesNumbers = new ArrayList<Integer>();
 
     public FutureRoute(){}
 
@@ -37,6 +43,7 @@ public class FutureRoute {
         this.cost= cost;
         this.driver=driver;
         this.date=date;
+        this.match=false;
     }
     public String getFutureRouteID(){
         return futureRouteID;
@@ -56,6 +63,8 @@ public class FutureRoute {
     public double getCost(){
         return cost;
     }
+    public boolean getMatch(){return match;}
+    public List<Integer> getPackagesNumbers(){return packagesNumbers;}
 
     public void setFutureRouteID(String futureRouteID){
         this.futureRouteID = futureRouteID;
@@ -75,6 +84,8 @@ public class FutureRoute {
     public void setCost(double cost){
         this.cost = cost;
     }
+    public void setMatch(boolean m){this.match=m;}
+
 
     static public FutureRoute fromJson(String futureRouteId,Map<String, Object> json){
         String futureRouteID = (String)json.get(FUTUREROUTEID);
@@ -104,6 +115,8 @@ public class FutureRoute {
         json.put(DATE, date);
         json.put(COST, cost);
         json.put(DRIVER, driver);
+        json.put(MATCH, match);
+        json.put(PACKAGESLIST,packagesNumbers);
         return json;
     }
 }

@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.packtaxi.model.FutureRoute;
 import com.example.packtaxi.model.Model;
@@ -24,8 +26,11 @@ public class futureRouteDetailsFragment extends Fragment {
     private TextView destinationTv;
     private TextView dateTv;
     private TextView costTv;
+    private CheckBox match;
+    private TextView packagesList;
     private Button deleteBtn;
     private Button editBtn;
+    private FutureRoute fRoute;
     ProgressBar pb;
 
     public futureRouteDetailsFragment() {
@@ -46,10 +51,11 @@ public class futureRouteDetailsFragment extends Fragment {
         destinationTv = view.findViewById(R.id.driveDetails_destination_tv);
         dateTv = view.findViewById(R.id.driveDetails_date_tv);
         costTv = view.findViewById(R.id.driveDetails_cost_tv);
+        match = view.findViewById(R.id.driveDetails_checkBox);
+        packagesList = view.findViewById(R.id.driveDetails_packages_numbers);
+        pb = view.findViewById(R.id.progressBar2);
         deleteBtn=view.findViewById(R.id.deleteBtn_drive);
         editBtn=view.findViewById(R.id.editDriveBtn);
-        deleteBtn.setEnabled(false);
-        editBtn.setEnabled(false);
 
         viewModel.setRouteId(futureRouteDetailsFragmentArgs.fromBundle(getArguments()).getRouteID());
 
@@ -57,20 +63,31 @@ public class futureRouteDetailsFragment extends Fragment {
         Model.getInstance().getRouteByID(routeId, new Model.getRouteByIDListener() {
             @Override
             public void onComplete(FutureRoute f) {
+                fRoute=f;
                 if(f != null) {
                     updateReportDetailsDisplay(f);
                 }
             }
         });
 
-
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pb.setVisibility(View.VISIBLE);
+                Model.getInstance().deleteFutureRoute(fRoute, new Model.deleteFutureRouteListener() {
+                    @Override
+                    public void onComplete(boolean ifSuccess) {
+                        if(ifSuccess) {
+                            pb.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), "delete route", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getActivity(), "fail delete route", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
                 Navigation.findNavController(v).navigate(futureRouteDetailsFragmentDirections.actionFutuerRoudDetailsFragmentToMainScreenDriverFragment());
             }
         });
-
 
         setHasOptionsMenu(true);
         return view;
@@ -82,6 +99,14 @@ public class futureRouteDetailsFragment extends Fragment {
         destinationTv.setText(f.getDestination());
         costTv.setText(f.getCost()+ "₪ per km");
         dateTv.setText(f.getDate());
+        if(f.getMatch()== true) {
+            match.setChecked(true);
+            deleteBtn.setEnabled(false);
+            editBtn.setEnabled(false);
+        }
+        else
+            match.setChecked(false);
+        packagesList.setText(f.getPackagesNumbers().toString());
     }
 
     public void updateReportDetailsDisplay(FutureRoute f) {
