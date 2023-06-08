@@ -22,9 +22,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ModelFirebase {
     final static String SENDERS = "senders";
@@ -274,6 +281,8 @@ public class ModelFirebase {
                     Log.d("TAG", e.getMessage());
                     listener.onComplete(false);
                 });
+        startMatch();
+
     }
     public void addNewPack(Package p, Model.addNewPackListener listener) {
         db.collection(PACKAGES).document(p.getPackageID()).set(p.toJson()).addOnSuccessListener((successListener)-> {
@@ -283,6 +292,27 @@ public class ModelFirebase {
                     Log.d("TAG", e.getMessage());
                     listener.onComplete(false);
                 });
+        startMatch();
+    }
+    public void startMatch(){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url("http://192.168.1.179:5000/").build();
+//        Log.d("TAG","request is fine ++++++++++++++++++++++");
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d("TAG","onFailure is fine ++++++++++++++++++++++");
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                Log.d("TAG","onResponse is fine ++++++++++++++++++++++");
+
+                final String responseData = response.body().string();
+//                MainActivity.this.runOnUiThread(() -> textView_response.setText(responseData));
+                Log.d("TAG", responseData);
+            }
+        });
     }
     public void addNewDeliveryPoint(DeliveryPoint dp, Model.addNewDeliveryPointListener listener) {
         db.collection(DELIVERYPOINTS).document(dp.getDeliveryPointName()).set(dp.toJson()).addOnSuccessListener((successListener)-> {

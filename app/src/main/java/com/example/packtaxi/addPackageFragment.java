@@ -132,8 +132,8 @@ public class addPackageFragment extends Fragment {
                 if(p!= null && p.getPackageID() != null)
                     pack.setPackageID(p.getPackageID());
                 else {
-                    String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-                    pack.setPackageID(currentTime+pack.getSource()+pack.getDestination());
+                    String currentTime = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
+                    pack.setPackageID(currentTime);
                 }
                 Model.getInstance().addNewPack(pack, (ifSuccess) -> {
                     if(ifSuccess) {

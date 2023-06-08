@@ -1,4 +1,5 @@
 package com.example.packtaxi;
+import okhttp3.OkHttpClient;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -6,9 +7,15 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.packtaxi.model.Model;
+import okhttp3.Callback;
+import okhttp3.Call;
+import okhttp3.Request;
+import java.io.IOException;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     private NavController navCtrl;
@@ -20,6 +27,25 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment nav_host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.base_navhost);
         navCtrl = nav_host.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navCtrl);
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url("http://192.168.1.179:5000/").build();
+//        Log.d("TAG","request is fine ++++++++++++++++++++++");
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d("TAG","onFailure is fine ++++++++++++++++++++++");
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                Log.d("TAG","onResponse is fine ++++++++++++++++++++++");
+
+                final String responseData = response.body().string();
+//                MainActivity.this.runOnUiThread(() -> textView_response.setText(responseData));
+                Log.d("TAG", responseData);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

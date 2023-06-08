@@ -135,7 +135,6 @@ public class Model {
                         }
                         List<FutureRoute> routesL= AppLocalDB.db.FutureRouteDao().getMyRoutes(userEmail);
                         Log.d("TAG", "routes list l 000000 "+ routesL);
-
                         routesList.postValue(routesL);
                         routesListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
                     });
@@ -222,15 +221,13 @@ public class Model {
     public interface getCurrentSenderListener{
         void onComplete(String senderEmail);
     }
-    public void getCurrentDriver(getCurrentDriverListener listener)
-    {
+    public void getCurrentDriver(getCurrentDriverListener listener) {
         modelFirebase.getCurrentDriver(listener);
     }
     public interface getCurrentDriverListener{
         void onComplete(String driverEmail);
     }
-    public void getCurrentSender(getCurrentSenderListener listener)
-    {
+    public void getCurrentSender(getCurrentSenderListener listener) {
         modelFirebase.getCurrentSender(listener);
     }
 
@@ -238,8 +235,7 @@ public class Model {
         void onComplete(DeliveryPoint dp);
     }
 
-    public void getDeliveryPointByName(String deliveryPointName, getDeliveryPointByIDListener listener)
-    {
+    public void getDeliveryPointByName(String deliveryPointName, getDeliveryPointByIDListener listener) {
         MyApplication.executorService.execute(()-> {
             DeliveryPoint dp = AppLocalDB.db.deliveryPointDao().getDeliveryPointByName(deliveryPointName);
             MyApplication.mainHandler.post(()->{

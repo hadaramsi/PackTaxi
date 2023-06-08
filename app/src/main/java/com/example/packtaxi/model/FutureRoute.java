@@ -1,5 +1,7 @@
 package com.example.packtaxi.model;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -32,7 +34,7 @@ public class FutureRoute {
     private double cost;
     private String driver;
     private boolean match;
-    private List<Integer> packagesNumbers = new ArrayList<Integer>();
+    private String packagesNumbers;
 
     public FutureRoute(){}
 
@@ -44,6 +46,7 @@ public class FutureRoute {
         this.driver=driver;
         this.date=date;
         this.match=false;
+        this.packagesNumbers="";
     }
     public String getFutureRouteID(){
         return futureRouteID;
@@ -64,7 +67,7 @@ public class FutureRoute {
         return cost;
     }
     public boolean getMatch(){return match;}
-    public List<Integer> getPackagesNumbers(){return packagesNumbers;}
+    public String getPackagesNumbers(){return packagesNumbers;}
 
     public void setFutureRouteID(String futureRouteID){
         this.futureRouteID = futureRouteID;
@@ -85,6 +88,7 @@ public class FutureRoute {
         this.cost = cost;
     }
     public void setMatch(boolean m){this.match=m;}
+    public void setPackagesNumbers(String pn){this.packagesNumbers=packagesNumbers+", "+pn;}
 
 
     static public FutureRoute fromJson(String futureRouteId,Map<String, Object> json){
