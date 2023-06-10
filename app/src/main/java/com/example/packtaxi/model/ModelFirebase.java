@@ -60,6 +60,22 @@ public class ModelFirebase {
                     }
                 });
     }
+    public void editDriver(Driver user, Model.editDriverListener listener) {
+        db.collection(DRIVERS).document(user.getEmail()).set(user.toJson())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        listener.onComplete(true);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG", e.getMessage());
+                        listener.onComplete(false);
+                    }
+                });
+    }
 
     public void getRoutesList(String email,Model.GetAllRoutesListener listener) {
         db.collection(ROUTES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

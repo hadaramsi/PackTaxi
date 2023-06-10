@@ -39,7 +39,7 @@ public class Driver {
         this.carNumber=carNumber;
         this.maxVolume=maxVolume;
         this.maxWeight=maxWeight;
-        this.rate=0.0;
+        this.rate=3.0;
     }
     public double getRate(){return rate;}
     public String getEmail(){

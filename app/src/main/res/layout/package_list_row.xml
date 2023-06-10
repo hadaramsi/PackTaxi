@@ -18,25 +18,20 @@
             android:id="@+id/rateBtn2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/rate"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/routeListRow_cost"
-            app:layout_constraintTop_toBottomOf="@+id/payBtn2" />
+            app:layout_constraintStart_toEndOf="@+id/payBtn2"
+            app:layout_constraintTop_toBottomOf="@+id/pacListRow_de" />
 
         <Button
             android:id="@+id/payBtn2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="20dp"
             android:background="@drawable/pay"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pacListRow_so"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/pacListRow_da"
+            app:layout_constraintTop_toBottomOf="@+id/pacListRow_de" />
 
         <ImageView
             android:id="@+id/reportListRow_iv"
@@ -53,8 +48,8 @@
 
         <TextView
             android:id="@+id/pacListRow_so"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="242dp"
+            android:layout_height="32dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="50dp"
@@ -85,7 +80,7 @@
 
         <TextView
             android:id="@+id/pacListRow_da"
-            android:layout_width="206dp"
+            android:layout_width="135dp"
             android:layout_height="24dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"

@@ -131,7 +131,7 @@
         android:id="@+id/futuerRoudDetailsFragment"
         android:name="com.example.packtaxi.futureRouteDetailsFragment"
         android:label="Futuer roud details"
-        tools:layout="@layout/fragment_futuer_route_details" >
+        tools:layout="@layout/fragment_future_route_details" >
         <argument
             android:name="routeID"
             app:argType="string" />

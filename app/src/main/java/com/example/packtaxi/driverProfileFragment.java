@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class driverProfileFragment extends Fragment {
     TextView maximumWeight;
     TextView maximumVolume;
     TextView rating;
+    Button save;
 
     public driverProfileFragment() {
     }
@@ -46,6 +49,7 @@ public class driverProfileFragment extends Fragment {
         rating = view.findViewById(R.id.driverProfile_rating_info_tv);
         pb = view.findViewById(R.id.driverProfile_pb);
         pb.setVisibility(View.VISIBLE);
+        save=view.findViewById(R.id.driverProfile_save_btn);
         Model.getInstance().getCurrentDriver(new Model.getCurrentDriverListener() {
             @Override
             public void onComplete(String driverEmail) {
@@ -58,7 +62,60 @@ public class driverProfileFragment extends Fragment {
                 });
             }
         });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pb.setVisibility(View.VISIBLE);
+                save.setEnabled(false);
+                if(!checkConditions()) {
+                    setDetails();
+                }
+                else {
+                    pb.setVisibility(View.GONE);
+                    save.setEnabled(true);
+                }
+            }
+        });
         return view;
+    }
+    private void setDetails() {
+        Driver user = new Driver();
+        Model.getInstance().getCurrentDriver(new Model.getCurrentDriverListener() {
+            @Override
+            public void onComplete(String userEmail) {
+                user.setFullName(fullNameTv.getText().toString());
+                user.setEmail(emailTv.getText().toString());
+                user.setCarNumber(carNumber.getText().toString());
+                user.setMaxVolume(Long.parseLong(maximumVolume.getText().toString()));
+                user.setMaxWeight(Long.parseLong(maximumWeight.getText().toString()));
+                Model.getInstance().editDriver(user, (success)->{
+                    if(success)
+                        Navigation.findNavController(view).navigateUp();
+                    else{
+                        pb.setVisibility(View.GONE);
+                        save.setEnabled(true);
+                    }
+                });
+            }
+        });
+    }
+    private boolean checkConditions(){
+        if(carNumber.getText().toString().equals("")){
+            carNumber.setError("car number is required");
+            carNumber.requestFocus();
+            return true;
+        }
+        if(maximumVolume.getText().toString().equals("")){
+            maximumVolume.setError("maximum Volume is required");
+            maximumVolume.requestFocus();
+            return true;
+        }
+        if(maximumWeight.getText().toString().equals("")){
+            maximumWeight.setError("maximum Weight is required");
+            maximumWeight.requestFocus();
+            return true;
+        }
+        return false;
     }
     public void setDetails(Driver d){
         Log.d("TAG","on set");

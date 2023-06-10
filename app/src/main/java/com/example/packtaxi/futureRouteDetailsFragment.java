@@ -46,7 +46,7 @@ public class futureRouteDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_futuer_route_details, container, false);
+        view = inflater.inflate(R.layout.fragment_future_route_details, container, false);
         sourceTv = view.findViewById(R.id.driveDetails_source_tv);
         destinationTv = view.findViewById(R.id.driveDetails_destination_tv);
         dateTv = view.findViewById(R.id.driveDetails_date_tv);
@@ -55,7 +55,7 @@ public class futureRouteDetailsFragment extends Fragment {
         packagesList = view.findViewById(R.id.driveDetails_packages_numbers);
         pb = view.findViewById(R.id.progressBar2);
         deleteBtn=view.findViewById(R.id.deleteBtn_drive);
-        editBtn=view.findViewById(R.id.editDriveBtn);
+//        editBtn=view.findViewById(R.id.editDriveBtn);
 
         viewModel.setRouteId(futureRouteDetailsFragmentArgs.fromBundle(getArguments()).getRouteID());
 
@@ -95,9 +95,10 @@ public class futureRouteDetailsFragment extends Fragment {
 
     public void updateUserDetailsDisplay(FutureRoute f)
     {
+        pb.setVisibility(View.GONE);
         sourceTv.setText(f.getSource());
         destinationTv.setText(f.getDestination());
-        costTv.setText(f.getCost()+ "₪ per km");
+        costTv.setText(f.getCost()+ "₪ per delivery");
         dateTv.setText(f.getDate());
         if(f.getMatch()== true) {
             match.setChecked(true);
@@ -122,6 +123,7 @@ public class futureRouteDetailsFragment extends Fragment {
         destinationTv.setText(f.getDestination());
         costTv.setText(f.getCost()+ "₪ per km");
         dateTv.setText(f.getDate());
+        pb.setVisibility(View.GONE);
     }
 
 

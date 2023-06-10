@@ -1,6 +1,8 @@
 package com.example.packtaxi;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,14 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -128,12 +130,15 @@ public class mainScreenDriverFragment extends Fragment {
         TextView sourceToDestination;
         TextView date;
         TextView cost;
+        Button matchBtn;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             sourceToDestination = itemView.findViewById(R.id.routeListRow_sorToDes);
             cost= itemView.findViewById(R.id.routeListRow_cost);
             date = itemView.findViewById(R.id.routeListRow_date);
+            matchBtn = itemView.findViewById(R.id.matchBtn);
+
             this.listener = listener;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,8 +151,13 @@ public class mainScreenDriverFragment extends Fragment {
         }
         public void bind(FutureRoute fr) {
             sourceToDestination.setText(fr.getSource()+" -> "+ fr.getDestination());
-            cost.setText(fr.getCost()+ "₪ per km");
+            cost.setText(fr.getCost()+ "₪ per delivery");
             date.setText(String.valueOf(fr.getDate()));
+            if(fr.getMatch()== true) {
+                matchBtn.setEnabled(false);
+//                matchBtn.setBackground(R.drawable.match_found);
+//                matchBtn.setBackground(getResources().getDrawable(R.drawable.match_found)));
+            }
         }
     }
 

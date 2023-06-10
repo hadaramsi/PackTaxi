@@ -118,6 +118,12 @@ public class Model {
     public void loginUser(String email, String password, View v, loginUserListener listener) {
         modelFirebase.loginUser(email, password,v, listener);
     }
+    public void editDriver(Driver u,editDriverListener listener){
+        modelFirebase.editDriver(u, listener);
+    }
+    public interface editDriverListener{
+        void onComplete(boolean ifSuccess);
+    }
     public static Model getInstance(){
         return instance;
     }

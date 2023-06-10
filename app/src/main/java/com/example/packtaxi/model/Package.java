@@ -23,6 +23,7 @@ public class Package {
     final static String DRIVER = "driver";
     final static String RATE = "rate";
 
+
     @PrimaryKey
     @NonNull
     private String packageID;

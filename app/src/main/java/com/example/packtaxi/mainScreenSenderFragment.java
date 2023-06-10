@@ -12,26 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.packtaxi.model.Model;
 import com.example.packtaxi.model.Package;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class mainScreenSenderFragment extends Fragment {
     private View view;
@@ -144,27 +136,27 @@ public class mainScreenSenderFragment extends Fragment {
             sourceToDestination = itemView.findViewById(R.id.pacListRow_so);
             cost = itemView.findViewById(R.id.pacListRow_de);
             date = itemView.findViewById(R.id.pacListRow_da);
-            rateBtn = itemView.findViewById(R.id.payBtn);
+            rateBtn = itemView.findViewById(R.id.matchBtn);
             payBtn = itemView.findViewById(R.id.rateBtn);
             this.listener = listener;
             this.payListener = payListener;
             this.rateListener = rateListener;
 
-            payBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    payListener.OnPayClick(pos);
-                }
-            });
-
-            rateBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    rateListener.OnRateClick(pos);
-                }
-            });
+//            payBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int pos = getAdapterPosition();
+//                    payListener.OnPayClick(pos);
+//                }
+//            });
+//
+//            rateBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int pos = getAdapterPosition();
+//                    rateListener.OnRateClick(pos);
+//                }
+//            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -180,6 +172,13 @@ public class mainScreenSenderFragment extends Fragment {
             sourceToDestination.setText(p.getSource()+" -> "+p.getDestination());
             cost.setText(p.getCost()+" ₪");
             date.setText(String.valueOf(p.getDate()));
+            if(p.getDriver()!= "") {
+//                payBtn.setEnabled(true);
+//                payBtn.setBackgroundColor(0 -153- 0);
+//                rateBtn.setEnabled(false);
+            }else{
+//                payBtn.setEnabled(false);
+            }
         }
     }
     interface OnItemClickListener {

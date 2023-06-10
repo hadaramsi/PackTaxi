@@ -62,7 +62,7 @@ public class packageDetailsFragment extends Fragment {
         driverTv = view.findViewById(R.id.packageDetails_driver_tv);
         match = view.findViewById(R.id.packageDetails_match_cb);
         deleteBtn=view.findViewById(R.id.rateBtn);
-        editBtn=view.findViewById(R.id.editBtn);
+//        editBtn=view.findViewById(R.id.editBtn);
 
 
         viewModel.setPackageId(packageDetailsFragmentArgs.fromBundle(getArguments()).getPackID());
@@ -102,16 +102,16 @@ public class packageDetailsFragment extends Fragment {
     public void updateDetailsDisplay(Package p) {
         sourceTv.setText(p.getSource());
         destinationTv.setText(p.getDestination());
-        costTv.setText(p.getCost()+ "₪");
+        costTv.setText(p.getCost()+ " ₪");
         dateTv.setText(p.getDate());
         noteTv.setText(p.getNote());
-        weightTv.setText(p.getWeight()+"kg");
-        volumeTv.setText(p.getVolume()+ "cc");
+        weightTv.setText(p.getWeight()+" kg");
+        volumeTv.setText(p.getVolume()+ " cc");
         driverTv.setText(p.getDriver());
         if(p.getDriver()!= "") {
             match.setChecked(true);
             deleteBtn.setEnabled(false);
-            editBtn.setEnabled(false);
+//            editBtn.setEnabled(false);
         }
         else
             match.setChecked(false);
