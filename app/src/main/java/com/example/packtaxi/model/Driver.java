@@ -21,7 +21,7 @@ public class Driver {
     @PrimaryKey
     @NonNull
     private String email;
-    private String password;
+//    private String password;
     private String fullName;
     private String licenseNumber;
     private String carNumber;
@@ -31,9 +31,9 @@ public class Driver {
 
     public Driver(){}
 
-    public Driver(String email, String password, String fullName, String licenseNumber,String carNumber, long maxVolume, long maxWeight){
+    public Driver(String email, String fullName, String licenseNumber,String carNumber, long maxVolume, long maxWeight){
         this.email= email;
-        this.password= password;
+//        this.password= password;
         this.fullName= fullName;
         this.licenseNumber= licenseNumber;
         this.carNumber=carNumber;
@@ -45,9 +45,9 @@ public class Driver {
     public String getEmail(){
         return email;
     }
-    public String getPassword(){
-        return password;
-    }
+//    public String getPassword(){
+//        return password;
+//    }
     public String getFullName(){
         return fullName;
     }
@@ -67,9 +67,9 @@ public class Driver {
         this.email = email;
     }
     public void setRate(double rate){this.rate=rate;}
-    public void setPassword(String password){
-        this.password = password;
-    }
+//    public void setPassword(String password){
+//        this.password = password;
+//    }
     public void setLicenseNumber(String licenseNumber){
         this.licenseNumber = licenseNumber;
     }
@@ -92,9 +92,9 @@ public class Driver {
         String fullName = (String)json.get(FULLNAME);
         if(fullName == null)
             return null;
-        String password = (String)json.get(PASSWORD);
-        if(password == null)
-            return null;
+//        String password = (String)json.get(PASSWORD);
+//        if(password == null)
+//            return null;
         String licenseNumber = (String)json.get(LICENSE_NUMBER);
         if(licenseNumber == null)
             return null;
@@ -107,14 +107,14 @@ public class Driver {
         long maxWeight = (long)json.get(MAX_WEIGHT);
         if(maxWeight == 0)
             return null;
-        Driver driver = new Driver(email, password, fullName, licenseNumber, carNumber, maxVolume, maxWeight);
+        Driver driver = new Driver(email, fullName, licenseNumber, carNumber, maxVolume, maxWeight);
         return driver;
     }
     public Map<String, Object> toJson(){
         Map<String, Object> json = new HashMap<>();
         json.put(EMAIL, email);
         json.put(FULLNAME, fullName);
-        json.put(PASSWORD, password);
+//        json.put(PASSWORD, password);
         json.put(LICENSE_NUMBER, licenseNumber);
         json.put(CAR_NUMBER, carNumber);
         json.put(MAX_WEIGHT, maxWeight);

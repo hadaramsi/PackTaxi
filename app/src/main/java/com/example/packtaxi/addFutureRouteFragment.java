@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.packtaxi.model.DeliveryPoint;
+import com.example.packtaxi.model.Driver;
 import com.example.packtaxi.model.FutureRoute;
 import com.example.packtaxi.model.Model;
 import java.text.SimpleDateFormat;
@@ -65,7 +66,6 @@ public class addFutureRouteFragment extends Fragment {
         setState(true);
         // initialize fusedLocationProviderClient
 //        setFusedLocationProviderClient(LocationServices.getFusedLocationProviderClient(getActivity()));
-
         Model.getInstance().getDPStringList( (list)->{
             list.add(0,"");
             ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(MyApplication.getContext(), android.R.layout.simple_spinner_item, list);
@@ -91,7 +91,6 @@ public class addFutureRouteFragment extends Fragment {
             }
         });
         addBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 pb.setVisibility(View.VISIBLE);
@@ -138,7 +137,6 @@ public class addFutureRouteFragment extends Fragment {
                     Navigation.findNavController(v).navigate(action);
                 }
             }
-
         });
         return view;
     }
@@ -147,69 +145,56 @@ public class addFutureRouteFragment extends Fragment {
         Model.getInstance().getCurrentDriver(new Model.getCurrentDriverListener() {
             @Override
             public void onComplete(String driverEmail) {
-                Model.getInstance().getDeliveryPointByName(source.getSelectedItem().toString(),new Model.getDeliveryPointByIDListener(){
+                Log.d("TAG","heyyyyyyyyyyyyyyyyyyyyy 11111111111");
+                Model.getInstance().getDriverByEmail(driverEmail, new Model.getDriverByEmailListener() {
                     @Override
-                    public void onComplete(DeliveryPoint s) {
-                        Model.getInstance().getDeliveryPointByName(destination.getSelectedItem().toString(),new Model.getDeliveryPointByIDListener(){
+                    public void onComplete(Driver driver) {
+                        Log.d("TAG","heyyyyyyyyyyyyyyyyyyyyy");
+                        Model.getInstance().getDeliveryPointByName(source.getSelectedItem().toString(),new Model.getDeliveryPointByIDListener(){
                             @Override
-                            public void onComplete(DeliveryPoint d) {
-                                Location sor= new Location("source");
-                                sor.setLatitude(s.getLatitude());
-                                sor.setLongitude(s.getLongitude());
-                                Location des= new Location("destination");
-                                des.setLatitude(d.getLatitude());
-                                des.setLongitude(d.getLongitude());
-                                float dest=sor.distanceTo(des) / 10000;
-                                double cost= Double.parseDouble(costEt.getText().toString())*dest;
-                                cost=(int)cost+1;
-                                route.setCost(cost);
-                                route.setSource(source.getSelectedItem().toString());
-                                route.setDestination(destination.getSelectedItem().toString());
-                                route.setDate(date);
-                                route.setDriver(driverEmail);
-                                if(r!= null && r.getFutureRouteID() != null)
-                                    route.setFutureRouteID(r.getFutureRouteID());
-                                else {
-                                    String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-                                    route.setFutureRouteID(currentTime+route.getSource()+route.getDestination());
-                                }
-                                Model.getInstance().addNewRoute(route, (ifSuccess) -> {
-                                    if(ifSuccess) {
-                                        Toast.makeText(getActivity(), "Adding future route", Toast.LENGTH_LONG).show();
-                                    }
-                                    else{
-                                        Toast.makeText(getActivity(), "failed to adding route to database", Toast.LENGTH_LONG).show();
-                                        pb.setVisibility(View.GONE);
-                                        addBtn.setEnabled(true);
+                            public void onComplete(DeliveryPoint s) {
+                                Model.getInstance().getDeliveryPointByName(destination.getSelectedItem().toString(),new Model.getDeliveryPointByIDListener(){
+                                    @Override
+                                    public void onComplete(DeliveryPoint d) {
+                                        Location sor= new Location("source");
+                                        sor.setLatitude(s.getLatitude());
+                                        sor.setLongitude(s.getLongitude());
+                                        Location des= new Location("destination");
+                                        des.setLatitude(d.getLatitude());
+                                        des.setLongitude(d.getLongitude());
+                                        float dest=sor.distanceTo(des) / 10000;
+                                        double cost= Double.parseDouble(costEt.getText().toString())*dest;
+                                        cost=(int)cost+1;
+                                        route.setCost(cost);
+                                        route.setSource(source.getSelectedItem().toString());
+                                        route.setDestination(destination.getSelectedItem().toString());
+                                        route.setDate(date);
+                                        route.setDriver(driverEmail);
+                                        route.setVolume(driver.getMaxVolume());
+                                        route.setWeight(driver.getMaxWeight());
+                                        if(r!= null && r.getFutureRouteID() != null)
+                                            route.setFutureRouteID(r.getFutureRouteID());
+                                        else {
+                                            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+                                            route.setFutureRouteID(currentTime+route.getSource()+route.getDestination());
+                                        }
+                                        Model.getInstance().addNewRoute(route, (ifSuccess) -> {
+                                            if(ifSuccess) {
+                                                Toast.makeText(getActivity(), "Adding future route", Toast.LENGTH_LONG).show();
+                                            }
+                                            else{
+                                                Toast.makeText(getActivity(), "failed to adding route to database", Toast.LENGTH_LONG).show();
+                                                pb.setVisibility(View.GONE);
+                                                addBtn.setEnabled(true);
+                                            }
+                                        });
                                     }
                                 });
                             }
                         });
                     }
                 });
-//                route.setCost(Double.parseDouble(costEt.getText().toString()));
-//                route.setSource(source.getSelectedItem().toString());
-//                route.setDestination(destination.getSelectedItem().toString());
-//                route.setDate(date);
-//                route.setDriver(driverEmail);
-//                if(r!= null && r.getFutureRouteID() != null)
-//                    route.setFutureRouteID(r.getFutureRouteID());
-//                else {
-//                    String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-//                    route.setFutureRouteID(currentTime+route.getSource()+route.getDestination());
-//                }
-//                Model.getInstance().addNewRoute(route, (ifSuccess) -> {
-//                    if(ifSuccess) {
-//                        Toast.makeText(getActivity(), "Adding future route", Toast.LENGTH_LONG).show();
-//                    }
-//                    else{
-//                        Toast.makeText(getActivity(), "failed to adding route to database", Toast.LENGTH_LONG).show();
-//                        pb.setVisibility(View.GONE);
-//                        addBtn.setEnabled(true);
-//                    }
-//                });
             }
         });
     }
-
 }

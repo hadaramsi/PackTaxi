@@ -73,7 +73,7 @@ public class signUpAsDriverFragment extends Fragment {
         Driver driver = new Driver();
         driver.setFullName(fullNameEt.getText().toString().trim());
         driver.setEmail(emailEt.getText().toString().trim());
-        driver.setPassword(passwordEt.getText().toString().trim());
+//        driver.setPassword(passwordEt.getText().toString().trim());
         driver.setLicenseNumber(licenseEt.getText().toString().trim());
         driver.setCarNumber(carNumberEt.getText().toString().trim());
         driver.setMaxVolume(Integer.parseInt(maxVolumeEt.getText().toString().trim()));

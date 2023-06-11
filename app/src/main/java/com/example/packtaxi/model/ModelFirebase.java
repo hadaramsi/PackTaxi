@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -125,8 +126,7 @@ public class ModelFirebase {
             listener.onComplete(currUser.getEmail());
         }
     }
-    public void getCurrentDriver(Model.getCurrentDriverListener listener)
-    {
+    public void getCurrentDriver(Model.getCurrentDriverListener listener) {
         FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currUser == null)
             listener.onComplete(null);
@@ -223,9 +223,9 @@ public class ModelFirebase {
             }
         });
     }
-    public void getAllDrivers(Model.GetAllDriversListener Listener){
-
-    }
+//    public void getAllDrivers(Model.GetAllDriversListener Listener){
+//
+//    }
     public void addDriver(Driver driver,String password, Model.AddDriverListener listener){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(driver.getEmail(), password)
@@ -297,7 +297,7 @@ public class ModelFirebase {
                     Log.d("TAG", e.getMessage());
                     listener.onComplete(false);
                 });
-        startMatch();
+//        startMatch();
 
     }
     public void addNewPack(Package p, Model.addNewPackListener listener) {
@@ -308,22 +308,39 @@ public class ModelFirebase {
                     Log.d("TAG", e.getMessage());
                     listener.onComplete(false);
                 });
-        startMatch();
+//        startMatch();
     }
     public void startMatch(){
+        db.collection(PACKAGES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                LinkedList<Package> packagesList = new LinkedList<Package>();
+                if(task.isSuccessful()) {
+                    for(QueryDocumentSnapshot doc:task.getResult()) {
+                        Package p = Package.fromJson(doc.getId(), doc.getData());
+                        double cost=p.getCost();
+                        String source=p.getSource();
+                        String destination=p.getDestination();
+                        double volume=p.getVolume();
+                        double weight=p.getWeight();
+//                        Date date=formatter.parse(p.getDate());
+                    }
+                }
+            }
+        });
+
+
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url("http://192.168.1.179:5000/").build();
-//        Log.d("TAG","request is fine ++++++++++++++++++++++");
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.d("TAG","onFailure is fine ++++++++++++++++++++++");
+                Log.d("TAG","onFailure");
                 e.printStackTrace();
             }
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-                Log.d("TAG","onResponse is fine ++++++++++++++++++++++");
-
+                Log.d("TAG","onResponse");
                 final String responseData = response.body().string();
 //                MainActivity.this.runOnUiThread(() -> textView_response.setText(responseData));
                 Log.d("TAG", responseData);

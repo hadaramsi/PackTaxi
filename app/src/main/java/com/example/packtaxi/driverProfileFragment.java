@@ -82,7 +82,7 @@ public class driverProfileFragment extends Fragment {
         Driver user = new Driver();
         Model.getInstance().getCurrentDriver(new Model.getCurrentDriverListener() {
             @Override
-            public void onComplete(String userEmail) {
+            public void onComplete(String driverEmail) {
                 user.setFullName(fullNameTv.getText().toString());
                 user.setEmail(emailTv.getText().toString());
                 user.setCarNumber(carNumber.getText().toString());

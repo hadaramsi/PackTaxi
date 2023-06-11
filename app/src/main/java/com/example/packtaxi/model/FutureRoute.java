@@ -21,6 +21,8 @@ public class FutureRoute {
     final static String DESTINATION = "destination";
     final static String DATE = "date";
     final static String COST = "cost";
+    final static String WEIGHT = "weight";
+    final static String VOLUME = "volume";
     final static String DRIVER = "driver";
     final static String MATCH = "match";
     final static String PACKAGESLIST="packagesList";
@@ -35,6 +37,8 @@ public class FutureRoute {
     private String driver;
     private boolean match;
     private String packagesNumbers;
+    private long volume;
+    private long weight;
 
     public FutureRoute(){}
 
@@ -46,7 +50,15 @@ public class FutureRoute {
         this.driver=driver;
         this.date=date;
         this.match=false;
+        this.volume=0;
+        this.weight=0;
         this.packagesNumbers="";
+    }
+    public long getVolume(){
+        return volume;
+    }
+    public long getWeight(){
+        return weight;
     }
     public String getFutureRouteID(){
         return futureRouteID;
@@ -68,7 +80,12 @@ public class FutureRoute {
     }
     public boolean getMatch(){return match;}
     public String getPackagesNumbers(){return packagesNumbers;}
-
+    public void setVolume(long volume){
+        this.volume = volume;
+    }
+    public void setWeight(long weight){
+        this.weight = weight;
+    }
     public void setFutureRouteID(String futureRouteID){
         this.futureRouteID = futureRouteID;
     }
@@ -120,6 +137,8 @@ public class FutureRoute {
         json.put(COST, cost);
         json.put(DRIVER, driver);
         json.put(MATCH, match);
+        json.put(WEIGHT, weight);
+        json.put(VOLUME, volume);
         json.put(PACKAGESLIST,packagesNumbers);
         return json;
     }

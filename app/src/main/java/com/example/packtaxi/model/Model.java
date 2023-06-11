@@ -252,9 +252,9 @@ public class Model {
     public interface GetAllDriversListener{
         void onComplete(List<Driver> driversData);
     }
-    public void getAllDrivers( GetAllDriversListener listener){
-        modelFirebase.getAllDrivers(listener);
-    }
+//    public void getAllDrivers( GetAllDriversListener listener){
+//        modelFirebase.getAllDrivers(listener);
+//    }
     public interface GetAllSendersListener{
         void onComplete(List<Sender> sendersData);
     }
