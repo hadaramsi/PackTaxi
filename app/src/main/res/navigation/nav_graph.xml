@@ -182,8 +182,11 @@
         android:label="Driver rating"
         tools:layout="@layout/fragment_driver_rating" >
         <action
-            android:id="@+id/action_driverRatingFragment_to_packageDetailsFragment"
-            app:destination="@id/packageDetailsFragment" />
+            android:id="@+id/action_driverRatingFragment_to_mainScreenSenderFragment"
+            app:destination="@id/mainScreenSenderFragment" />
+        <argument
+            android:name="driver"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"

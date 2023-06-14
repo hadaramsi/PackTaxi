@@ -21,6 +21,43 @@
                 android:background="@drawable/app_background">
 
                 <TextView
+                    android:id="@+id/packageDetails_destination_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="8dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/viewReport_tv_notes"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/viewReport_tv_notes" />
+
+                <ImageButton
+                    android:id="@+id/rateSender"
+                    android:layout_width="56dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="70dp"
+                    android:background="#00FFFFFF"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/rate"
+                    app:layout_constraintStart_toEndOf="@+id/paySender"
+                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
+
+                <ImageButton
+                    android:id="@+id/paySender"
+                    android:layout_width="56dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="70dp"
+                    android:background="#00FFFFFF"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/pay"
+                    app:layout_constraintStart_toEndOf="@+id/rateBtn"
+                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
+
+                <TextView
                     android:id="@+id/packageDetails_rateDriver_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -56,21 +93,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/packageDetails_destination_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="8dp"
-                    android:ems="10"
-                    android:inputType="textMultiLine"
-                    android:maxLines="2"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/viewReport_tv_notes"
-                    app:layout_constraintTop_toTopOf="@+id/viewReport_tv_notes" />
-
-                <TextView
                     android:id="@+id/viewReport_tv_notes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:textSize="24sp"
@@ -248,34 +271,14 @@
                     android:layout_marginTop="65dp"
                     android:layout_marginBottom="10dp"
                     android:text="Delete"
-                    android:textColor="?attr/colorError"
+                    android:textColor="#C68E7C"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.383"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
-
-                <Button
-                    android:id="@+id/paySender"
-                    android:layout_width="52dp"
-                    android:layout_height="46dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="70dp"
-                    android:background="@drawable/pay"
-                    android:backgroundTint="@color/black"
-                    android:textColorLink="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/rateBtn"
-                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
-
-                <Button
-                    android:id="@+id/rateSender"
-                    android:layout_width="47dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="70dp"
-                    android:background="@drawable/rate"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/paySender"
-                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv"
+                    app:layout_constraintVertical_bias="1.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

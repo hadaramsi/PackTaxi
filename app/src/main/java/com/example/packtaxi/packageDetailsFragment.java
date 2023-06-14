@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +35,8 @@ public class packageDetailsFragment extends Fragment {
     private TextView rateDriverTv;
     private TextView costTv;
     private Button deleteBtn;
-    private Button rateBtn;
-    private Button payBtn;
+    private ImageButton rateBtn;
+    private ImageButton payBtn;
 
     private Package pac;
     ProgressBar pb;
@@ -80,6 +81,11 @@ public class packageDetailsFragment extends Fragment {
                 if(p.getPay()== true){
                     payBtn.setEnabled(false);
                 }
+                if(p.getDriver().equals("-")){
+                    rateBtn.setEnabled(false);
+                }else if(p.getIfRate()== true){
+                    rateBtn.setEnabled(false);
+                }
             }
         });
 
@@ -112,9 +118,15 @@ public class packageDetailsFragment extends Fragment {
         rateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                pb.setVisibility(View.VISIBLE);
-//                pb.setVisibility(View.GONE);
-                Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToDriverRatingFragment());
+                String p = viewModel.getPackageId();
+                Model.getInstance().getPackageByID(p, new Model.getPackageByIDListener() {
+                    @Override
+                    public void onComplete(Package p) {
+                        String driverId= p.getDriver();
+                        Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToDriverRatingFragment(driverId));
+
+                    }
+                });
             }
         });
         return view;

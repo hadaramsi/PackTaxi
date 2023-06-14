@@ -11,12 +11,59 @@
         android:layout_height="match_parent"
         android:background="@drawable/app_background">
 
+        <ImageButton
+            android:id="@+id/star3"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/empty_star"
+            app:layout_constraintStart_toEndOf="@+id/star2"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <ImageButton
+            android:id="@+id/star4"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="10dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/empty_star"
+            app:layout_constraintStart_toEndOf="@+id/star3"
+            app:layout_constraintTop_toTopOf="@+id/star3" />
+
+        <ImageButton
+            android:id="@+id/star5"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/empty_star"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/star4"
+            app:layout_constraintTop_toTopOf="@+id/star3" />
+
+        <ImageButton
+            android:id="@+id/star2"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="10dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/empty_star"
+            app:layout_constraintStart_toEndOf="@+id/star1"
+            app:layout_constraintTop_toTopOf="@+id/star3" />
+
         <TextView
             android:id="@+id/textView13"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="90dp"
             android:layout_marginEnd="10dp"
             android:text="Rate the driver who shipped your package"
             android:textSize="24sp"
@@ -25,54 +72,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/star1"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="30dp"
-            android:src="@drawable/empty_star"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="184dp" />
-
-        <ImageView
-            android:id="@+id/star2"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/empty_star"
-            app:layout_constraintStart_toEndOf="@+id/star1"
-            tools:layout_editor_absoluteY="184dp" />
-
-        <ImageView
-            android:id="@+id/star3"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/empty_star"
-            app:layout_constraintStart_toEndOf="@+id/star2"
-            tools:layout_editor_absoluteY="184dp" />
-
-        <ImageView
-            android:id="@+id/star4"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/empty_star"
-            app:layout_constraintStart_toEndOf="@+id/star3"
-            tools:layout_editor_absoluteY="184dp" />
-
-        <ImageView
-            android:id="@+id/star5"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/empty_star"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.153"
-            app:layout_constraintStart_toEndOf="@+id/star4"
-            tools:layout_editor_absoluteY="184dp" />
-
         <Button
             android:id="@+id/driverRating_btn"
             android:layout_width="190dp"
@@ -80,7 +79,7 @@
             android:layout_marginTop="150dp"
             android:backgroundTint="#E8CCA2"
             android:text="send"
-            android:textColor="?attr/colorError"
+            android:textColor="#C68E7C"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +91,7 @@
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="90dp"
             android:text="Thank you!"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -111,5 +110,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <ImageButton
+            android:id="@+id/star1"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="10dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/empty_star"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/star3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

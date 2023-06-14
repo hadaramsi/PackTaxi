@@ -53,6 +53,9 @@ public class Model {
     public interface addNewPaymentListener{
         void onComplete(boolean ifSuccess);
     }
+    public interface updateRateDriverListener{
+        void onComplete(boolean ifSuccess);
+    }
     public void addNewRoute(FutureRoute route,addNewRouteListener listener){
         modelFirebase.addNewRoute(route, (success)->{
             reloadRoutesList();
@@ -73,6 +76,12 @@ public class Model {
     }
     public void addNewPayment(payment p,addNewPaymentListener listener){
         modelFirebase.addNewPayment(p, (success)->{
+            listener.onComplete(success);
+        });
+    }
+
+    public void updateRateDriver(Driver d,updateRateDriverListener listener){
+        modelFirebase.updateRateDriver(d, (success)->{
             listener.onComplete(success);
         });
     }

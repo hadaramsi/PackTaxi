@@ -76,7 +76,7 @@
             android:layout_height="65dp"
             android:layout_marginBottom="48dp"
             android:backgroundTint="#E8CCA2"
-            android:text="Add"
+            android:text="#C68E7C"
             android:textColor="?attr/colorError"
             android:textSize="20sp"
             android:textStyle="bold"

@@ -359,6 +359,10 @@ public class ModelFirebase {
             }
         });
     }
+    public void updateRateDriver(Driver d, Model.updateRateDriverListener listener) {
+        db.collection(PACKAGES).document(d.getEmail()).set(d);
+    }
+
     public void getDPs(Model.GetDPsListener listener) {
         db.collection(DELIVERYPOINTS)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -108,6 +108,7 @@
             android:layout_marginBottom="48dp"
             android:backgroundTint="#E8CCA2"
             android:text="Remove"
+            android:textColor="#C68E7C"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

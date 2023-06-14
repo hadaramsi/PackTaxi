@@ -23,6 +23,8 @@ public class Package {
     final static String DRIVER = "driver";
     final static String RATE = "rate";
     final static String PAY = "pay";
+    final static String IFRATE = "ifRate";
+
 
 
 
@@ -41,6 +43,7 @@ public class Package {
     private String driver;
     private double rate;
     private boolean pay;
+    private boolean ifRate;
 
     public Package(){}
 
@@ -57,12 +60,15 @@ public class Package {
         this.driver="-";
         this.rate=0;
         this.pay=false;
+        this.ifRate=false;
+
     }
 
     public String getPackageID(){
         return packageID;
     }
     public boolean getPay(){ return pay; }
+    public boolean getIfRate(){ return ifRate; }
     public String getSender(){
         return sender;
     }
@@ -129,6 +135,10 @@ public class Package {
     public void setPay(boolean p){
         this.pay = p;
     }
+    public void setIfRate(boolean r){
+        this.ifRate = r;
+    }
+
 
 
     static public Package fromJson(String packageId, Map<String, Object> json){
@@ -173,6 +183,8 @@ public class Package {
         json.put(DRIVER, driver);
         json.put(RATE, rate);
         json.put(PAY,pay);
+        json.put(IFRATE,ifRate);
+
         return json;
     }
 

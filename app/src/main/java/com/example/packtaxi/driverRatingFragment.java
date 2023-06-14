@@ -4,61 +4,128 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link driverRatingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.packtaxi.model.Driver;
+import com.example.packtaxi.model.Model;
+
 public class driverRatingFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ImageButton star1;
+    private ImageButton star2;
+    private ImageButton star3;
+    private ImageButton star4;
+    private ImageButton star5;
+    private int rate=0;
+    private Button sendBtn;
+    private driverRatingViewModel viewModel;
 
     public driverRatingFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment driverRatingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static driverRatingFragment newInstance(String param1, String param2) {
-        driverRatingFragment fragment = new driverRatingFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_driver_rating, container, false);
+        View view=  inflater.inflate(R.layout.fragment_driver_rating, container, false);
+        star1 = view.findViewById(R.id.star1);
+        star2 = view.findViewById(R.id.star2);
+        star3 = view.findViewById(R.id.star3);
+        star4 = view.findViewById(R.id.star4);
+        star5 = view.findViewById(R.id.star5);
+        sendBtn=view.findViewById(R.id.driverRating_btn);
+
+        viewModel.setDriverId(driverRatingFragmentArgs.fromBundle(getArguments()).getDriver());
+
+        star1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                star1.setImageResource(R.drawable.yellow_star);
+                star2.setImageResource(R.drawable.empty_star);
+                star3.setImageResource(R.drawable.empty_star);
+                star4.setImageResource(R.drawable.empty_star);
+                star5.setImageResource(R.drawable.empty_star);
+                rate=1;
+            }
+        });
+        star2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                star1.setImageResource(R.drawable.yellow_star);
+                star2.setImageResource(R.drawable.yellow_star);
+                star3.setImageResource(R.drawable.empty_star);
+                star4.setImageResource(R.drawable.empty_star);
+                star5.setImageResource(R.drawable.empty_star);
+                rate=2;
+            }
+        });
+        star3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                star1.setImageResource(R.drawable.yellow_star);
+                star2.setImageResource(R.drawable.yellow_star);
+                star3.setImageResource(R.drawable.yellow_star);
+                star4.setImageResource(R.drawable.empty_star);
+                star5.setImageResource(R.drawable.empty_star);
+                rate=3;
+            }
+        });
+        star4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                star1.setImageResource(R.drawable.yellow_star);
+                star2.setImageResource(R.drawable.yellow_star);
+                star3.setImageResource(R.drawable.yellow_star);
+                star4.setImageResource(R.drawable.yellow_star);
+                star5.setImageResource(R.drawable.empty_star);
+                rate=4;
+            }
+        });
+        star5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                star1.setImageResource(R.drawable.yellow_star);
+                star2.setImageResource(R.drawable.yellow_star);
+                star3.setImageResource(R.drawable.yellow_star);
+                star4.setImageResource(R.drawable.yellow_star);
+                star5.setImageResource(R.drawable.yellow_star);
+                rate=5;
+            }
+        });
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String d = viewModel.getDriverId();
+                Model.getInstance().getDriverByEmail(d, new Model.getDriverByEmailListener() {
+                    @Override
+                    public void onComplete(Driver driver) {
+                        if(driver != null) {
+                            driver.setRate((driver.getRate()+rate)/2);
+                            Model.getInstance().updateRateDriver(driver, new Model.updateRateDriverListener() {
+                                @Override
+                                public void onComplete(boolean ifSuccess) {
+                                    Log.d("TAG", "update rate driver");
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+        return  view;
     }
 }
