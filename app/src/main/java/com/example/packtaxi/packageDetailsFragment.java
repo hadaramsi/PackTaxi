@@ -78,12 +78,16 @@ public class packageDetailsFragment extends Fragment {
                 if(p != null) {
                     updatePackageDetailsDisplay(p);
                 }
-                if(p.getPay()== true){
+                if(p.getDriver().equals("-")){
+                    rateBtn.setEnabled(false);
+                }else if(p.getPay()== true){
+                    deleteBtn.setEnabled(false);
                     payBtn.setEnabled(false);
                 }
                 if(p.getDriver().equals("-")){
                     rateBtn.setEnabled(false);
                 }else if(p.getIfRate()== true){
+                    deleteBtn.setEnabled(false);
                     rateBtn.setEnabled(false);
                 }
             }
