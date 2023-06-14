@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -39,6 +41,7 @@ public class mainScreenSenderFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(packageListViewModel.class);
+        Model.getInstance().reloadPackagesList();
     }
 
     @Override
@@ -123,12 +126,11 @@ public class mainScreenSenderFragment extends Fragment {
     }
     static class MyViewHolder extends RecyclerView.ViewHolder {
         private final OnItemClickListener listener;
-        private final OnPayClickListener payListener;
-        private final OnRateClickListener rateListener;
+//        private final OnPayClickListener payListener;
+//        private final OnRateClickListener rateListener;
         TextView sourceToDestination;
         TextView cost;
-        Button rateBtn;
-        Button payBtn;
+        ImageView match;
         TextView date;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener, OnPayClickListener payListener, OnRateClickListener rateListener) {
@@ -136,27 +138,9 @@ public class mainScreenSenderFragment extends Fragment {
             sourceToDestination = itemView.findViewById(R.id.pacListRow_so);
             cost = itemView.findViewById(R.id.pacListRow_de);
             date = itemView.findViewById(R.id.pacListRow_da);
-            rateBtn = itemView.findViewById(R.id.matchBtn);
-            payBtn = itemView.findViewById(R.id.rateBtn);
+            match = itemView.findViewById(R.id.matchSender);
             this.listener = listener;
-            this.payListener = payListener;
-            this.rateListener = rateListener;
 
-//            payBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int pos = getAdapterPosition();
-//                    payListener.OnPayClick(pos);
-//                }
-//            });
-//
-//            rateBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int pos = getAdapterPosition();
-//                    rateListener.OnRateClick(pos);
-//                }
-//            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -165,19 +149,19 @@ public class mainScreenSenderFragment extends Fragment {
                     if (listener != null)
                         listener.onItemClick(pos, v);
                 }
+
             });
         }
+
+
 
         public void bind(Package p) {
             sourceToDestination.setText(p.getSource()+" -> "+p.getDestination());
             cost.setText(p.getCost()+" ₪");
             date.setText(String.valueOf(p.getDate()));
-            if(p.getDriver()!= "") {
-//                payBtn.setEnabled(true);
-//                payBtn.setBackgroundColor(0 -153- 0);
-//                rateBtn.setEnabled(false);
-            }else{
-//                payBtn.setEnabled(false);
+            if(!p.getDriver().equals("-")) {
+                Log.d("TAG", "the driver" + p.getDriver());
+                match.setVisibility(View.VISIBLE);
             }
         }
     }

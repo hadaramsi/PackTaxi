@@ -89,7 +89,7 @@ public class managerMainScreenFragment extends Fragment {
                 @NonNull NavDirections action = managerMainScreenFragmentDirections.actionMangerMainScreenFragmentToAddingDeliveryPointFragment();
                 Navigation.findNavController(view).navigate(action);
                 return true;
-            case R.id.search_delivery_point:
+//            case R.id.search_delivery_point:
 //                MenuItem searchItem = mMenu.findItem(R.id.search_delivery_point);
 //                String dpName=searchItem.getIntent().getAction();
 //                Model.getInstance().getDeliveryPointByName(dpName, (dp)->{
@@ -101,7 +101,7 @@ public class managerMainScreenFragment extends Fragment {
 //                Toast.makeText(getActivity(), "adding route to database", Toast.LENGTH_LONG).show();
 //            }
 //                });
-                return true;
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

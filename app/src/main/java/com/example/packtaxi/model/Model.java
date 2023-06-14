@@ -50,6 +50,9 @@ public class Model {
     public interface addNewPackListener{
         void onComplete(boolean ifSuccess);
     }
+    public interface addNewPaymentListener{
+        void onComplete(boolean ifSuccess);
+    }
     public void addNewRoute(FutureRoute route,addNewRouteListener listener){
         modelFirebase.addNewRoute(route, (success)->{
             reloadRoutesList();
@@ -65,6 +68,11 @@ public class Model {
     public void addNewDeliveryPoint(DeliveryPoint dp,addNewDeliveryPointListener listener){
         modelFirebase.addNewDeliveryPoint(dp, (success)->{
             reloadDeliveryPointsList();
+            listener.onComplete(success);
+        });
+    }
+    public void addNewPayment(payment p,addNewPaymentListener listener){
+        modelFirebase.addNewPayment(p, (success)->{
             listener.onComplete(success);
         });
     }

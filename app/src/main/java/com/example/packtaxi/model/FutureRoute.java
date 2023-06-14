@@ -35,7 +35,6 @@ public class FutureRoute {
     private String date;
     private double cost;
     private String driver;
-    private boolean match;
     private String packagesNumbers;
     private long volume;
     private long weight;
@@ -49,7 +48,6 @@ public class FutureRoute {
         this.cost= cost;
         this.driver=driver;
         this.date=date;
-        this.match=false;
         this.volume=0;
         this.weight=0;
         this.packagesNumbers="";
@@ -78,7 +76,6 @@ public class FutureRoute {
     public double getCost(){
         return cost;
     }
-    public boolean getMatch(){return match;}
     public String getPackagesNumbers(){return packagesNumbers;}
     public void setVolume(long volume){
         this.volume = volume;
@@ -104,7 +101,6 @@ public class FutureRoute {
     public void setCost(double cost){
         this.cost = cost;
     }
-    public void setMatch(boolean m){this.match=m;}
     public void setPackagesNumbers(String pn){this.packagesNumbers=packagesNumbers+", "+pn;}
 
 
@@ -118,7 +114,7 @@ public class FutureRoute {
         String destination = (String)json.get(DESTINATION);
         if(destination == null)
             return null;
-        double cost = (double)json.get(COST);
+        double cost = Double.parseDouble(json.get(COST).toString());
         if(cost == 0.0)
             return null;
         String date= (String) json.get(DATE);
@@ -136,7 +132,6 @@ public class FutureRoute {
         json.put(DATE, date);
         json.put(COST, cost);
         json.put(DRIVER, driver);
-        json.put(MATCH, match);
         json.put(WEIGHT, weight);
         json.put(VOLUME, volume);
         json.put(PACKAGESLIST,packagesNumbers);

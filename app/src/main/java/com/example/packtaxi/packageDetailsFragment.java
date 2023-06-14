@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +32,11 @@ public class packageDetailsFragment extends Fragment {
     private TextView noteTv;
     private TextView driverTv;
     private TextView rateDriverTv;
-    private CheckBox match;
     private TextView costTv;
     private Button deleteBtn;
-    private Button editBtn;
+    private Button rateBtn;
+    private Button payBtn;
+
     private Package pac;
     ProgressBar pb;
 
@@ -60,10 +63,9 @@ public class packageDetailsFragment extends Fragment {
         volumeTv = view.findViewById(R.id.packageDetails_volume_tv);
         rateDriverTv = view.findViewById(R.id.packageDetails_rateDriver_tv);
         driverTv = view.findViewById(R.id.packageDetails_driver_tv);
-        match = view.findViewById(R.id.packageDetails_match_cb);
         deleteBtn=view.findViewById(R.id.rateBtn);
-//        editBtn=view.findViewById(R.id.editBtn);
-
+        rateBtn=view.findViewById(R.id.rateSender);
+        payBtn=view.findViewById(R.id.paySender);
 
         viewModel.setPackageId(packageDetailsFragmentArgs.fromBundle(getArguments()).getPackID());
 
@@ -74,6 +76,9 @@ public class packageDetailsFragment extends Fragment {
                 pac=p;
                 if(p != null) {
                     updatePackageDetailsDisplay(p);
+                }
+                if(p.getPay()== true){
+                    payBtn.setEnabled(false);
                 }
             }
         });
@@ -96,6 +101,22 @@ public class packageDetailsFragment extends Fragment {
                 Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToMainScreenSenderFragment());
             }
         });
+        payBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String p = viewModel.getPackageId();
+                Log.d("TAG", p);
+                Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToPaymentFragment(p));
+            }
+        });
+        rateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                pb.setVisibility(View.VISIBLE);
+//                pb.setVisibility(View.GONE);
+                Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToDriverRatingFragment());
+            }
+        });
         return view;
     }
 
@@ -108,13 +129,12 @@ public class packageDetailsFragment extends Fragment {
         weightTv.setText(p.getWeight()+" kg");
         volumeTv.setText(p.getVolume()+ " cc");
         driverTv.setText(p.getDriver());
-        if(p.getDriver()!= "") {
-            match.setChecked(true);
-            deleteBtn.setEnabled(false);
-//            editBtn.setEnabled(false);
+        if(p.getDriver() == "-") {
+            deleteBtn.setEnabled(true);
         }
-        else
-            match.setChecked(false);
+        else {
+            deleteBtn.setEnabled(false);
+        }
         rateDriverTv.setText(p.getRate()+" stars");
 
     }
@@ -130,16 +150,12 @@ public class packageDetailsFragment extends Fragment {
         });
         sourceTv.setText(p.getSource());
         destinationTv.setText(p.getDestination());
-        costTv.setText(p.getCost()+ "₪");
+        costTv.setText(p.getCost()+ " ₪");
         dateTv.setText(p.getDate());
         noteTv.setText(p.getNote());
-        weightTv.setText(p.getWeight()+"kg");
-        volumeTv.setText(p.getVolume()+ "cc");
+        weightTv.setText(p.getWeight()+" kg");
+        volumeTv.setText(p.getVolume()+ " cc");
         driverTv.setText(p.getDriver());
-        if(p.getDriver()!= "")
-            match.setChecked(true);
-        else
-            match.setChecked(false);
         rateDriverTv.setText(p.getRate()+" stars");
     }
 }

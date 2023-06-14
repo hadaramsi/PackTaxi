@@ -91,12 +91,6 @@
             android:id="@+id/action_mainScreenSenderFragment_to_senderProfileFragment"
             app:destination="@id/senderProfileFragment" />
         <action
-            android:id="@+id/action_mainScreenSenderFragment_to_driverRatingFragment"
-            app:destination="@id/driverRatingFragment" />
-        <action
-            android:id="@+id/action_mainScreenSenderFragment_to_paymentFragment"
-            app:destination="@id/paymentFragment" />
-        <action
             android:id="@+id/action_mainScreenSenderFragment_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
         <action
@@ -117,9 +111,6 @@
         <action
             android:id="@+id/action_mainScreenDriverFragment_to_addFutureRoudFragment"
             app:destination="@id/addFutureRoudFragment" />
-        <action
-            android:id="@+id/action_mainScreenDriverFragment_to_driverRatingFragment"
-            app:destination="@id/driverRatingFragment" />
         <action
             android:id="@+id/action_mainScreenDriverFragment_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
@@ -164,6 +155,12 @@
         <action
             android:id="@+id/action_packageDetailsFragment_to_mainScreenSenderFragment"
             app:destination="@id/mainScreenSenderFragment" />
+        <action
+            android:id="@+id/action_packageDetailsFragment_to_driverRatingFragment"
+            app:destination="@id/driverRatingFragment" />
+        <action
+            android:id="@+id/action_packageDetailsFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPackageFragment"
@@ -183,7 +180,11 @@
         android:id="@+id/driverRatingFragment"
         android:name="com.example.packtaxi.driverRatingFragment"
         android:label="Driver rating"
-        tools:layout="@layout/fragment_driver_rating" />
+        tools:layout="@layout/fragment_driver_rating" >
+        <action
+            android:id="@+id/action_driverRatingFragment_to_packageDetailsFragment"
+            app:destination="@id/packageDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.example.packtaxi.aboutUsFragment"
@@ -208,7 +209,14 @@
         android:id="@+id/paymentFragment"
         android:name="com.example.packtaxi.paymentFragment"
         android:label="payment"
-        tools:layout="@layout/fragment_payment" />
+        tools:layout="@layout/fragment_payment" >
+        <argument
+            android:name="packageID"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_paymentFragment_to_mainScreenSenderFragment"
+            app:destination="@id/mainScreenSenderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mangerMainScreenFragment"
         android:name="com.example.packtaxi.managerMainScreenFragment"

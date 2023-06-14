@@ -26,10 +26,8 @@ public class futureRouteDetailsFragment extends Fragment {
     private TextView destinationTv;
     private TextView dateTv;
     private TextView costTv;
-    private CheckBox match;
     private TextView packagesList;
     private Button deleteBtn;
-    private Button editBtn;
     private FutureRoute fRoute;
     ProgressBar pb;
 
@@ -51,7 +49,6 @@ public class futureRouteDetailsFragment extends Fragment {
         destinationTv = view.findViewById(R.id.driveDetails_destination_tv);
         dateTv = view.findViewById(R.id.driveDetails_date_tv);
         costTv = view.findViewById(R.id.driveDetails_cost_tv);
-        match = view.findViewById(R.id.driveDetails_checkBox);
         packagesList = view.findViewById(R.id.driveDetails_packages_numbers);
         pb = view.findViewById(R.id.progressBar2);
         deleteBtn=view.findViewById(R.id.deleteBtn_drive);
@@ -100,13 +97,10 @@ public class futureRouteDetailsFragment extends Fragment {
         destinationTv.setText(f.getDestination());
         costTv.setText(f.getCost()+ "₪ per delivery");
         dateTv.setText(f.getDate());
-        if(f.getMatch()== true) {
-            match.setChecked(true);
+        if(f.getPackagesNumbers()== null) {
             deleteBtn.setEnabled(false);
-            editBtn.setEnabled(false);
         }
-        else
-            match.setChecked(false);
+
         packagesList.setText(f.getPackagesNumbers().toString());
     }
 

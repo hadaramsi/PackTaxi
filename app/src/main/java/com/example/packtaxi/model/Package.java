@@ -22,6 +22,8 @@ public class Package {
     final static String SENDER = "sender";
     final static String DRIVER = "driver";
     final static String RATE = "rate";
+    final static String PAY = "pay";
+
 
 
     @PrimaryKey
@@ -38,6 +40,7 @@ public class Package {
     private String note;
     private String driver;
     private double rate;
+    private boolean pay;
 
     public Package(){}
 
@@ -51,13 +54,15 @@ public class Package {
         this.weight=weight;
         this.volume=volume;
         this.sender=sender;
-        this.driver="";
+        this.driver="-";
         this.rate=0;
+        this.pay=false;
     }
 
     public String getPackageID(){
         return packageID;
     }
+    public boolean getPay(){ return pay; }
     public String getSender(){
         return sender;
     }
@@ -121,6 +126,10 @@ public class Package {
     public void setRate(double rate){
         this.rate = rate;
     }
+    public void setPay(boolean p){
+        this.pay = p;
+    }
+
 
     static public Package fromJson(String packageId, Map<String, Object> json){
         String packageID = (String)json.get(PACKAGEID);
@@ -163,6 +172,7 @@ public class Package {
         json.put(SENDER, sender);
         json.put(DRIVER, driver);
         json.put(RATE, rate);
+        json.put(PAY,pay);
         return json;
     }
 

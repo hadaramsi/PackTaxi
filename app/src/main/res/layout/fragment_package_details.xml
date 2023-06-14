@@ -241,32 +241,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/viewReport_tv_manufactureYear" />
 
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="30dp"
-                    android:text="Match:"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/viewReport_tv_phoneNumber2" />
-
-                <CheckBox
-                    android:id="@+id/packageDetails_match_cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="25dp"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView12"
-                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
-
                 <Button
                     android:id="@+id/rateBtn"
                     android:layout_width="150dp"
                     android:layout_height="55dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="65dp"
                     android:layout_marginBottom="10dp"
                     android:text="Delete"
                     android:textColor="?attr/colorError"
@@ -274,8 +253,29 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView12"
-                    app:layout_constraintVertical_bias="0.176" />
+                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
+
+                <Button
+                    android:id="@+id/paySender"
+                    android:layout_width="52dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="70dp"
+                    android:background="@drawable/pay"
+                    android:backgroundTint="@color/black"
+                    android:textColorLink="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/rateBtn"
+                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
+
+                <Button
+                    android:id="@+id/rateSender"
+                    android:layout_width="47dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="70dp"
+                    android:background="@drawable/rate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/paySender"
+                    app:layout_constraintTop_toBottomOf="@+id/packageDetails_rateDriver_tv" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

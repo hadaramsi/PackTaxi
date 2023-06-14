@@ -36,6 +36,7 @@ import okhttp3.Response;
 
 public class ModelFirebase {
     final static String SENDERS = "senders";
+    final static String PAYMENTS = "payments";
     final static String DRIVERS = "drivers";
     final static String MANAGER = "manager";
     final static String DELIVERYPOINTS = "deliveryPoints";
@@ -297,7 +298,7 @@ public class ModelFirebase {
                     Log.d("TAG", e.getMessage());
                     listener.onComplete(false);
                 });
-//        startMatch();
+        startMatch();
 
     }
     public void addNewPack(Package p, Model.addNewPackListener listener) {
@@ -308,30 +309,11 @@ public class ModelFirebase {
                     Log.d("TAG", e.getMessage());
                     listener.onComplete(false);
                 });
-//        startMatch();
+        startMatch();
     }
     public void startMatch(){
-        db.collection(PACKAGES).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                LinkedList<Package> packagesList = new LinkedList<Package>();
-                if(task.isSuccessful()) {
-                    for(QueryDocumentSnapshot doc:task.getResult()) {
-                        Package p = Package.fromJson(doc.getId(), doc.getData());
-                        double cost=p.getCost();
-                        String source=p.getSource();
-                        String destination=p.getDestination();
-                        double volume=p.getVolume();
-                        double weight=p.getWeight();
-//                        Date date=formatter.parse(p.getDate());
-                    }
-                }
-            }
-        });
-
-
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("http://192.168.1.179:5000/").build();
+        Request request = new Request.Builder().url("http://192.168.1.156:5000/").build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -355,6 +337,27 @@ public class ModelFirebase {
                     Log.d("TAG", e.getMessage());
                     listener.onComplete(false);
                 });
+    }
+    public void addNewPayment(payment p, Model.addNewPaymentListener listener) {
+        Log.d("TAG", "payment object" +p);
+        Log.d("TAG", "payment object num package" +p.getNumPackage());
+        Log.d("TAG", "payment object p.toJson()" +p.toJson());
+        db.collection(PAYMENTS).document(p.getNumPackage()).set(p.toJson()).addOnSuccessListener((successListener)-> {
+            listener.onComplete(true);
+        })
+                .addOnFailureListener((e)-> {
+                    Log.d("TAG", e.getMessage());
+                    listener.onComplete(false);
+                });
+        Model.getInstance().getPackageByID(p.getNumPackage(), new Model.getPackageByIDListener() {
+            @Override
+            public void onComplete(Package pac) {
+                if(pac != null) {
+                    pac.setPay(true);
+                    db.collection(PACKAGES).document(p.getNumPackage()).set(pac);
+                }
+            }
+        });
     }
     public void getDPs(Model.GetDPsListener listener) {
         db.collection(DELIVERYPOINTS)

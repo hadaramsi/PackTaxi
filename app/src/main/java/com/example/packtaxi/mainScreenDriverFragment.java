@@ -130,14 +130,14 @@ public class mainScreenDriverFragment extends Fragment {
         TextView sourceToDestination;
         TextView date;
         TextView cost;
-        Button matchBtn;
+        ImageView match;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             sourceToDestination = itemView.findViewById(R.id.routeListRow_sorToDes);
             cost= itemView.findViewById(R.id.routeListRow_cost);
             date = itemView.findViewById(R.id.routeListRow_date);
-            matchBtn = itemView.findViewById(R.id.matchBtn);
+            match = itemView.findViewById(R.id.matchDriver);
 
             this.listener = listener;
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -153,10 +153,9 @@ public class mainScreenDriverFragment extends Fragment {
             sourceToDestination.setText(fr.getSource()+" -> "+ fr.getDestination());
             cost.setText(fr.getCost()+ "₪ per delivery");
             date.setText(String.valueOf(fr.getDate()));
-            if(fr.getMatch()== true) {
-                matchBtn.setEnabled(false);
-//                matchBtn.setBackground(R.drawable.match_found);
-//                matchBtn.setBackground(getResources().getDrawable(R.drawable.match_found)));
+            date.setText(String.valueOf(fr.getDate()));
+            if(fr.getPackagesNumbers()== null) {
+                match.setVisibility(View.VISIBLE);
             }
         }
     }

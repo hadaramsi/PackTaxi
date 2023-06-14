@@ -39,9 +39,7 @@ public class AddingDeliveryPointFragment extends Fragment {
     public AddingDeliveryPointFragment() {
 
     }
-//    protected void setFusedLocationProviderClient(FusedLocationProviderClient f){
-//        fusedLocationProviderClient = f;
-//    }
+
     protected void setState(boolean b){
         state = b;
     }
