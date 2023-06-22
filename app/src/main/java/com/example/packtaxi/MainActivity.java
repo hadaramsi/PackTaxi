@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url("http://192.168.1.156:5000/").build();
-//        Log.d("TAG","request is fine ++++++++++++++++++++++");
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {

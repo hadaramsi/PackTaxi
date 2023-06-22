@@ -39,18 +39,24 @@ public class FutureRoute {
     private long volume;
     private long weight;
 
-    public FutureRoute(){}
+    public FutureRoute(){
+        this.packagesNumbers=",";
+        this.volume=0;
+        this.weight=0;
+    }
 
-    public FutureRoute(String futureRouteID, String source, String destination, String date,double cost, String driver){
+    public FutureRoute(String futureRouteID, String source, String destination,
+                       String date,double cost, String driver, String packagesNumbers,
+                       long volume, long weight){
         this.futureRouteID= futureRouteID;
         this.source= source;
         this.destination= destination;
         this.cost= cost;
         this.driver=driver;
         this.date=date;
-        this.volume=0;
-        this.weight=0;
-        this.packagesNumbers="";
+        this.volume=volume;
+        this.weight=weight;
+        this.packagesNumbers=packagesNumbers;
     }
     public long getVolume(){
         return volume;
@@ -101,8 +107,14 @@ public class FutureRoute {
     public void setCost(double cost){
         this.cost = cost;
     }
-    public void setPackagesNumbers(String pn){this.packagesNumbers=packagesNumbers+", "+pn;}
-
+    public void setPackagesNumbers(String pn){
+        if(this.packagesNumbers.equals(",")){
+            this.packagesNumbers=pn;
+        }
+        else{
+            this.packagesNumbers= packagesNumbers+","+ pn;
+        }
+    }
 
     static public FutureRoute fromJson(String futureRouteId,Map<String, Object> json){
         String futureRouteID = (String)json.get(FUTUREROUTEID);
@@ -121,7 +133,17 @@ public class FutureRoute {
         String driver = (String) json.get(DRIVER);
         if(driver == null)
             return null;
-        FutureRoute futureRoute = new FutureRoute(futureRouteID, source, destination, date, cost, driver);
+        String pacNums = (String)json.get(PACKAGESLIST);
+        if(pacNums == null)
+            return null;
+        long volume = Long.parseLong(json.get(VOLUME).toString());
+        if(volume == 0)
+            return null;
+        long weight = Long.parseLong(json.get(WEIGHT).toString());
+        if(weight == 0)
+            return null;
+        FutureRoute futureRoute = new FutureRoute(futureRouteID, source, destination, date,
+                cost, driver, pacNums, volume, weight);
         return futureRoute;
     }
     public Map<String, Object> toJson(){

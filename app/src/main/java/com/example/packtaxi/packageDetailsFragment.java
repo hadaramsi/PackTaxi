@@ -39,7 +39,6 @@ public class packageDetailsFragment extends Fragment {
     private ImageButton payBtn;
 
     private Package pac;
-    ProgressBar pb;
 
     public packageDetailsFragment() {
     }
@@ -78,17 +77,13 @@ public class packageDetailsFragment extends Fragment {
                 if(p != null) {
                     updatePackageDetailsDisplay(p);
                 }
-                if(p.getDriver().equals("-")){
-                    rateBtn.setEnabled(false);
-                }else if(p.getPay()== true){
+                if(p.getDriver().equals("no")){
                     deleteBtn.setEnabled(false);
-                    payBtn.setEnabled(false);
+                    rateBtn.setEnabled(true);
+                    payBtn.setEnabled(true);
                 }
-                if(p.getDriver().equals("-")){
-                    rateBtn.setEnabled(false);
-                }else if(p.getIfRate()== true){
-                    deleteBtn.setEnabled(false);
-                    rateBtn.setEnabled(false);
+                if(p.getPay()== true) {
+                    payBtn.setEnabled(false);
                 }
             }
         });
@@ -96,12 +91,12 @@ public class packageDetailsFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pb.setVisibility(View.VISIBLE);
+//                pb.setVisibility(View.VISIBLE);
                 Model.getInstance().deletePackage(pac, new Model.deletePackageListener() {
                             @Override
                             public void onComplete(boolean ifSuccess) {
                                 if(ifSuccess) {
-                                    pb.setVisibility(View.GONE);
+//                                    pb.setVisibility(View.GONE);
                                     Toast.makeText(getActivity(), "delete package", Toast.LENGTH_LONG).show();
                                 }else{
                                     Toast.makeText(getActivity(), "fail delete package", Toast.LENGTH_LONG).show();
@@ -145,7 +140,7 @@ public class packageDetailsFragment extends Fragment {
         weightTv.setText(p.getWeight()+" kg");
         volumeTv.setText(p.getVolume()+ " cc");
         driverTv.setText(p.getDriver());
-        if(p.getDriver() == "-") {
+        if(p.getDriver().equals( "no")) {
             deleteBtn.setEnabled(true);
         }
         else {

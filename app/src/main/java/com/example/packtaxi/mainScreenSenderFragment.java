@@ -159,7 +159,7 @@ public class mainScreenSenderFragment extends Fragment {
             sourceToDestination.setText(p.getSource()+" -> "+p.getDestination());
             cost.setText(p.getCost()+" ₪");
             date.setText(String.valueOf(p.getDate()));
-            if(!p.getDriver().equals("-")) {
+            if(!p.getDriver().equals("no")) {
                 Log.d("TAG", "the driver" + p.getDriver());
                 match.setVisibility(View.VISIBLE);
             }

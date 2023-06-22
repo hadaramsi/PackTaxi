@@ -25,15 +25,11 @@ public class Package {
     final static String PAY = "pay";
     final static String IFRATE = "ifRate";
 
-
-
-
     @PrimaryKey
     @NonNull
     private String packageID;
     private String source;
     private String destination;
-//    private long date;
     private String date;
     private String sender;
     private double cost;
@@ -45,9 +41,16 @@ public class Package {
     private boolean pay;
     private boolean ifRate;
 
-    public Package(){}
+    public Package(){
+        this.driver="no";
+        this.rate=0;
+        this.pay=false;
+        this.ifRate=false;
+    }
 
-    public Package(String packageID, String source, String destination, String date,double cost,double volume,double weight, String note, String sender){
+    public Package(String packageID, String source, String destination, String date,double cost,
+                   double volume,double weight, String note, String sender,String driver, double rate,
+                   boolean pay, boolean ifRate){
         this.packageID= packageID;
         this.source= source;
         this.destination= destination;
@@ -57,13 +60,11 @@ public class Package {
         this.weight=weight;
         this.volume=volume;
         this.sender=sender;
-        this.driver="-";
-        this.rate=0;
-        this.pay=false;
-        this.ifRate=false;
-
+        this.driver=driver;
+        this.rate=rate;
+        this.pay=pay;
+        this.ifRate=ifRate;
     }
-
     public String getPackageID(){
         return packageID;
     }
@@ -139,8 +140,6 @@ public class Package {
         this.ifRate = r;
     }
 
-
-
     static public Package fromJson(String packageId, Map<String, Object> json){
         String packageID = (String)json.get(PACKAGEID);
         if( packageID== null)
@@ -151,22 +150,28 @@ public class Package {
         String destination = (String)json.get(DESTINATION);
         if(destination == null)
             return null;
-        double cost = (double)json.get(COST);
+        double cost = Double.parseDouble(json.get(COST).toString());
         if(cost == 0.0)
             return null;
-        double volume = (double)json.get(VOLUME);
+        double volume = Double.parseDouble(json.get(VOLUME).toString());
         if(volume == 0.0)
             return null;
-        double weight = (double)json.get(WEIGHT);
+        double weight = Double.parseDouble(json.get(WEIGHT).toString());
         if(weight == 0.0)
             return null;
         String date= (String) json.get(DATE);
         String sender= (String) json.get(SENDER);
-
         String note = (String) json.get(NOTE);
         if(note == null)
             return null;
-        Package p = new Package(packageID, source, destination, date,cost,volume,weight, note, sender);
+        String driver = (String) json.get(DRIVER);
+        if(driver == null)
+            return null;
+        boolean pay = (boolean) json.get(PAY);
+        boolean ifRate = (boolean) json.get(IFRATE);
+        double rate = Double.parseDouble(json.get(RATE).toString());
+        Package p = new Package(packageID, source, destination, date,cost,volume,
+                weight, note, sender, driver, rate, pay, ifRate);
         return p;
     }
     public Map<String, Object> toJson(){
@@ -184,7 +189,6 @@ public class Package {
         json.put(RATE, rate);
         json.put(PAY,pay);
         json.put(IFRATE,ifRate);
-
         return json;
     }
 

@@ -87,6 +87,7 @@ public class addFutureRouteFragment extends Fragment {
         CalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                month+=1;
                 date = dayOfMonth + "/" + month + "/" + year ;
             }
         });
@@ -145,11 +146,9 @@ public class addFutureRouteFragment extends Fragment {
         Model.getInstance().getCurrentDriver(new Model.getCurrentDriverListener() {
             @Override
             public void onComplete(String driverEmail) {
-                Log.d("TAG","heyyyyyyyyyyyyyyyyyyyyy 11111111111");
                 Model.getInstance().getDriverByEmail(driverEmail, new Model.getDriverByEmailListener() {
                     @Override
                     public void onComplete(Driver driver) {
-                        Log.d("TAG","heyyyyyyyyyyyyyyyyyyyyy");
                         Model.getInstance().getDeliveryPointByName(source.getSelectedItem().toString(),new Model.getDeliveryPointByIDListener(){
                             @Override
                             public void onComplete(DeliveryPoint s) {

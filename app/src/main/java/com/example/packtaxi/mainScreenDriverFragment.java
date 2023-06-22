@@ -154,7 +154,7 @@ public class mainScreenDriverFragment extends Fragment {
             cost.setText(fr.getCost()+ "₪ per delivery");
             date.setText(String.valueOf(fr.getDate()));
             date.setText(String.valueOf(fr.getDate()));
-            if(fr.getPackagesNumbers()== null) {
+            if(!fr.getPackagesNumbers().equals(",")) {
                 match.setVisibility(View.VISIBLE);
             }
         }

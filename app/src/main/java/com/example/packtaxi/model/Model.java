@@ -103,7 +103,6 @@ public class Model {
 
     public void reloadDeliveryPointsList(){
         deliveryPointsListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
-//        Long localLastUpdate = DeliveryPoint.getLocalLastUpdated();\
         modelFirebase.getDeliveryPointsList((list)->{
             MyApplication.executorService.execute(()->{
                 // קוד למחיקת מקומי
@@ -115,23 +114,18 @@ public class Model {
                     if(dp.getIsDeleted())// if the delivery point is deleted in the firebase, delete him from the cache
                         AppLocalDB.db.deliveryPointDao().delete(dp);
                 }
-//                DeliveryPoint.setLocalLastUpdated(lLastUpdate);
-                //return all records to the caller
                 List<DeliveryPoint> dPsList = AppLocalDB.db.deliveryPointDao().getAll();
                 deliveryPointsList.postValue(dPsList);
                 deliveryPointsListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
             });
-
         });
     }
-    public void logOutUser(logOutUserListener listener)
-    {
+    public void logOutUser(logOutUserListener listener) {
         modelFirebase.logOutUser(listener);
     }
     public interface loginUserListener{
         void onComplete(boolean success);
     }
-
     public void loginUser(String email, String password, View v, loginUserListener listener) {
         modelFirebase.loginUser(email, password,v, listener);
     }
@@ -144,6 +138,7 @@ public class Model {
     public static Model getInstance(){
         return instance;
     }
+
     public void reloadRoutesList(){
         routesListLoadingState.setValue(LoadingState.loading); //התחלת הטעינה
         modelFirebase.getCurrentDriver(new getCurrentDriverListener() {
@@ -159,6 +154,9 @@ public class Model {
                         List<FutureRoute> routesL= AppLocalDB.db.FutureRouteDao().getMyRoutes(userEmail);
                         Log.d("TAG", "routes list l 000000 "+ routesL);
                         routesList.postValue(routesL);
+                        for (FutureRoute f:routesL){
+                            Log.d("TAG", "nummmmmmmmmm "+ f.getPackagesNumbers());
+                        }
                         routesListLoadingState.postValue(LoadingState.loaded);// סיום הטעינה
                     });
                 });
@@ -180,7 +178,6 @@ public class Model {
                         List<Package> packageL= AppLocalDB.db.PackageDao().getMyPackages(userEmail);
                         packagesList.postValue(packageL);
                         packagesListLoadingState.postValue(LoadingState.loaded);
-
                     });
                 });
             }

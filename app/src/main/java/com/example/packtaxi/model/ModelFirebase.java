@@ -270,13 +270,16 @@ public class ModelFirebase {
         });
     }
     public void getDriverByEmail(String email, Model.getDriverByEmailListener listener) {
+        Log.d("TAG", "in model firebase");
         DocumentReference docRef = db.collection(DRIVERS).document(email);
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        Log.d("TAG", "in model firebase driver data"+ Driver.fromJson(document.getData()));
                         Driver driver = Driver.fromJson(document.getData());
                         if(driver != null)
                             listener.onComplete(driver);
@@ -339,9 +342,6 @@ public class ModelFirebase {
                 });
     }
     public void addNewPayment(payment p, Model.addNewPaymentListener listener) {
-        Log.d("TAG", "payment object" +p);
-        Log.d("TAG", "payment object num package" +p.getNumPackage());
-        Log.d("TAG", "payment object p.toJson()" +p.toJson());
         db.collection(PAYMENTS).document(p.getNumPackage()).set(p.toJson()).addOnSuccessListener((successListener)-> {
             listener.onComplete(true);
         })
