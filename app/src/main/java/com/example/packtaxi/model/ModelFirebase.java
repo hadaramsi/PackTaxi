@@ -316,7 +316,7 @@ public class ModelFirebase {
     }
     public void startMatch(){
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("http://192.168.1.156:5000/").build();
+        Request request = new Request.Builder().url("http://192.168.1.179:5000/").build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -359,8 +359,10 @@ public class ModelFirebase {
             }
         });
     }
-    public void updateRateDriver(Driver d, Model.updateRateDriverListener listener) {
-        db.collection(PACKAGES).document(d.getEmail()).set(d);
+    public void updateRateDriver(Driver d,Package p,  Model.updateRateDriverListener listener) {
+        db.collection(DRIVERS).document(d.getEmail()).set(d);
+        db.collection(PACKAGES).document(d.getEmail()).set(p);
+
     }
 
     public void getDPs(Model.GetDPsListener listener) {

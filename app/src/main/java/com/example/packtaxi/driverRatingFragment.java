@@ -1,8 +1,12 @@
 package com.example.packtaxi;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.packtaxi.model.Driver;
 import com.example.packtaxi.model.Model;
+import com.example.packtaxi.model.Package;
 
 public class driverRatingFragment extends Fragment {
     private ImageButton star1;
@@ -27,6 +32,13 @@ public class driverRatingFragment extends Fragment {
     private driverRatingViewModel viewModel;
 
     public driverRatingFragment() {
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(driverRatingViewModel.class);
+
     }
 
     @Override
@@ -48,16 +60,19 @@ public class driverRatingFragment extends Fragment {
         sendBtn=view.findViewById(R.id.driverRating_btn);
 
         viewModel.setDriverId(driverRatingFragmentArgs.fromBundle(getArguments()).getDriver());
+        viewModel.setPackageId(driverRatingFragmentArgs.fromBundle(getArguments()).getPackageName());
+
 
         star1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                star1.setImageResource(R.drawable.yellow_star);
-                star2.setImageResource(R.drawable.empty_star);
-                star3.setImageResource(R.drawable.empty_star);
-                star4.setImageResource(R.drawable.empty_star);
-                star5.setImageResource(R.drawable.empty_star);
-                rate=1;
+                    star1.setImageResource(R.drawable.yellow_star);
+                    star2.setImageResource(R.drawable.empty_star);
+                    star3.setImageResource(R.drawable.empty_star);
+                    star4.setImageResource(R.drawable.empty_star);
+                    star5.setImageResource(R.drawable.empty_star);
+                    rate = 1;
+
             }
         });
         star2.setOnClickListener(new View.OnClickListener() {
@@ -108,22 +123,35 @@ public class driverRatingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String d = viewModel.getDriverId();
-                Model.getInstance().getDriverByEmail(d, new Model.getDriverByEmailListener() {
-                    @Override
-                    public void onComplete(Driver driver) {
-                        if(driver != null) {
-                            driver.setRate((driver.getRate()+rate)/2);
-                            Model.getInstance().updateRateDriver(driver, new Model.updateRateDriverListener() {
-                                @Override
-                                public void onComplete(boolean ifSuccess) {
-                                    Log.d("TAG", "update rate driver");
-                                }
-                            });
+                String pac = viewModel.getPackageId();
+                Model.getInstance().getPackageByID(pac, new Model.getPackageByIDListener() {
+                            @Override
+                            public void onComplete(Package p) {
+                                if (p != null) {
+                                    p.setIfRate(true);
+
+                                Model.getInstance().getDriverByEmail(d, new Model.getDriverByEmailListener() {
+                                    @Override
+                                    public void onComplete(Driver driver) {
+                                        if (driver != null) {
+                                            driver.setRate((driver.getRate() + rate) / 2);
+                                            Model.getInstance().updateRateDriver(driver, p, new Model.updateRateDriverListener() {
+                                                @Override
+                                                public void onComplete(boolean ifSuccess) {
+                                                    Log.d("TAG", "update rate driver");
+                                                }
+                                            });
+                                        }
+                                        Navigation.findNavController(v).navigate(driverRatingFragmentDirections.actionDriverRatingFragmentToMainScreenSenderFragment());
+
+                                    }
+                                });
+                            }
+                            }
+                        });
+
                         }
-                    }
-                });
-            }
-        });
+            });
 
 
         return  view;

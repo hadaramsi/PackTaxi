@@ -73,18 +73,28 @@ public class packageDetailsFragment extends Fragment {
         Model.getInstance().getPackageByID(packageId, new Model.getPackageByIDListener() {
             @Override
             public void onComplete(Package p) {
-                pac=p;
-                if(p != null) {
+                pac = p;
+                if (p != null) {
                     updatePackageDetailsDisplay(p);
                 }
-                if(p.getDriver().equals("no")){
-                    deleteBtn.setEnabled(false);
-                    rateBtn.setEnabled(true);
-                    payBtn.setEnabled(true);
-                }
-                if(p.getPay()== true) {
+                if (p.getDriver().equals("no")) {
+                    deleteBtn.setEnabled(true);
+                    rateBtn.setEnabled(false);
                     payBtn.setEnabled(false);
+                } else {
+                    if (p.getPay() == true) {
+                        payBtn.setEnabled(false);
+                    } else {
+                        payBtn.setEnabled(true);
+                    }
+
+                    if (p.getIfRate() == true) {
+                        rateBtn.setEnabled(false);
+                    } else {
+                        rateBtn.setEnabled(true);
+                    }
                 }
+
             }
         });
 
@@ -122,7 +132,7 @@ public class packageDetailsFragment extends Fragment {
                     @Override
                     public void onComplete(Package p) {
                         String driverId= p.getDriver();
-                        Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToDriverRatingFragment(driverId));
+                        Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToDriverRatingFragment(driverId, packageId));
 
                     }
                 });
@@ -147,7 +157,16 @@ public class packageDetailsFragment extends Fragment {
             deleteBtn.setEnabled(false);
         }
         rateDriverTv.setText(p.getRate()+" stars");
-
+        if(p.getPay()== true) {
+            payBtn.setEnabled(false);
+        }else{
+            payBtn.setEnabled(true);
+        }
+        if(p.getIfRate()== true) {
+            rateBtn.setEnabled(false);
+        }else{
+            rateBtn.setEnabled(true);
+        }
     }
 
     public void updatePackageDetailsDisplay(Package p) {

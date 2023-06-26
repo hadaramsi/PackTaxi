@@ -36,8 +36,8 @@ public class FutureRoute {
     private double cost;
     private String driver;
     private String packagesNumbers;
-    private long volume;
-    private long weight;
+    private double volume;
+    private double weight;
 
     public FutureRoute(){
         this.packagesNumbers=",";
@@ -47,7 +47,7 @@ public class FutureRoute {
 
     public FutureRoute(String futureRouteID, String source, String destination,
                        String date,double cost, String driver, String packagesNumbers,
-                       long volume, long weight){
+                       double volume, double weight){
         this.futureRouteID= futureRouteID;
         this.source= source;
         this.destination= destination;
@@ -58,10 +58,10 @@ public class FutureRoute {
         this.weight=weight;
         this.packagesNumbers=packagesNumbers;
     }
-    public long getVolume(){
+    public double getVolume(){
         return volume;
     }
-    public long getWeight(){
+    public double getWeight(){
         return weight;
     }
     public String getFutureRouteID(){
@@ -83,10 +83,10 @@ public class FutureRoute {
         return cost;
     }
     public String getPackagesNumbers(){return packagesNumbers;}
-    public void setVolume(long volume){
+    public void setVolume(double volume){
         this.volume = volume;
     }
-    public void setWeight(long weight){
+    public void setWeight(double weight){
         this.weight = weight;
     }
     public void setFutureRouteID(String futureRouteID){
@@ -136,10 +136,10 @@ public class FutureRoute {
         String pacNums = (String)json.get(PACKAGESLIST);
         if(pacNums == null)
             return null;
-        long volume = Long.parseLong(json.get(VOLUME).toString());
+        double volume = Double.parseDouble(json.get(VOLUME).toString());
         if(volume == 0)
             return null;
-        long weight = Long.parseLong(json.get(WEIGHT).toString());
+        double weight = Double.parseDouble(json.get(WEIGHT).toString());
         if(weight == 0)
             return null;
         FutureRoute futureRoute = new FutureRoute(futureRouteID, source, destination, date,

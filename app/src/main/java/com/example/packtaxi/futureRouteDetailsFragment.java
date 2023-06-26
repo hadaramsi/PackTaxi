@@ -52,7 +52,6 @@ public class futureRouteDetailsFragment extends Fragment {
         packagesList = view.findViewById(R.id.driveDetails_packages_numbers);
         pb = view.findViewById(R.id.progressBar2);
         deleteBtn=view.findViewById(R.id.deleteBtn_drive);
-//        editBtn=view.findViewById(R.id.editDriveBtn);
 
         viewModel.setRouteId(futureRouteDetailsFragmentArgs.fromBundle(getArguments()).getRouteID());
 
@@ -97,7 +96,10 @@ public class futureRouteDetailsFragment extends Fragment {
         destinationTv.setText(f.getDestination());
         costTv.setText(f.getCost()+ "₪ per delivery");
         dateTv.setText(f.getDate());
-        if(!f.getPackagesNumbers().equals(",")) {
+        if(f.getPackagesNumbers().equals(",")) {
+            deleteBtn.setEnabled(true);
+        }
+        else{
             deleteBtn.setEnabled(false);
         }
 

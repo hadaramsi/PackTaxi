@@ -187,6 +187,9 @@
         <argument
             android:name="driver"
             app:argType="string" />
+        <argument
+            android:name="packageName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"

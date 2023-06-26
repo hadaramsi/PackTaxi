@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navCtrl);
 
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("http://192.168.1.156:5000/").build();
+        Request request = new Request.Builder().url("http://192.168.1.179:5000/").build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -57,16 +57,17 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case android.R.id.home:
                     NavDestination myFragment = navCtrl.getCurrentDestination();
+
                     if (myFragment.getId() == R.id.mainScreenSenderFragment) {
-//                        finish();
+                        finish();
                         return true;
                     }
                     if(myFragment.getId() == R.id.mainScreenDriverFragment) {
-//                        finish();
+                        finish();
                         return true;
                     }
                     if(myFragment.getId() == R.id.mangerMainScreenFragment) {
-//                        finish();
+                        finish();
                         return true;
                     }
                     navCtrl.navigateUp();

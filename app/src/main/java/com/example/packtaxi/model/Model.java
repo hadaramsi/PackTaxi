@@ -80,8 +80,8 @@ public class Model {
         });
     }
 
-    public void updateRateDriver(Driver d,updateRateDriverListener listener){
-        modelFirebase.updateRateDriver(d, (success)->{
+    public void updateRateDriver(Driver d,Package p, updateRateDriverListener listener){
+        modelFirebase.updateRateDriver(d,p, (success)->{
             listener.onComplete(success);
         });
     }
