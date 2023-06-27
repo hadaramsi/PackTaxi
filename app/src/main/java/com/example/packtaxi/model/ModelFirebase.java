@@ -271,12 +271,14 @@ public class ModelFirebase {
     }
     public void getDriverByEmail(String email, Model.getDriverByEmailListener listener) {
         Log.d("TAG", "in model firebase");
+        Log.d("TAG", "emaillllll"+ email);
         DocumentReference docRef = db.collection(DRIVERS).document(email);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
+                    Log.d("TAG", "in first if");
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("TAG", "in model firebase driver data"+ Driver.fromJson(document.getData()));
@@ -361,7 +363,7 @@ public class ModelFirebase {
     }
     public void updateRateDriver(Driver d,Package p,  Model.updateRateDriverListener listener) {
         db.collection(DRIVERS).document(d.getEmail()).set(d);
-        db.collection(PACKAGES).document(d.getEmail()).set(p);
+        db.collection(PACKAGES).document(p.getPackageID()).set(p);
 
     }
 

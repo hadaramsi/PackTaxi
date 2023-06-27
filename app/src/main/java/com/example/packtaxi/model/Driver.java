@@ -107,7 +107,7 @@ public class Driver {
         long maxWeight = (long)json.get(MAX_WEIGHT);
         if(maxWeight == 0)
             return null;
-        double rate=(double)json.get(RATE);
+        double rate=Double.parseDouble(json.get(RATE).toString());
 //        if(rate<0 || rate >5)
 //            return null;
         Driver driver = new Driver(email, fullName, licenseNumber, carNumber, maxVolume, maxWeight);

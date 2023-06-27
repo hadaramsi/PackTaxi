@@ -76,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
                     Model.getInstance().logOutUser(new Model.logOutUserListener() {
                         @Override
                         public void onComplete() {
-                            navCtrl.navigate(mainScreenDriverFragmentDirections.actionMainScreenDriverFragmentToFragmentLogin());
+                            navCtrl.popBackStack(R.id.fragmentMainScreen, true);
+                            navCtrl.navigate(mainScreenDriverFragmentDirections.actionGlobalFragmentMainScreen());
                         }
                     });
                     return true;
@@ -84,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
                     Model.getInstance().logOutUser(new Model.logOutUserListener() {
                         @Override
                         public void onComplete() {
-                            navCtrl.navigate(mainScreenSenderFragmentDirections.actionMainScreenSenderFragmentToFragmentLogin());
+                            navCtrl.popBackStack(R.id.fragmentMainScreen, true);
+                            navCtrl.navigate(mainScreenSenderFragmentDirections.actionGlobalFragmentMainScreen());
                         }
                     });
                     return true;
@@ -92,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                 Model.getInstance().logOutUser(new Model.logOutUserListener() {
                         @Override
                         public void onComplete() {
-                            navCtrl.navigate(managerMainScreenFragmentDirections.actionMangerMainScreenFragmentToFragmentLogin());
+                            navCtrl.popBackStack(R.id.fragmentMainScreen, true);
+                            navCtrl.navigate(managerMainScreenFragmentDirections.actionGlobalFragmentMainScreen());
                         }
                     });
                     return true;

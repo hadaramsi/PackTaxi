@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.packtaxi.model.DeliveryPoint;
+import com.example.packtaxi.model.Driver;
 import com.example.packtaxi.model.Model;
 import com.example.packtaxi.model.Package;
 
@@ -133,7 +134,6 @@ public class packageDetailsFragment extends Fragment {
                     public void onComplete(Package p) {
                         String driverId= p.getDriver();
                         Navigation.findNavController(v).navigate(packageDetailsFragmentDirections.actionPackageDetailsFragmentToDriverRatingFragment(driverId, packageId));
-
                     }
                 });
             }
@@ -141,51 +141,52 @@ public class packageDetailsFragment extends Fragment {
         return view;
     }
 
-    public void updateDetailsDisplay(Package p) {
-        sourceTv.setText(p.getSource());
-        destinationTv.setText(p.getDestination());
-        costTv.setText(p.getCost()+ " ₪");
-        dateTv.setText(p.getDate());
-        noteTv.setText(p.getNote());
-        weightTv.setText(p.getWeight()+" kg");
-        volumeTv.setText(p.getVolume()+ " cc");
-        driverTv.setText(p.getDriver());
-        if(p.getDriver().equals( "no")) {
-            deleteBtn.setEnabled(true);
-        }
-        else {
-            deleteBtn.setEnabled(false);
-        }
-        rateDriverTv.setText(p.getRate()+" stars");
-        if(p.getPay()== true) {
-            payBtn.setEnabled(false);
-        }else{
-            payBtn.setEnabled(true);
-        }
-        if(p.getIfRate()== true) {
-            rateBtn.setEnabled(false);
-        }else{
-            rateBtn.setEnabled(true);
-        }
-    }
-
     public void updatePackageDetailsDisplay(Package p) {
         Model.getInstance().getPackageByID(p.getPackageID(), new Model.getPackageByIDListener() {
             @Override
             public void onComplete(Package p) {
                 if (p != null) {
-                    updateDetailsDisplay(p);
+//                    updateDetailsDisplay(p);
+                    Model.getInstance().getDriverByEmail(p.getDriver(), new Model.getDriverByEmailListener() {
+                        @Override
+                        public void onComplete(Driver driver) {
+                            if(p.getDriver().equals("no")){
+                                driverTv.setText(p.getDriver());
+                            }else {
+                                driverTv.setText(driver.getFullName());
+                            }
+                            sourceTv.setText(p.getSource());
+                            destinationTv.setText(p.getDestination());
+                            costTv.setText(p.getCost()+ " ₪");
+                            dateTv.setText(p.getDate());
+                            noteTv.setText(p.getNote());
+                            weightTv.setText(p.getWeight()+" kg");
+                            volumeTv.setText(p.getVolume()+ " cc");
+                            if(p.getDriver().equals( "no")) {
+                                deleteBtn.setEnabled(true);
+                            }
+                            else {
+                                deleteBtn.setEnabled(false);
+                            }
+                            rateDriverTv.setText(p.getRate()+" stars");
+                            if(p.getPay()== true) {
+                                payBtn.setEnabled(false);
+                            }else{
+                                payBtn.setEnabled(true);
+                            }
+                            if(p.getIfRate()== true) {
+                                rateBtn.setEnabled(false);
+                            }else{
+                                rateBtn.setEnabled(true);
+                            }
+                        }
+                    });
                 }
             }
         });
-        sourceTv.setText(p.getSource());
-        destinationTv.setText(p.getDestination());
-        costTv.setText(p.getCost()+ " ₪");
-        dateTv.setText(p.getDate());
-        noteTv.setText(p.getNote());
-        weightTv.setText(p.getWeight()+" kg");
-        volumeTv.setText(p.getVolume()+ " cc");
-        driverTv.setText(p.getDriver());
-        rateDriverTv.setText(p.getRate()+" stars");
+
+
+
+
     }
 }

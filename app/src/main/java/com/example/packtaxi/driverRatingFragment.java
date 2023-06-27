@@ -27,7 +27,7 @@ public class driverRatingFragment extends Fragment {
     private ImageButton star3;
     private ImageButton star4;
     private ImageButton star5;
-    private int rate=0;
+    private double rate=0;
     private Button sendBtn;
     private driverRatingViewModel viewModel;
 
@@ -123,26 +123,30 @@ public class driverRatingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String d = viewModel.getDriverId();
+                Log.d("TAG", "driver email dddd"+ d);
                 String pac = viewModel.getPackageId();
                 Model.getInstance().getPackageByID(pac, new Model.getPackageByIDListener() {
                             @Override
                             public void onComplete(Package p) {
                                 if (p != null) {
                                     p.setIfRate(true);
+                                    Log.d("TAG", "ppppppp"+ p.getIfRate());
+                                    Model.getInstance().getDriverByEmail(d, new Model.getDriverByEmailListener() {
+                                        @Override
+                                        public void onComplete(Driver driver) {
+                                            if (driver != null) {
+                                                Log.d("TAG", "ddriverrrrrr"+ driver.getEmail());
 
-                                Model.getInstance().getDriverByEmail(d, new Model.getDriverByEmailListener() {
-                                    @Override
-                                    public void onComplete(Driver driver) {
-                                        if (driver != null) {
-                                            driver.setRate((driver.getRate() + rate) / 2);
-                                            Model.getInstance().updateRateDriver(driver, p, new Model.updateRateDriverListener() {
-                                                @Override
-                                                public void onComplete(boolean ifSuccess) {
-                                                    Log.d("TAG", "update rate driver");
-                                                }
-                                            });
-                                        }
-                                        Navigation.findNavController(v).navigate(driverRatingFragmentDirections.actionDriverRatingFragmentToMainScreenSenderFragment());
+                                                driver.setRate((driver.getRate() + rate) / 2);
+                                                Log.d("TAG", "dddddd"+ driver.getRate());
+                                                Model.getInstance().updateRateDriver(driver, p, new Model.updateRateDriverListener() {
+                                                    @Override
+                                                    public void onComplete(boolean ifSuccess) {
+                                                        Log.d("TAG", "update rate driver");
+                                                    }
+                                                });
+                                            }
+                                            Navigation.findNavController(v).navigate(driverRatingFragmentDirections.actionDriverRatingFragmentToMainScreenSenderFragment());
 
                                     }
                                 });

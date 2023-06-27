@@ -91,9 +91,6 @@
             android:id="@+id/action_mainScreenSenderFragment_to_senderProfileFragment"
             app:destination="@id/senderProfileFragment" />
         <action
-            android:id="@+id/action_mainScreenSenderFragment_to_fragmentLogin"
-            app:destination="@id/fragmentLogin" />
-        <action
             android:id="@+id/action_mainScreenSenderFragment_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
     </fragment>
@@ -111,9 +108,6 @@
         <action
             android:id="@+id/action_mainScreenDriverFragment_to_addFutureRoudFragment"
             app:destination="@id/addFutureRoudFragment" />
-        <action
-            android:id="@+id/action_mainScreenDriverFragment_to_fragmentLogin"
-            app:destination="@id/fragmentLogin" />
         <action
             android:id="@+id/action_mainScreenDriverFragment_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
@@ -233,8 +227,9 @@
         <action
             android:id="@+id/action_mangerMainScreenFragment_to_viewdeliveryPointDetailsFragment"
             app:destination="@id/viewdeliveryPointDetailsFragment" />
-        <action
-            android:id="@+id/action_mangerMainScreenFragment_to_fragmentLogin"
-            app:destination="@id/fragmentLogin" />
     </fragment>
+    <action
+        android:id="@+id/action_global_fragmentMainScreen"
+        app:destination="@id/fragmentMainScreen"
+        app:popUpTo="@id/fragmentMainScreen" />
 </navigation>
