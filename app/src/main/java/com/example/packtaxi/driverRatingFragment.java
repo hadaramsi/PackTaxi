@@ -136,8 +136,13 @@ public class driverRatingFragment extends Fragment {
                                         public void onComplete(Driver driver) {
                                             if (driver != null) {
                                                 Log.d("TAG", "ddriverrrrrr"+ driver.getEmail());
+                                                if((driver.getRate() + rate) / 2 >= 4.5){
+                                                    driver.setRate(5);
+                                                }
+                                                else {
+                                                    driver.setRate((driver.getRate() + rate) / 2);
+                                                }
 
-                                                driver.setRate((driver.getRate() + rate) / 2);
                                                 Log.d("TAG", "dddddd"+ driver.getRate());
                                                 Model.getInstance().updateRateDriver(driver, p, new Model.updateRateDriverListener() {
                                                     @Override

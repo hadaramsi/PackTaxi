@@ -22,8 +22,6 @@ public class DeliveryPoint {
     final static String NAME = "deliveryPointName";
     final static String LATITUDE = "latitude";
     final static String LONGITUDE = "longitude";
-//    public final static String LAST_UPDATED = "lastUpdated";
-//    final static String DELIVERYPOINTS_LAST_UPDATE = "DELIVERYPOINTS_LAST_UPDATE";
     final static String IS_DELETED = "isDeleted";
 
     @PrimaryKey
@@ -32,7 +30,6 @@ public class DeliveryPoint {
     private double longitude;
     private double latitude;
     private boolean isDeleted;
-//    private Long lastUpdated = new Long(0);
 
     public DeliveryPoint() {
     }
@@ -56,30 +53,16 @@ public class DeliveryPoint {
     public double getLatitude() {
         return latitude;
     }
-//    public Long getLastUpdated(){
-//        return lastUpdated;
-//    }
     public boolean getIsDeleted(){return isDeleted;}
-
-    public DeliveryPoint getDeliveryPointByName(String name) {
-        return this;
-    }
-
     public void setDeliveryPointName(String name) {
         this.deliveryPointName = name;
     }
-//    public void setDeliveryPointID(String id) {
-//        this.deliveryPointID = id;
-//    }
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
-//    public void setLastUpdated(Long lastUpdated){
-//        this.lastUpdated = lastUpdated;
-//    }
     public void setIsDeleted(boolean state){this.isDeleted = state;}
 
     public String getLocation() {

@@ -49,6 +49,7 @@ public class driverProfileFragment extends Fragment {
         rating = view.findViewById(R.id.driverProfile_rating_info_tv);
         pb = view.findViewById(R.id.driverProfile_pb);
         pb.setVisibility(View.VISIBLE);
+        pb.setVisibility(View.GONE);
         save=view.findViewById(R.id.driverProfile_save_btn);
         Model.getInstance().getCurrentDriver(new Model.getCurrentDriverListener() {
             @Override
@@ -56,7 +57,7 @@ public class driverProfileFragment extends Fragment {
                 Model.getInstance().getDriverByEmail(driverEmail, new Model.getDriverByEmailListener() {
                     @Override
                     public void onComplete(Driver driver) {
-                        Log.d("TAG","on complete");
+                        Log.d("TAG","on complete"+ driver.getFullName());
                         setDetails(driver);
                     }
                 });
@@ -84,10 +85,12 @@ public class driverProfileFragment extends Fragment {
             @Override
             public void onComplete(String driverEmail) {
                 user.setFullName(fullNameTv.getText().toString());
+                user.setLicenseNumber(licenseNumber.getText().toString());
                 user.setEmail(emailTv.getText().toString());
                 user.setCarNumber(carNumber.getText().toString());
                 user.setMaxVolume(Long.parseLong(maximumVolume.getText().toString()));
                 user.setMaxWeight(Long.parseLong(maximumWeight.getText().toString()));
+                user.setRate(Double.parseDouble(rating.getText().toString()));
                 Model.getInstance().editDriver(user, (success)->{
                     if(success)
                         Navigation.findNavController(view).navigateUp();

@@ -76,6 +76,7 @@ public class packageDetailsFragment extends Fragment {
             public void onComplete(Package p) {
                 pac = p;
                 if (p != null) {
+                    Log.d("TAG", "-----------------ppp--------"+p.getPackageID());
                     updatePackageDetailsDisplay(p);
                 }
                 if (p.getDriver().equals("no")) {
@@ -142,51 +143,35 @@ public class packageDetailsFragment extends Fragment {
     }
 
     public void updatePackageDetailsDisplay(Package p) {
-        Model.getInstance().getPackageByID(p.getPackageID(), new Model.getPackageByIDListener() {
+        Model.getInstance().getDriverByEmail(p.getDriver(), new Model.getDriverByEmailListener() {
             @Override
-            public void onComplete(Package p) {
-                if (p != null) {
-//                    updateDetailsDisplay(p);
-                    Model.getInstance().getDriverByEmail(p.getDriver(), new Model.getDriverByEmailListener() {
-                        @Override
-                        public void onComplete(Driver driver) {
-                            if(p.getDriver().equals("no")){
-                                driverTv.setText(p.getDriver());
-                            }else {
-                                driverTv.setText(driver.getFullName());
-                            }
-                            sourceTv.setText(p.getSource());
-                            destinationTv.setText(p.getDestination());
-                            costTv.setText(p.getCost()+ " ₪");
-                            dateTv.setText(p.getDate());
-                            noteTv.setText(p.getNote());
-                            weightTv.setText(p.getWeight()+" kg");
-                            volumeTv.setText(p.getVolume()+ " cc");
-                            if(p.getDriver().equals( "no")) {
-                                deleteBtn.setEnabled(true);
-                            }
-                            else {
-                                deleteBtn.setEnabled(false);
-                            }
-                            rateDriverTv.setText(p.getRate()+" stars");
-                            if(p.getPay()== true) {
-                                payBtn.setEnabled(false);
-                            }else{
-                                payBtn.setEnabled(true);
-                            }
-                            if(p.getIfRate()== true) {
-                                rateBtn.setEnabled(false);
-                            }else{
-                                rateBtn.setEnabled(true);
-                            }
-                        }
-                    });
+            public void onComplete(Driver driver) {
+                sourceTv.setText(p.getSource());
+                destinationTv.setText(p.getDestination());
+                costTv.setText(p.getCost() + " ₪");
+                dateTv.setText(p.getDate());
+                noteTv.setText(p.getNote());
+                weightTv.setText(p.getWeight() + " kg");
+                volumeTv.setText(p.getVolume() + " cc");
+                rateDriverTv.setText(p.getRate() + " stars");
+                if (p.getPay() == true) {
+                    payBtn.setEnabled(false);
+                } else {
+                    payBtn.setEnabled(true);
+                }
+                if (p.getIfRate() == true) {
+                    rateBtn.setEnabled(false);
+                } else {
+                    rateBtn.setEnabled(true);
+                }
+                driverTv.setText(p.getDriver());
+                if (p.getDriver().equals("no")) {
+                    deleteBtn.setEnabled(true);
+                } else {
+                    driverTv.setText(driver.getFullName());
+                    deleteBtn.setEnabled(false);
                 }
             }
         });
-
-
-
-
     }
 }
